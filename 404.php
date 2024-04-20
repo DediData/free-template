@@ -13,9 +13,6 @@
 			<div id="primary" class="site-content content-area col-xs-12<?php if( $sidebar_condition ) { echo ' pull-right col-sm-9'; } ?>">
 			
 				<section class="error-404 not-found panel box" style="padding: 10px;">
-					<header>
-						<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'free-template' ); ?></h1>
-					</header><!-- .page-header -->
 					<div class="page-content">
 						<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try a search?', 'free-template' ); ?></p>
 

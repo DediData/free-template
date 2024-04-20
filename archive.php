@@ -13,11 +13,6 @@
 			
 			dynamic_sidebar( 'content-top' );
 
-			$archive_title = get_the_archive_title();
-			$archive_title = str_replace(substr($archive_title, 0, strpos($archive_title, ':') + 1 ),'',$archive_title);
-			?>
-			<h1 class="text-center"><?php echo esc_html($archive_title); ?></h1>
-			<?php
 			the_archive_description('<div class="text-justify">', '</div>');
 
 			if ( have_posts() ) {

@@ -200,8 +200,9 @@ if ( ! class_exists( 'WP_Bootstrap_Widget_Navwalker' ) ) {
 				$atts['class'] =  'nomargin-box';
 				// If item has_children add atts to a.
 				if ( $args->has_children && 0 === $depth ) {
-					$atts['href']   		= '#';
-					$atts['class']			.= ' dropdown-toggle';
+					//$atts['href']   		= '#';
+					$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
+					$atts['class']			.= ' dropdownt';
 					$atts['data-toggle']	= 'dropdown';
 					$atts['aria-haspopup']	= 'true';
 					$atts['aria-expanded']	= 'false';
@@ -389,7 +390,7 @@ if ( ! class_exists( 'WP_Bootstrap_Widget_Navwalker' ) ) {
         }
 
         if ($element && ($depth === 1)) {
-            $element->classes[] = 'col menu-col col-xs-12';
+            $element->classes[] = 'col menu-col col-lg-3 col-md-4 col-sm-6';
         }
 
 			parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );

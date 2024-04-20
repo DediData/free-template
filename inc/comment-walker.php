@@ -1,6 +1,6 @@
 <?php
 
-class BS_Walker_Comment extends Walker_Comment {
+class Free_Template_BS_Walker_Comment extends Walker_Comment {
  
     /**
      * Outputs a comment in the HTML5 format.
@@ -17,10 +17,10 @@ class BS_Walker_Comment extends Walker_Comment {
         $tag = ( 'div' === $args['style'] ) ? 'div' : 'li';
 		?>
         <<?php echo $tag; // xss ok ?> id="comment-<?php comment_ID(); ?>" <?php comment_class( $this->has_children ? 'parent' : '', $comment ); ?>>
-            <article id="div-comment-<?php comment_ID(); ?>" class="comment-body" data-aos="zoom-in">
+            <div id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 
                 <div class="comment-author vcard panel box">
-                    <?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] ); ?>
+                    <?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'], NULL, 'avatar' ); ?>
                 </div><!-- .comment-author -->
 
                 <div class="comment-content panel box">
@@ -32,7 +32,15 @@ class BS_Walker_Comment extends Walker_Comment {
 							<div class="pull-right">
 								<i class="fa fa-clock-o" aria-hidden="true"></i>
 								<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
-									<time datetime="<?php comment_time( 'c' ); ?>">
+									<?php
+										global $wpp_settings;
+										if( in_array( 'wp-parsidate/wp-parsidate.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) && isset($wpp_settings) && $wpp_settings['persian_date'] == 'enable' ) {
+											$time_string = gregdate('c', eng_number(get_comment_time( 'c' )));
+										}else{
+											$time_string = get_comment_time( 'c' );
+										}
+									?>
+									<time datetime="<?php echo $time_string; // xss ok ?>">
 										<?php
 											/* translators: 1: comment date, 2: comment time */
 											printf( esc_html__( '%1$s at %2$s', 'free-template' ), get_comment_date( '', $comment ), get_comment_time() );
@@ -65,7 +73,7 @@ class BS_Walker_Comment extends Walker_Comment {
 					</div>
                 </div><!-- .comment-content -->
  
-            </article><!-- .comment-body -->
+            </div><!-- .comment-body -->
 		<?php
     }
 }

@@ -1,5 +1,5 @@
 <?php
-if (has_nav_menu( 'bottom' )){ ?>
+if( has_nav_menu( 'bottom' ) or is_customize_preview() ){ ?>
 <!--nav class="megamenu navbar navbar-default navbar-toggleable-md navbar-inverse bg-inverse  navbar-toggleable-md navbar-light bg-faded"-->
 <nav id="bottom-menu" class="megamenu navbar navbar-default navbar-inverse bg-inverse">
 		<!-- Brand and toggle get grouped for better mobile display -->

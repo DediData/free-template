@@ -31,11 +31,16 @@
 	//Update site title color in real time...
 	wp.customize( 'header_textcolor', function( value ) {
 		value.bind( function( newval ) {
+			$('#HeaderCarousel .carousel-caption h1').css('color', newval );
 			$('#HeaderCarousel .carousel-caption h3').css('color', newval );
 			$('#HeaderCarousel .carousel-caption h3 a').css('color', newval );
 			$('#HeaderCarousel .carousel-caption h4').css('color', newval );
 			$('#HeaderCarousel .carousel-caption h4 a').css('color', newval );
 			$('#HeaderCarousel .carousel-caption p').css('color', newval );
+			$('#top-menu.in-top #menu-mainmenu>li>a').css('color', newval );
+			$('#top-menu.in-top #top-menu-side>li>a').css('color', newval );
+			$('#top-menu.in-top .navbar-header a').css('color', newval );
+			$('#top-menu.in-top .icon-bar').css('background-color', newval );
 		} );
 	} );
 

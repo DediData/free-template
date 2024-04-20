@@ -10,20 +10,20 @@ class Free_Template{
 	
 	public function __construct(){
 
-		add_action( 'after_setup_theme',							array($this, 'setup') );
-		add_action( 'widgets_init',									array($this, 'widgets_init') );
-		add_action( 'wp_enqueue_scripts', 						array($this, 'enqueue_all') );
-		add_action( 'customize_register',							array('Free_Template_Customizer' , 'register') );
-		add_action( 'customize_preview_init', 					array('Free_Template_Customizer' , 'live_preview') );
-		add_filter( 'excerpt_more', 									array($this, 'excerpt_more') );
-		add_filter( 'wp_link_pages_link', 							array($this, 'bs_link_pages') );
-		add_filter( 'wp_link_pages_args', 							array($this, 'wp_link_pages_args_prevnext_add') );
-		add_filter( 'comment_form_default_fields',				array($this, 'bootstrap3_comment_form_fields') );
-		add_filter( 'comment_form_defaults', 					array($this, 'bootstrap3_comment_form') );
-		add_filter( 'widget_nav_menu_args', 						array($this, 'add_div_nav_widget') );
-		add_filter( 'body_class', 										array($this, 'body_classes') );
+		add_action( 'after_setup_theme', array($this, 'setup') );
+		add_action( 'widgets_init', array($this, 'widgets_init') );
+		add_action( 'wp_enqueue_scripts', array($this, 'enqueue_all') );
+		add_action( 'customize_register', array('Free_Template_Customizer' , 'register') );
+		add_action( 'customize_preview_init', array('Free_Template_Customizer' , 'live_preview') );
+		add_filter( 'excerpt_more', array($this, 'excerpt_more') );
+		add_filter( 'wp_link_pages_link', array($this, 'bs_link_pages') );
+		add_filter( 'wp_link_pages_args', array($this, 'wp_link_pages_args_prevnext_add') );
+		add_filter( 'comment_form_default_fields', array($this, 'bootstrap3_comment_form_fields') );
+		add_filter( 'comment_form_defaults', array($this, 'bootstrap3_comment_form') );
+		add_filter( 'widget_nav_menu_args', array($this, 'add_div_nav_widget') );
+		add_filter( 'body_class', array($this, 'body_classes') );
 		add_filter( 'wp_get_attachment_image_attributes', array($this, 'image_item_add_title'), 10, 2 );
-		add_filter( 'excerpt_length', 								array($this, 'custom_excerpt_length'), 999 );
+		add_filter( 'excerpt_length', array($this, 'custom_excerpt_length'), 999 );
 
 		// Check if WooCommerce is active
 		if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
@@ -35,6 +35,7 @@ class Free_Template{
 		require( get_template_directory() . '/inc/megamenu-widget-nav-walker.php' );
 		require( get_template_directory() . '/inc/megamenu-bottom-nav-walker.php' );
 		require( get_template_directory() . '/inc/comment-walker.php' );
+		require( get_template_directory() . '/inc/customizer-library-content.php' );
 		require( get_template_directory() . '/inc/customizer.php' );
 
 	}
@@ -158,16 +159,16 @@ class Free_Template{
 			'default-repeat'         => '',
 			'default-position-x'     => '',
 			'default-attachment'     => '',
-			'wp-head-callback'       => array($this, 'change_custom_background_cb'),
+			'wp-head-callback'       => array( $this, 'change_custom_background_cb' ),
 			'admin-head-callback'    => '',
-			'admin-preview-callback' => ''
+			'admin-preview-callback' => '',
 		);
 		add_theme_support( 'custom-background', $background_defaults );
 		
 		$header_defaults = array(
 			'default-image'          => '%s/assets/images/default.jpg',
 			'width'                  => 1000,
-			'height'                 => 250,
+			'height'                 => 400,
 			'random-default'         => false,
 			'flex-width'             => true,
 			'flex-height'            => true,
@@ -249,6 +250,15 @@ class Free_Template{
 			//'header-text' => array( 'site-title', 'site-description' ),
 		) );
 
+		// Add support for Block Styles.
+		add_theme_support( 'wp-block-styles' );
+
+		// Add support for responsive embedded content.
+		add_theme_support( 'responsive-embeds' );
+
+		// Add support for full and wide align images.
+		add_theme_support( 'align-wide' );
+		
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus( array(
 			'primary'			=> esc_html__( 'Top Menu', 'free-template' ),
@@ -332,7 +342,7 @@ class Free_Template{
 			'name'          		=> esc_html__( 'Footer Column 1', 'free-template' ),
 			'id'            		=> 'footer-column-1',
 			'description'   		=> esc_html__( 'Add widgets here to appear in your footer column 1.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s" data-aos="fade-up">',
+			'before_widget' 	=> '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  	=> '</div>',
 			'before_title'  	=> '<h4 class="widget-title">',
 			'after_title'   		=> '</h4>',
@@ -342,7 +352,7 @@ class Free_Template{
 			'name'          		=> esc_html__( 'Footer Column 2', 'free-template' ),
 			'id'            		=> 'footer-column-2',
 			'description'   		=> esc_html__( 'Add widgets here to appear in your footer column 2.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s" data-aos="fade-up">',
+			'before_widget' 	=> '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  	=> '</div>',
 			'before_title'  	=> '<h4 class="widget-title">',
 			'after_title'   		=> '</h4>',
@@ -352,7 +362,7 @@ class Free_Template{
 			'name'          		=> esc_html__( 'Footer Column 3', 'free-template' ),
 			'id'            		=> 'footer-column-3',
 			'description'   		=> esc_html__( 'Add widgets here to appear in your footer column 3.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s" data-aos="fade-up">',
+			'before_widget' 	=> '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  	=> '</div>',
 			'before_title'  	=> '<h4 class="widget-title">',
 			'after_title'   		=> '</h4>',
@@ -362,7 +372,7 @@ class Free_Template{
 			'name'          		=> esc_html__( 'Footer Column 4', 'free-template' ),
 			'id'            		=> 'footer-column-4',
 			'description'   		=> esc_html__( 'Add widgets here to appear in your footer column 4.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s" data-aos="fade-up">',
+			'before_widget' 	=> '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  	=> '</div>',
 			'before_title'  	=> '<h4 class="widget-title">',
 			'after_title'   		=> '</h4>',
@@ -372,13 +382,6 @@ class Free_Template{
 	}
 
 	public function enqueue_all(){
-
-		// nprogress css
-		wp_deregister_style( 'nprogress' );
-		wp_enqueue_style( 'nprogress', get_stylesheet_directory_uri() . '/assets/nprogress/css/nprogress.min.css', array(), '0.2.0', 'all');
-
-		// nprogress js load in header
-		wp_enqueue_script( 'nprogress', get_stylesheet_directory_uri() . '/assets/nprogress/js/nprogress.min.js', array(), '0.2.0', false);
 
 		// tether js (for tooltips , should before bootstrap) load in footer
 		wp_enqueue_script( 'tether', get_stylesheet_directory_uri() . '/assets/tether/js/tether.min.js', array(), '1.4.0', true);
@@ -397,16 +400,16 @@ class Free_Template{
 
 		// rtl bootstrap
 		if ( is_rtl() ) {
-			wp_enqueue_style( 'partial-bootstrap-rtl', get_stylesheet_directory_uri() . '/assets/bootstrap-rtl/css/bootstrap.rtl.css', array(), '3.3.7.2', 'all');
+			wp_enqueue_style( 'partial-bootstrap-rtl', get_stylesheet_directory_uri() . '/assets/bootstrap-rtl/css/bootstrap.rtl.min.css', array(), '3.3.7.2', 'all');
 		}
 
 		// 1000hz-bootstrap-validator js load in footer
 		wp_enqueue_script( 'bootstrap-validator', get_stylesheet_directory_uri() . '/assets/bootstrap-validator/validator.min.js', array(), '0.11.9', true);
 
-		// fancybox
-		wp_enqueue_style( 'fancybox', get_stylesheet_directory_uri() . '/assets/fancybox/jquery.fancybox.min.css', array(), '3.1.24', 'all');
+		// LightBox2
+		wp_enqueue_style( 'lightbox2', get_stylesheet_directory_uri() . '/assets/lightbox2/css/lightbox.min.css', array(), '2.11.3', 'all');
 		// load in footer
-		wp_enqueue_script( 'fancybox', get_stylesheet_directory_uri() . '/assets/fancybox/jquery.fancybox.min.js', array('jquery'), '3.1.24', true);
+		wp_enqueue_script( 'lightbox2', get_stylesheet_directory_uri() . '/assets/lightbox2/js/lightbox.min.js', array('jquery'), '2.11.3', true);
 		
 		// font awesome css
 		wp_enqueue_style( 'font-awesome', get_stylesheet_directory_uri() . '/assets/font-awesome/css/font-awesome.min.css', array(), '4.7.0', 'all');
@@ -414,6 +417,10 @@ class Free_Template{
 		// main css
 		if ( !is_rtl() ) {
 			wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array( ), wp_get_theme()->get( 'Version' ), 'all' );
+			
+		}else{
+			wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array( ), wp_get_theme()->get( 'Version' ), 'all' );
+			wp_style_add_data( 'theme-style', 'rtl', 'replace' );
 		}
 
 		// dedidata js load in footer
@@ -421,18 +428,6 @@ class Free_Template{
 
 		// custom js load in footer
 		wp_enqueue_script( 'custom', get_stylesheet_directory_uri() . '/assets/js/custom.js', array('jquery'), wp_get_theme()->get( 'Version' ), true);
-
-		// aos : animate on scroll
-		if ( function_exists( 'is_woocommerce' ) ){
-			// woocommerce is enabled
-			if( ! is_woocommerce() ){
-				wp_enqueue_style( 'aos', get_stylesheet_directory_uri() . '/assets/aos/aos.css', array(), '2.2.0', 'all');
-				wp_enqueue_script( 'aos', get_stylesheet_directory_uri() . '/assets/aos/aos.js', array(), '2.2.0', true);
-			}
-		}else{
-			wp_enqueue_style( 'aos', get_stylesheet_directory_uri() . '/assets/aos/aos.css', array(), '2.2.0', 'all');
-			wp_enqueue_script( 'aos', get_stylesheet_directory_uri() . '/assets/aos/aos.js', array(), '2.2.0', true);
-		}
 
 		// html5shiv js
 		wp_enqueue_script( 'html5shiv', get_stylesheet_directory_uri() . '/assets/html5shiv/html5shiv.min.js', array(), '3.7.3', true);
@@ -447,15 +442,319 @@ class Free_Template{
 		wp_script_add_data( 'respond', 'conditional', 'lt IE 9' );
 
 		// ie 10 viewport bug js css load in footer
-		wp_enqueue_script( 'ie10-viewport-bug', get_stylesheet_directory_uri() . '/assets/ie10-viewport-bug/js/ie10-viewport-bug-workaround.min.js', array(), null, true);
+		wp_enqueue_script( 'ie10-viewport-bug', get_stylesheet_directory_uri() . '/assets/ie10-viewport-bug/js/ie10-viewport-bug-workaround.min.js', array(), wp_get_theme()->get( 'Version' ), true);
 		wp_script_add_data( 'ie10-viewport-bug', 'conditional', 'IE 10' );
-		wp_enqueue_style( 'ie10-viewport-bug', get_stylesheet_directory_uri() . '/assets/ie10-viewport-bug/css/ie10-viewport-bug-workaround.min.css');
+		wp_enqueue_style( 'ie10-viewport-bug', get_stylesheet_directory_uri() . '/assets/ie10-viewport-bug/css/ie10-viewport-bug-workaround.min.css', array(), wp_get_theme()->get( 'Version' ), 'all');
 		wp_style_add_data( 'ie10-viewport-bug', 'conditional', 'IE 10' );
 
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
+		
+		$current_locale = get_locale();
+		$current_locale_2l = substr($current_locale, 1, 2);
+		$locale_settings = [];
+		if($current_locale == 'fa_IR' or $current_locale == 'fa_AF'){
+			// Persian RTL
+			// Persian (Afghanistan) RTL
+			wp_enqueue_style( 'dedidata-google-fonts', get_stylesheet_directory_uri() . '/assets/fonts/Yekan.css', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Yekan';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale_2l == 'ar'  or $current_locale == 'azb' or $current_locale == 'ckb' or $current_locale == 'ps' or $current_locale == 'haz' or $current_locale_2l == 'ur' or $current_locale == 'ary' or $current_locale == 'skr'){
+			// Arabic RTL
+			// South Azerbaijani RTL
+			// Kurdish (Sorani) RTL
+			// Pashto RTL
+			// Hazaragi RTL
+			// Urdu RTL
+			// Moroccan Arabic RTL
+			// Saraiki RTL
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Cairo', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Cairo';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'bn_BD' or $current_locale == 'bn_IN'){
+			// Bengali (Bangladesh)
+			// Bengali (India)
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Siliguri', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Hind Siliguri"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'bo' or $current_locale == 'dzo'){
+			// Tibetan
+			// Dzongkha
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Jomolhari', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Jomolhari';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'gu'){
+			// Gujarati
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Vadodara', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Hind Vadodara"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'he_IL'){
+			// Hebrew RTL
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Rubik', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Rubik';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'hi_IN' or $current_locale == 'mr' or $current_locale == 'ne_NP'){
+			// Hindi
+			// Marathi
+			// Nepali
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Poppins';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'pa' or $current_locale == 'pa_IN'){
+			// Panjabi India
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Mukta+Mahee', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Mukta Mahee"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'ja' or $current_locale = 'ja_JP'){
+			// Japanese
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+JP', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Noto Sans JP"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale_2l == 'km'){
+			// Cambodian
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hanuman', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Hanuman';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale_2l == 'kn'){
+			// Kannada
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Baloo+Tamma', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Baloo Tamma"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'ko' or $current_locale = 'ko_KR'){
+			// Korean
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+KR', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Noto Sans KR"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale_2l == 'ml'){
+			// Malayalam
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Baloo+Chettan', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Baloo Chettan"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale_2l == 'my'){
+			// Burmese
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Padauk', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Padauk';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'or' or $current_locale = 'or_IN'){
+			// Indo-European Oriya
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Baloo+Bhaina', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Baloo Bhaina"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale_2l == 'si'){
+			// Sinhalese
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Abhaya+Libre', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Abhaya Libre"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'ta' or $current_locale == 'ta_IN' or $current_locale == 'ta_LK' ){
+			// Tamil
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Catamaran', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Catamaran';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'te' or $current_locale = 'te_IN' or $current_locale == 'te_ST'){
+			// Telugu
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Guntur', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Hind Guntur"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale_2l == 'th'){
+			// Thai
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Kanit', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Kanit';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'zh-hk'){
+			// Chinese (Hong Kong)
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+HK', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Noto Sans HK"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'zh-Hans' or $current_locale == 'zh_CN' or $current_locale == 'zh_TW'){
+			// Chinese (Simplified)
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+SC', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Noto Sans SC"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}elseif($current_locale == 'zh-Hant'){
+			// Chinese (Traditional)
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+TC', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='"Noto Sans TC"';
+			$locale_settings['locale'] = $current_locale;
+			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
+		}else{
+			// English & Others
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:300', array(), wp_get_theme()->get( 'Version' ), 'all');
+			$locale_settings['font']='Roboto';
+			$locale_settings['locale'] = $current_locale;
+		}
+		
+		$custom_style = '
+			html,
+			body,
+			button,
+			input,
+			select,
+			textarea,
+			input[type="button"],
+			input[type="reset"],
+			input[type="submit"],
+			button[disabled]:hover,
+			button[disabled]:focus,
+			input[type="button"][disabled]:hover,
+			input[type="button"][disabled]:focus,
+			input[type="reset"][disabled]:hover,
+			input[type="reset"][disabled]:focus,
+			input[type="submit"][disabled]:hover,
+			input[type="submit"][disabled]:focus,
+			keygen,
+			blockquote cite,
+			blockquote small{
+				font-family: '. $locale_settings['font'] .', Tahoma, Arial, Helvetica, sans-serif;
+				letter-spacing: normal !important;
+				line-height: normal;
+				font-size: 15px;
+			}
 
+			.main-navigation,
+			.post-navigation,
+			.widget_recent_entries .post-date,
+			.tagcloud a,
+			.sticky-post,
+			.comment-reply-link,
+			.required,
+			.post-password-form label,
+			.main-navigation .menu-item-description,
+			.post-navigation .meta-nav,
+			.pagination,
+			.image-navigation,
+			.comment-navigation,
+			.site .skip-link,
+			.logged-in .site .skip-link,
+			.site-description,
+			.widget_calendar caption,
+			.widget_rss .rss-date,
+			.widget_rss cite,
+			.author-heading,
+			.entry-footer,
+			.page-links,
+			.entry-caption,
+			.comment-metadata,
+			.pingback .edit-link,
+			.comment-list .reply a,
+			.comment-form label,
+			.comment-notes,
+			.comment-awaiting-moderation,
+			.logged-in-as,
+			.form-allowed-tags,
+			.no-comments,
+			.wp-caption-text,
+			.gallery-caption,
+			.widecolumn label,
+			.widecolumn .mu_register label,
+			.search-field,
+			.tooltip,
+			.popover,
+			.carousel-control .icon-prev,
+			.carousel-control .icon-next,
+			.navbar,
+			.mejs-container *{
+				font-family: '. $locale_settings['font'] .', Tahoma, Arial, Helvetica, sans-serif !important;
+				letter-spacing: normal !important;
+				line-height: normal;
+				font-size: 15px;
+			}
+
+			.entry-title,
+			.widget .widget-title,
+			.site-footer .site-title,
+			.site-footer .site-title:after,
+			.post-navigation .post-title,
+			.site-title,
+			.widget-title,
+			.page-title,
+			.comments-title,
+			.comment-reply-title,
+			.jumbotron h1,
+			.jumbotron h2,
+			.jumbotron h3,
+			.jumbotron h4,
+			.jumbotron h5,
+			.jumbotron h6,
+			h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h5, .h5, h6, .h6{
+				font-family: '. $locale_settings['font'] .', Arial, sans-serif !important;
+				font-weight: bold;
+				line-height: normal;
+				letter-spacing: normal !important;
+			}
+		';
+		if(isset($locale_settings['extra_style'])){
+			$custom_style .= $locale_settings['extra_style'];
+		}
+		wp_add_inline_style( 'theme-style', $custom_style );
+	}
+
+	/**
+	 * Prints title
+	 */
+	static function print_title(){
+		if(is_archive()){
+			$archive_title = get_the_archive_title();
+			$archive_title =  strip_tags(str_replace(substr($archive_title, 0, strpos($archive_title, ':') + 1 ),'',$archive_title)); ?>
+			<h1 class="page-title"><?php echo esc_html($archive_title); ?></h1>
+		<?php
+		}elseif(is_tag()){ ?>
+			<h1 class="page-title"><?php single_tag_title(); ?></h1><?php
+		}else{
+			$icons = Free_Template::get_post_icon(); ?>
+			<h1 class="page-title"><?php echo(trim($icons . esc_html(strip_tags(get_the_title())))); ?></h1><?php
+		}
+	}
+	
+	/**
+	 * Get the post icon
+	 */
+	static function get_post_icon(){
+		$sticky = is_sticky() ? '<i class="sticky-icon fa fa-thumb-tack fa-lg"></i>' : '';
+		$posttypeicon = '';
+		if (get_post_format() == 'image'){
+			$posttypeicon = '<i class="fa fa-file-image-o fa-fw" aria-hidden="true"></i> ';
+		}elseif (get_post_format() == 'gallery'){
+			$posttypeicon = '<i class="fa fa-picture-o fa-fw" aria-hidden="true"></i> ';
+		}elseif (get_post_format() == 'video'){
+			$posttypeicon = '<i class="fa fa-file-video-o fa-fw" aria-hidden="true"></i> ';
+		}elseif (get_post_format() == 'audio'){
+			$posttypeicon = '<i class="fa fa-file-audio-o fa-fw" aria-hidden="true"></i> ';
+		}elseif (get_post_format() == 'chat'){
+			$posttypeicon = '<i class="fa fa-comments fa-fw" aria-hidden="true"></i> ';
+		}elseif (get_post_format() == 'status'){
+			$posttypeicon = '<i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> ';
+		}elseif (get_post_format() == 'status'){
+			$posttypeicon = '<i class="fa fa-link fa-fw" aria-hidden="true"></i> ';
+		}elseif (get_post_format() == 'quote'){
+			$posttypeicon = '<i class="fa fa-quote-right fa-fw" aria-hidden="true"></i> ';
+		}elseif (get_post_format() == 'aside'){
+			$posttypeicon = '<i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i> ';
+		}
+		$icons = $sticky . $posttypeicon;
+		
+		return $icons;
 	}
 	
 	/**
@@ -558,7 +857,7 @@ class Free_Template{
 											<div class="form-group has-feedback comment-form-comment">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-comments fa-lg"></i></span>
-													<textarea placeholder="' . esc_attr__( 'Comment', 'free-template' ) . '" class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true" required="required" data-error="' . esc_html__('Please enter your comment!', 'free-template') . '"></textarea>
+													<textarea placeholder="' . esc_attr__( 'Comment', 'free-template' ) . '" class="form-control" id="comment" name="comment" cols="45" rows="8" required="required" data-error="' . esc_html__('Please enter your comment!', 'free-template') . '"></textarea>
 												</div>
 												<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 												<div class="help-block with-errors"></div>
@@ -635,7 +934,7 @@ class Free_Template{
 	public function order_by_stock_status($posts_clauses){
 		global $wpdb;
 		// only change query on WooCommerce loops
-		if (is_product_category() || is_product_tag()) {
+		if (get_queried_object() && !is_admin() && is_woocommerce() && (is_shop() || is_product_category() || is_product_tag())) {
 			$posts_clauses['join'] .= " INNER JOIN $wpdb->postmeta istockstatus ON ($wpdb->posts.ID = istockstatus.post_id) ";
 			$posts_clauses['orderby'] = " istockstatus.meta_value ASC, " . $posts_clauses['orderby'];
 			$posts_clauses['where'] = " AND istockstatus.meta_key = '_stock_status' AND istockstatus.meta_value <> '' " . $posts_clauses['where'];
@@ -648,6 +947,9 @@ class Free_Template{
 		$background = get_background_image();
 		$color = get_background_color();
 		$head_txt_color = get_header_textcolor();
+		if($head_txt_color == 'blank'){
+			$head_txt_color = 'fff';
+		}
 		if ( ! $background && ! $color )
 			return;
 
@@ -687,12 +989,19 @@ class Free_Template{
 				-o-background-size: cover !important;
 				background-size: cover !important;
 			}
+			#HeaderCarousel .carousel-caption h1,
 			#HeaderCarousel .carousel-caption h3,
 			#HeaderCarousel .carousel-caption h3 a,
 			#HeaderCarousel .carousel-caption h4,
 			#HeaderCarousel .carousel-caption h4 a,
-			#HeaderCarousel .carousel-caption p{
+			#HeaderCarousel .carousel-caption p,
+			#top-menu.in-top ul.megamenu>li>a,
+			#top-menu.in-top #top-menu-side>li>a,
+			#top-menu.in-top .navbar-header a{
 				color: #<?php echo esc_html($head_txt_color); // xss ok ?>;
+			}
+			#top-menu.in-top .icon-bar{
+				background-color: #<?php echo esc_html($head_txt_color); // xss ok ?>;
 			}
 		</style>
 		<?php
@@ -781,12 +1090,20 @@ class Free_Template{
 	
 	// Prints HTML with meta information for the current post-date/time and author.
 	public static function posted_on() {
+		global $wpp_settings;
 		$time_string = '<time class="entry-date published" title="'. esc_html__('Posted on', 'free-template') .'" data-toggle="tooltip" data-placement="bottom" datetime="%1$s">%2$s</time>';
 
-		$time_string = sprintf( $time_string,
-			get_the_date( DATE_W3C ),
-			get_the_date()
-		);
+		if( in_array( 'wp-parsidate/wp-parsidate.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) && isset($wpp_settings) && $wpp_settings['persian_date'] == 'enable' ) {
+			$time_string = sprintf( $time_string,
+				gregdate(DATE_W3C, eng_number(get_the_date( DATE_W3C ))),
+				get_the_date()
+			);
+		}else{
+			$time_string = sprintf( $time_string,
+				get_the_date( DATE_W3C ),
+				get_the_date()
+			);
+		}
 
 		// Finally, let's write all of this to the page.
 		?>
@@ -815,16 +1132,19 @@ class Free_Template{
 	}
 	
 	public static function get_post_image($size = 'thumbnail') {
-		if(has_post_thumbnail()) {
+		global $post, $posts;
+		$image_url = null;
+		$attachments = get_attached_media( 'image');
+		if($attachments){
+			$image_url = wp_get_attachment_image_src(current($attachments)->ID, $size)[0];
+			// $image_url = (isset($matches [1][0]))? $matches [1][0] : get_template_directory_uri() . "/assets/images/content-image.png";
+			$image_url = trim($image_url);
+		}elseif(has_post_thumbnail()) {
 			$image_id = get_post_thumbnail_id();
 			$image_url = wp_get_attachment_image_src($image_id, $size);
 			$image_url = $image_url[0];
-		}else {
-			global $post, $posts;
-			$image_url = '';
-			preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
-			$image_url = (isset($matches [1][0]))? $matches [1][0] : get_template_directory_uri() . "/assets/images/content-image.png";
 		}
+		$image_url = isset($image_url) ? $image_url : get_template_directory_uri() . "/assets/images/content-image.png";
 		return esc_url($image_url);
 	}
 

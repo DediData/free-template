@@ -59,7 +59,7 @@ if ( post_password_required() ) {
 		<ol class="comment-list">
 			<?php
 				wp_list_comments( array(
-					'walker'		=> new BS_Walker_Comment(),
+					'walker'		=> new Free_Template_BS_Walker_Comment(),
 					'avatar_size' => 100,
 					'style'       => 'ol',
 					'short_ping'  => true,

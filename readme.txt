@@ -1,7 +1,7 @@
 === Free Template ===
 Contributors: DediData (Farhad Sakhaei)
 Requires at least: WordPress 4.7
-Tested up to: WordPress 5.0-trunk
+Tested up to: WordPress 5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: one-column, two-columns, flexible-header, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -23,7 +23,7 @@ For more information about Free Template please go to https://dedidata.com/free-
 
 == Copyright ==
 
-Free Template WordPress Theme, Copyright 2018 DediData.com
+Free Template WordPress Theme, Copyright 2021 DediData.com
 
 Free Template is distributed under the terms of the GNU GPL
 
@@ -45,7 +45,7 @@ Bootstrap, Copyright (c) 2011-2016 Twitter, Inc.
 MIT License
 https://getbootstrap.com/
 
-Bootstrap RTL, Copyright (c) 2017 Farhad Sakhaei
+Bootstrap RTL, Copyright (c) 2021 Farhad Sakhaei
 MIT License
 https://github.com/DediData/Bootstrap-RTL
 
@@ -57,13 +57,9 @@ Bootstrap Validator, Copyright (c) 2016 Cina Saffary
 MIT License
 https://github.com/1000hz/bootstrap-validator
 
-Animate on scroll, Copyright (c) 2015 Michał Sajnóg
+LightBox2
 MIT License
-https://github.com/michalsnik/aos
-
-fancyBox
-GPLv3 License
-https://github.com/fancyapps/fancybox/
+https://github.com/lokesh/lightbox2/blob/dev/LICENSE
 
 Font Awesome
 CC BY 4.0 License
@@ -81,10 +77,6 @@ ie10 viewport bug workaround, Copyright (c) 2011-2015 Twitter, Inc
 MIT License
 https://github.com/Haixing-Hu/bootstrap3-ie10-viewport-bug-workaround
 
-NProgress, Copyright (c) 2013-2014 Rico Sta. Cruz
-MIT License
-https://github.com/rstacruz/nprogress
-
 Respond.js, Copyright (c) 2012 Scott Jehl
 MIT License
 https://github.com/scottjehl/Respond
@@ -95,34 +87,38 @@ https://github.com/HubSpot/tether
 
 == Changelog ==
 
+= 4.6.0 =
+* Fixed Dropdowns
+
+= 4.3.5 =
+* Header style changed
+* Some style modifications
+* Ability to change default header background
+* Ability to hide header text
+* Ability to select featured images as header background
+
 = 4.1.3 =
-* Released: July 18, 2018
 * Fixed styles & auto hide header nav bar
 
 = 4.1.1 =
-* Released: May 1, 2018
 * fixed comments walker class
 * fixed array usage
 * changed screenshot
 * Update readme file
 
 = 4.1.0 =
-* Released: April 20, 2018
 * fixed scaping string
 * Update readme file
 
 = 4.0.9 =
-* Released: April 20, 2018
 * Bug fix
 * Update readme file
 
 = 3.8 =
-* Released: March 13, 2018
 * Bug Fixed
 * Update readme file
 
 = 1.0 =
-* Released: December 6, 2017
 * Update readme file
 * Update copyright in stylesheet
 * Initial release

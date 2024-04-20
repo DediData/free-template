@@ -14,15 +14,8 @@
 			
 			dynamic_sidebar( 'content-top' );
 			
-			if(is_tag()){
-				echo '<div class="box panel">
-							<h1 class="tag-title text-center">';
-				single_tag_title();
-				echo '</h1>';
-				if(tag_description()){ ?>
-					<div class="text-justify"><?php echo tag_description(); ?></div><?php
-				}
-				echo '</div>';
+			if(is_tag() && tag_description()){ ?>
+				<div class="box panel text-justify"><?php echo tag_description(); ?></div><?php
 			}
 
 			if ( have_posts() ) {

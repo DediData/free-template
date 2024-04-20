@@ -9,28 +9,23 @@
  */
 
 ?><!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> itemscope itemtype="http://schema.org/WebPage">
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="profile" href="https://gmpg.org/xfn/11">
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-<script type="text/javascript">
-NProgress.start();
-window.onload = function() {
-	NProgress.done();
-}
-</script>
-<div id="loading-bar"></div>
+<?php wp_body_open(); ?>
+<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to main content', 'free-template'); ?></a>
 <a id="back-to-top" href="#" class="btn btn-default back-to-top" role="button" title="<?php esc_attr_e('Go to top', 'free-template'); ?>" data-toggle="tooltip" data-placement="top" >
 	<span class="glyphicon glyphicon-chevron-up"></span>
 </a>
 <?php get_template_part( 'template-parts/part/popup-login' ); ?>
-<?php get_template_part( 'template-parts/part/header-top-nav' ); ?>
+<?php get_template_part( 'template-parts/part/nav-header-top' ); ?>
 <header id="masthead" class="site-header">
 	<?php get_template_part( 'template-parts/part/header-carousel' ); ?>
-	<?php get_template_part( 'template-parts/part/header-nav' ); ?>
+	<?php get_template_part( 'template-parts/part/nav-header' ); ?>
 </header><!-- #masthead -->

@@ -16,13 +16,13 @@
 				<div class="footer-widget col-xs-12 col-sm-3"><?php dynamic_sidebar( 'footer-column-4' ); ?></div>
 			</div>
 		</div>
-		<?php get_template_part( 'template-parts/part/bottom-nav' ); ?>
+		<?php get_template_part( 'template-parts/part/nav-bottom' ); ?>
 		<div class="footer-bottom">
 			<div class="container">
 				<?php if(is_front_page()){ ?>
 				<div class="pull-left col-xs-12 col-sm-6">
 					<a href="<?php echo esc_url( __('https://dedidata.com', 'free-template') ); ?>" title="<?php esc_attr_e('Free Theme by DediData', 'free-template'); ?>" target="_blank">
-						<?php esc_attr_e('Theme Design by DediData', 'free-template'); ?>
+						<?php esc_attr_e('Design by DediData', 'free-template'); ?>
 					</a>
 				</div>
 				<?php } ?>

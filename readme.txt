@@ -9,7 +9,7 @@ Tags: one-column, two-columns, flexible-header, custom-colors, custom-header, cu
 == Description ==
 
 Free Template brings your site to life with immersive featured images. Personalize its asymmetrical grid with a custom color scheme and showcase your multimedia content with post formats.
-WordPress Free Template is an Advanced Responsive Theme, Multi Colors, Lightweight, Extendable and you can create any type of web sites using Free Template including Business sites, WooCommerce powered site (eshop). Free Template supports RTL (Right To Left) Direction which means it supports all languages and also RTL languages like Persian, Arabic & Hebrew. Free Template is not just a theme but it is a framework for creating any WordPress themes. Features: Built-in Top Slider & Mega Menu, Multi Colors, Popup Login form, Bootstrap Ready, Mobile & Tablet Friendly, FontAwesome, 4 Columns Bottom Widgets, Auto Side Column, Content Top|Bottom [Home Page] Widgets Area, Add Logo, Favorite Icon, Full Customizable Background, HTML 5 & SEO Friendly, Custom CSS, ...
+WordPress Free Template is an Advanced Responsive Theme, Multi Colors, Lightweight, Extendable and you can create any type of web sites using Free Template including Business sites, WooCommerce powered site (e-shop). Free Template supports RTL (Right To Left) Direction which means it supports all languages and also RTL languages like Persian, Arabic & Hebrew. Free Template is not just a theme but it is a framework for creating any WordPress themes. Features: Built-in Top Slider & Mega Menu, Multi Colors, Popup Login form, Bootstrap Ready, Mobile & Tablet Friendly, FontAwesome, 4 Columns Bottom Widgets, Auto Side Column, Content Top|Bottom [Home Page] Widgets Area, Add Logo, Favorite Icon, Full Customizable Background, HTML 5 & SEO Friendly, Custom CSS, ...
 
 For more information about Free Template please go to https://dedidata.com/free-template.
 
@@ -120,5 +120,5 @@ https://github.com/HubSpot/tether
 
 = 1.0 =
 * Update readme file
-* Update copyright in stylesheet
+* Update copyright in style sheet
 * Initial release

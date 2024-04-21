@@ -266,12 +266,12 @@ jQuery(document).ready(function($){
 			$("#top-menu").addClass("navbar-default").removeClass("in-top").addClass("navbar-inverse").addClass("bg-inverse");
 			if($(window).width() < 601) {
 				//$(".navbar-fixed-top").css("top","0");
-				$('#top-menu').addClass('zerotop');
+				$('#top-menu').addClass('zero-top');
 			}
 		}else{
 			$("#top-menu").removeClass("navbar-default").addClass("in-top").removeClass("navbar-inverse").removeClass("bg-inverse");
 			if($(window).width() < 601) {
-				$('#top-menu').removeClass('zerotop');
+				$('#top-menu').removeClass('zero-top');
 			}
 		}
 	});

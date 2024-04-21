@@ -197,7 +197,7 @@ if ( ! class_exists( 'WP_Bootstrap_Widget_Navwalker' ) ) {
 				$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
 				$atts['target'] = ! empty( $item->target )     ? $item->target     : '';
 				$atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
-				$atts['class'] =  'nomargin-box';
+				$atts['class'] =  'no-margin-box';
 				// If item has_children add atts to a.
 				if ( $args->has_children && 0 === $depth ) {
 					//$atts['href']   		= '#';

@@ -212,10 +212,10 @@ if ( ! class_exists( 'WP_Bootstrap_Bottom_Navwalker' ) ) {
 						$atts['class']   = ' submenu-link';
 					}
 					if ($depth === 1){
-						$atts['class']   .= ' submenu-title-link nomargin-box';
+						$atts['class']   .= ' submenu-title-link no-margin-box';
 					}
 					if ($depth > 1){
-						$atts['class']   .= ' submenu-child-link nomargin-box';
+						$atts['class']   .= ' submenu-child-link no-margin-box';
 					}
 				}
 

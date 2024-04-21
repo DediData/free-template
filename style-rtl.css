@@ -411,7 +411,7 @@ body.admin-bar .in-top{
 		top: 46px !important;
 	}
 }
-body.admin-bar .navbar-fixed-top.zerotop {
+body.admin-bar .navbar-fixed-top.zero-top {
 	top: 0 !important;
 }
 
@@ -438,7 +438,7 @@ body.admin-bar .navbar-fixed-top.zerotop {
 	margin-bottom: 10px;
 	border-radius: 3px;
 }
-.nomargin-box{
+.no-margin-box{
 	-webkit-box-shadow: 1px 1px 7px rgba(0,0,0,.2);
 	-moz-box-shadow: 1px 1px 7px rgba(0,0,0,.2);
 	box-shadow: 1px 1px 7px rgba(0,0,0,.2);

@@ -4,9 +4,11 @@
  *
  * This is the template that displays all of the <head> section and everything up until <div id="content">
  *
+ * @package Free_Template
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
  */
+
+declare(strict_types=1);
 
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> itemscope itemtype="http://schema.org/WebPage">
@@ -19,8 +21,8 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to main content', 'free-template'); ?></a>
-<a id="back-to-top" href="#" class="btn btn-default back-to-top" role="button" title="<?php esc_attr_e('Go to top', 'free-template'); ?>" data-toggle="tooltip" data-placement="top" >
+<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to main content', 'free-template' ); ?></a>
+<a id="back-to-top" href="#" class="btn btn-default back-to-top" role="button" title="<?php esc_attr_e( 'Go to top', 'free-template' ); ?>" data-toggle="tooltip" data-placement="top" >
 	<span class="glyphicon glyphicon-chevron-up"></span>
 </a>
 <?php get_template_part( 'template-parts/part/popup-login' ); ?>

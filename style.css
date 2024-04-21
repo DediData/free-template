@@ -135,6 +135,7 @@ a:hover {
 	text-decoration: none;
 	top: 5px;
 	width: auto;
+	/* Above WP toolbar. */
 	z-index: 100000;
 }
 
@@ -186,6 +187,7 @@ img.alignright {
 	border-color: #EEE;
 }
 
+.wp-caption:hover,
 .gallery-caption:hover,
 .wp-caption a:focus img,
 .wp-caption a:active img,
@@ -375,7 +377,7 @@ img.alignright {
 
 .gallery-item img {
 	display: block;
-	transition: filter 0.2s ease-in, -webkit-filter 0.2s ease-in;
+	transition: filter 0.2s ease-in;
 	backface-visibility: hidden;
 	border-radius: 4px;
 }
@@ -1683,7 +1685,7 @@ ul.product-categories li {
 		list-style: none;
 		background-color: #FFF;
 		background-clip: padding-box;
-		border: 1px solid #00000026;
+		border: 1px solid rgba(0,0,0,.15);
 		border-radius: 4px;
 		box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 	}

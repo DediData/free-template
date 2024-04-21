@@ -15,36 +15,45 @@ Version: 4.8.1
 */
 
 /* Global */
-h1,.h1{
+h1,.h1 {
 	font-size: 26px;
 }
-h2,.h2{
+
+h2,.h2 {
 	font-size: 24px;
 }
-h3,.h3{
+
+h3,.h3 {
 	font-size: 22px;
 }
-h4,.h4{
+
+h4,.h4 {
 	font-size: 20px;
 }
-h5,.h5{
+
+h5,.h5 {
 	font-size: 18px;
 }
-h6,.h6{
+
+h6,.h6 {
 	font-size: 16px;
 }
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h5, .h5, h6, .h6{
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h5, .h5, h6, .h6 {
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
-mark, .mark{
+
+mark, .mark {
 	background-color: inherit;
 }
+
 img,
 video {
 	height: auto; /* Make sure images are scaled correctly. */
 	max-width: 100%; /* Adhere to container width. */
 }
+
 /* Make sure embeds and iframes fit their containers. */
 embed,
 iframe,
@@ -52,18 +61,22 @@ object {
 	margin-bottom: 1.5em;
 	max-width: 100%;
 }
+
 th {
 	text-align: center;
 }
-a{
+
+a {
 	transition: all 0.2s ease 0s;
 }
-a:hover{
+
+a:hover {
 	text-decoration: none;
 }
+
 #email,
 #url,
-.search-form{
+.search-form {
 	text-align: center;
 }
 
@@ -76,6 +89,7 @@ a:hover{
 	width: 1px;
 	word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
 }
+
 .screen-reader-text:focus {
 	background-color: #f1f1f1;
 	-webkit-border-radius: 3px;
@@ -104,11 +118,13 @@ a:hover{
 	float: left;
 	margin-right: 1.5em;
 }
+
 .alignright {
 	display: inline;
 	float: right;
 	margin-left: 1.5em;
 }
+
 .aligncenter {
 	clear: both;
 	display: block;
@@ -137,6 +153,7 @@ img.alignright {
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
 }
+
 .wp-caption img[class*="wp-image-"] {
 	display: block;
 	margin-left: auto;
@@ -148,6 +165,7 @@ img.alignright {
 	border-radius: 4px;
 	border-color: #eee;
 }
+
 .wp-caption:hover,
 .gallery-caption:hover,
 .wp-caption a:focus img,
@@ -156,6 +174,7 @@ img.alignright {
 	background-color: #fff;
 	border-color: #ddd;
 }
+
 .wp-caption .wp-caption-text {
 	margin: 0.8075em 0;
 	text-align: center;
@@ -165,102 +184,127 @@ img.alignright {
 .mejs-container {
 	margin-bottom: 1.5em;
 }
+
 .mejs-controls a.mejs-horizontal-volume-slider,
 .mejs-controls a.mejs-horizontal-volume-slider:focus,
 .mejs-controls a.mejs-horizontal-volume-slider:hover {
 	background: transparent;
 	border: 0;
 }
+
 .entry-video,
 .mejs-container{
 	max-width: 100%;
 }
+
 .site-content .wp-playlist-light {
 	border-color: #eee;
 	color: #222;
 }
+
 .site-content .wp-playlist-light .wp-playlist-current-item .wp-playlist-item-album {
 	color: #333;
 }
+
 .site-content .wp-playlist-light .wp-playlist-current-item .wp-playlist-item-artist {
 	color: #767676;
 }
+
 .site-content .wp-playlist-light .wp-playlist-item {
 	border-bottom: 1px dotted #eee;
 	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
 	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
 }
+
 .site-content .wp-playlist-light .wp-playlist-item:hover,
 .site-content .wp-playlist-light .wp-playlist-item:focus {
 	border-bottom-color: rgba(0, 0, 0, 0);
 	background-color: #767676;
 	color: #fff;
 }
+
 .site-content .wp-playlist-light a.wp-playlist-caption:hover,
 .site-content .wp-playlist-light .wp-playlist-item:hover a,
 .site-content .wp-playlist-light .wp-playlist-item:focus a {
 	color: #fff;
 }
+
 .site-content .wp-playlist-dark {
 	background: #222;
 	border-color: #333;
 }
+
 .site-content .wp-playlist-dark .mejs-container .mejs-controls {
 	background-color: #333;
 }
+
 .site-content .wp-playlist-dark .wp-playlist-caption {
 	color: #fff;
 }
+
 .site-content .wp-playlist-dark .wp-playlist-current-item .wp-playlist-item-album {
 	color: #eee;
 }
+
 .site-content .wp-playlist-dark .wp-playlist-current-item .wp-playlist-item-artist {
 	color: #aaa;
 }
+
 .site-content .wp-playlist-dark .wp-playlist-playing {
 	background-color: #333;
 }
+
 .site-content .wp-playlist-dark .wp-playlist-item {
 	border-bottom: 1px dotted #555;
 	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
 	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
 }
+
 .site-content .wp-playlist-dark .wp-playlist-item:hover,
 .site-content .wp-playlist-dark .wp-playlist-item:focus {
 	border-bottom-color: rgba(0, 0, 0, 0);
 	background-color: #aaa;
 	color: #222;
 }
+
 .site-content .wp-playlist-dark a.wp-playlist-caption:hover,
 .site-content .wp-playlist-dark .wp-playlist-item:hover a,
 .site-content .wp-playlist-dark .wp-playlist-item:focus a {
 	color: #222;
 }
+
 .site-content .wp-playlist {
 	padding: 0.625em 0.625em 0.3125em;
 }
+
 .site-content .wp-playlist-current-item .wp-playlist-item-title {
 	font-weight: 700;
 }
+
 .site-content .wp-playlist-current-item .wp-playlist-item-album {
 	font-style: normal;
 }
+
 .site-content .wp-playlist-current-item .wp-playlist-item-artist {
 	font-weight: 800;
 	letter-spacing: 0.1818em;
 	text-transform: uppercase;
 }
+
 .site-content .wp-playlist-item {
 	padding: 0 0.3125em;
 	cursor: pointer;
 }
+
 .site-content .wp-playlist-item:last-of-type {
 	border-bottom: none;
 }
+
 .site-content .wp-playlist-item a {
 	padding: 0.3125em 0;
 	border-bottom: none;
 }
+
 .site-content .wp-playlist-item a,
 .site-content .wp-playlist-item a:focus,
 .site-content .wp-playlist-item a:hover {
@@ -268,6 +312,7 @@ img.alignright {
 	box-shadow: none;
 	background: transparent;
 }
+
 .site-content .wp-playlist-item-length {
 	top: 5px;
 }
@@ -276,6 +321,7 @@ img.alignright {
 .gallery {
 	text-align: center;
 }
+
 .gallery-item {
 	display: inline-block;
 	vertical-align: top;
@@ -290,15 +336,19 @@ img.alignright {
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
 }
+
 .gallery-item:hover{
 	background-color: #fff;
 }
+
 .gallery-columns-1 .gallery-item {
 	width: 100%;
 }
+
 .gallery-columns-2 .gallery-item {
 	max-width: 49%;
 }
+
 .gallery-item a,
 .gallery-item a:hover,
 .gallery-item a:focus {
@@ -309,6 +359,7 @@ img.alignright {
 	max-width: 100%;
 	padding: 5px;
 }
+
 .gallery-item img {
 	display: block;
 	-webkit-transition: -webkit-filter 0.2s ease-in;
@@ -322,6 +373,7 @@ img.alignright {
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
 }
+
 .gallery-caption {
 	display: block;
 	margin-bottom: 5px;
@@ -334,44 +386,56 @@ img.alignright {
 		float: left;
 		margin-right: 1.5em;
 	}
+
 	img.alignright {
 		float: right;
 		margin-left: 1.5em;
 	}
+
 	/* Gallery Columns */
 	.gallery-item {
 		max-width: 25%;
 	}
+
 	.gallery-columns-1 .gallery-item {
 		max-width: 100%;
 	}
+
 	.gallery-columns-2 .gallery-item {
 		max-width: 49%;
 	}
+
 	.gallery-columns-3 .gallery-item {
 		max-width: 32%;
 	}
+
 	.gallery-columns-4 .gallery-item {
 		max-width: 24%;
 	}
+
 }
 @media screen and (min-width: 48em) {
 	/* Gallery Columns */
 	.gallery-columns-5 .gallery-item {
 		max-width: 20%;
 	}
+
 	.gallery-columns-6 .gallery-item {
 		max-width: 16.66%;
 	}
+
 	.gallery-columns-7 .gallery-item {
 		max-width: 14.28%;
 	}
+
 	.gallery-columns-8 .gallery-item {
 		max-width: 12.5%;
 	}
+
 	.gallery-columns-9 .gallery-item {
 		max-width: 11.11%;
 	}
+
 }
 
 /* Scrollbar */
@@ -379,6 +443,7 @@ body::-webkit-scrollbar {
 	width: 10px;
 	background-color: rgba(0,0,0,0.6);
 }
+
 body::-webkit-scrollbar-thumb {
 	background-color: darkgrey;
 	outline: 1px solid darkgrey;
@@ -386,6 +451,7 @@ body::-webkit-scrollbar-thumb {
 	-webkit-border-radius:10px;
 	border-radius:10px;
 }
+
 body::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }

@@ -1,16 +1,25 @@
 <?php
 /**
  * The 404 template file
+ * 
+ * @package Free_Template
  */
-?>
-<?php get_header(); ?>
-<?php $sidebar_condition = is_active_sidebar( 'sidebar-1' ); ?>
+
+declare(strict_types=1);
+
+get_header();
+$sidebar_condition = is_active_sidebar( 'sidebar-1' ); ?>
 <main id="main" class="site-main">
-	<div class="container"><?php
-		if ( $sidebar_condition ) { ?>
-		<div class="row"><?php
-		} ?>
-			<div id="primary" class="site-content content-area col-xs-12<?php if( $sidebar_condition ) { echo ' pull-right col-sm-9'; } ?>">
+	<div class="container">
+		<?php
+		if ( $sidebar_condition ) {
+			$sidebar_class = ' pull-right col-sm-9';
+			?>
+		<div class="row">
+			<?php
+		}
+		?>
+			<div id="primary" class="site-content content-area col-xs-12<?php echo esc_attr( $sidebar_class ); ?>">
 			
 				<section class="error-404 not-found panel box" style="padding: 10px;">
 					<div class="page-content">
@@ -26,15 +35,17 @@
 					dynamic_sidebar( 'frontend-content-bottom' );
 					dynamic_sidebar( 'content-bottom' );
 				?>
-			</div><?php
-
+			</div>
+			<?php
 			if ( $sidebar_condition ) {
 				get_sidebar();
 			}
-
-		if ( $sidebar_condition ) { ?>
+			if ( $sidebar_condition ) {
+				?>
 		</div>
-		<?php } ?>
+				<?php
+			}
+			?>
 	</div>
 </main><!-- .site-main -->
 <?php

@@ -1029,7 +1029,6 @@ class Free_Template{
 		$navigation = '';
 		$args['echo'] = false;
 		$links = paginate_comments_links( $args );
-
 		if ( $links ) {
 			$navigation = _navigation_markup( $links, 'comments-pagination', '' );
 		}

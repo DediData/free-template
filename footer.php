@@ -31,7 +31,6 @@ declare(strict_types=1);
 				</div>
 				<?php } ?>
 				<div class="pull-right col-xs-12 col-sm-6">
-					<p><?php echo esc_html__( 'Copyright', 'free-template' ) . esc_html( ' &copy; ' . gmdate( 'Y ' ) . get_bloginfo( 'name' ) . '. ' ) . esc_html__( 'All right reserved.', 'free-template' ); ?></p>
 					<p>
 						<?php
 						// Translators: %1$s is current year and %2$s is site name

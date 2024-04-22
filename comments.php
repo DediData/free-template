@@ -54,12 +54,15 @@ if ( post_password_required() ) {
 
 		<div class="panel-body">
 		<?php
-		echo Free_Template::comments_pagination(
-			array(
-				'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
-				'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
-				'type'      => 'list',
-			)
+		echo wp_kses(
+			Free_Template::comments_pagination(
+				array(
+					'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
+					'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
+					'type'      => 'list',
+				)
+			),
+			'post'
 		);
 		?>
 
@@ -78,12 +81,15 @@ if ( post_password_required() ) {
 		</ol>
 		
 		<?php
-		echo Free_Template::comments_pagination(
-			array(
-				'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
-				'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
-				'type'      => 'list',
-			)
+		echo wp_kses(
+			Free_Template::comments_pagination(
+				array(
+					'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
+					'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
+					'type'      => 'list',
+				)
+			),
+			'post'
 		);
 		?>
 		</div>

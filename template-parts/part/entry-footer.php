@@ -27,8 +27,8 @@
 		</div>
 		
 		<div class="footer-item">
-				<?php Free_Template::posted_on(); ?>
-				<?php Free_Template::modified_on(); ?>
+				<?php FREE_TEMPLATE()::posted_on(); ?>
+				<?php FREE_TEMPLATE()::modified_on(); ?>
 		</div>
 	<?php } ?>
 
@@ -53,7 +53,7 @@
 
 	if ( current_user_can( 'edit_post', get_the_ID() ) ) { ?>
 		<div class="footer-item pull-right">
-			<?php Free_Template::edit_link(); ?>
+			<?php FREE_TEMPLATE()::edit_link(); ?>
 		</div><?php
 	}
 	?>

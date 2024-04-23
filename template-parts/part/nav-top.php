@@ -25,7 +25,7 @@ if (has_nav_menu( 'primary' ) or get_theme_mod('display_login_link') or is_custo
 		); ?>
 		<ul id="top-menu-side" class="nav navbar-nav navbar-right"><?php
 		if(get_theme_mod('display_login_link')){
-			$login_link_texts = Free_Template::login_link_texts(); ?>
+			$login_link_texts = FREE_TEMPLATE()::login_link_texts(); ?>
 			<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" class="menu-item pull-right" id="login-menu-item">
 				<a data-toggle="modal" title="<?php echo $login_link_texts[ get_theme_mod('login_link_text') ]; // xss ok ?>" id="login-button" data-target="#myModal" aria-haspopup="true" role="button"><i class="fa fa-lg fa-user"></i>&nbsp;<?php echo $login_link_texts[ get_theme_mod('login_link_text') ]; // xss ok ?></a>
 			</li><?php

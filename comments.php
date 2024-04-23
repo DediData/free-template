@@ -55,7 +55,7 @@ if ( post_password_required() ) {
 		<div class="panel-body">
 		<?php
 		echo wp_kses(
-			Free_Template::comments_pagination(
+			FREE_TEMPLATE()::comments_pagination(
 				array(
 					'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
 					'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
@@ -82,7 +82,7 @@ if ( post_password_required() ) {
 		
 		<?php
 		echo wp_kses(
-			Free_Template::comments_pagination(
+			FREE_TEMPLATE()::comments_pagination(
 				array(
 					'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
 					'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
@@ -105,7 +105,7 @@ if ( post_password_required() ) {
 	?>
 	
 	<div class="panel-footer">
-		<?php Free_Template::validate_comment_form(); ?>
+		<?php FREE_TEMPLATE()::validate_comment_form(); ?>
 	</div>
 
 </div><!-- #comments -->

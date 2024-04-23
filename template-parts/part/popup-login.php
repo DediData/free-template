@@ -1,6 +1,6 @@
 <?php
 if(get_theme_mod('display_login_link')){
-	$login_link_texts = Free_Template::login_link_texts();
+	$login_link_texts = FREE_TEMPLATE()::login_link_texts();
 	?>
 		<div class="mainbox modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog" role="document" style="width: 400px;">

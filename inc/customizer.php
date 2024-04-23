@@ -189,7 +189,7 @@ class Free_Template_Customizer {
 				'active_callback'	=> array(),
 				'type'				=> 'select',														// Control type. Core controls include 'text', 'checkbox', 'textarea', 'radio', 'select', and 'dropdown-pages'.
 																												// Additional input types such as 'email', 'url', 'number', 'hidden', and 'date' are supported implicitly. Default 'text'.
-				'choices'			=>  Free_Template::login_link_texts(),									// List of choices for 'radio' or 'select' type controls
+				'choices'			=>  FREE_TEMPLATE()::login_link_texts(),									// List of choices for 'radio' or 'select' type controls
 			)
 		) );
 
@@ -296,7 +296,7 @@ class Free_Template_Customizer {
 	}
 	
 	static function sanitize_login_link_texts( $input ) {
-		return (array_key_exists($input, Free_Template::login_link_texts())) ? $input :  'Login';
+		return (array_key_exists($input, FREE_TEMPLATE()::login_link_texts())) ? $input :  'Login';
 	}
 
 	static function sanitize_text($input) {

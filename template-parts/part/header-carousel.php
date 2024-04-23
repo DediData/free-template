@@ -89,7 +89,7 @@ if( (is_home() or is_front_page()) and $attachments ) { ?>
 					}else{ ?>
 					<img class="item-image slide-1" src="<?php echo esc_url(get_theme_mod('default_header_background', get_stylesheet_directory_uri() . '/assets/images/header-bg.jpg')); ?>" title="<?php the_title_attribute(); ?>" alt="<?php the_title_attribute(); ?>" /><?php 
 					} ?>
-				<div class="carousel-caption"><?php Free_Template::print_title(); ?></div>
+				<div class="carousel-caption"><?php FREE_TEMPLATE()::print_title(); ?></div>
 			</div>
 		</div>
 	</div><!-- /.carousel -->

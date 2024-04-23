@@ -42,7 +42,7 @@ get_header(); ?>
 					get_template_part( 'template-parts/post/content', get_post_format() );
 				}
 
-				Free_Template::posts_pagination(
+				FREE_TEMPLATE()::posts_pagination(
 					array(
 						'prev_text' => '<span >' . esc_html__( 'Previous', 'free-template' ) . '</span>',
 						'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',

@@ -9,40 +9,43 @@ declare(strict_types=1);
 
 namespace FreeTemplate;
 
-class Free_Template extends \DediData\Singleton {
+/**
+ * Class Free_Template
+ */
+final class Free_Template extends \DediData\Singleton {
 	
-	public function __construct(){
-
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
 		add_action( 'after_setup_theme', array( $this, 'setup' ) );
-		add_action( 'widgets_init', array($this, 'widgets_init') );
-		add_action( 'wp_enqueue_scripts', array($this, 'enqueue_all') );
-		add_action( 'customize_register', array('Free_Template_Customizer' , 'register') );
-		add_action( 'customize_preview_init', array('Free_Template_Customizer' , 'live_preview') );
-		add_filter( 'excerpt_more', array($this, 'excerpt_more') );
-		add_filter( 'wp_link_pages_link', array($this, 'bs_link_pages') );
-		add_filter( 'wp_link_pages_args', array($this, 'wp_link_pages_args_prevnext_add') );
-		add_filter( 'comment_form_default_fields', array($this, 'bootstrap3_comment_form_fields') );
-		add_filter( 'comment_form_defaults', array($this, 'bootstrap3_comment_form') );
-		add_filter( 'widget_nav_menu_args', array($this, 'add_div_nav_widget') );
-		add_filter( 'body_class', array($this, 'body_classes') );
-		add_filter( 'wp_get_attachment_image_attributes', array($this, 'image_item_add_title'), 10, 2 );
-		add_filter( 'excerpt_length', array($this, 'custom_excerpt_length'), 999 );
+		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all' ) );
+		add_action( 'customize_register', array( 'Free_Template_Customizer', 'register' ) );
+		add_action( 'customize_preview_init', array( 'Free_Template_Customizer', 'live_preview' ) );
+		add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
+		add_filter( 'wp_link_pages_link', array( $this, 'bs_link_pages' ) );
+		add_filter( 'wp_link_pages_args', array( $this, 'wp_link_pages_args_prev_next_add' ) );
+		add_filter( 'comment_form_default_fields', array( $this, 'bootstrap3_comment_form_fields' ) );
+		add_filter( 'comment_form_defaults', array( $this, 'bootstrap3_comment_form' ) );
+		add_filter( 'widget_nav_menu_args', array( $this, 'add_div_nav_widget' ) );
+		add_filter( 'body_class', array( $this, 'body_classes' ) );
+		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'image_item_add_title' ), 10, 2 );
+		add_filter( 'excerpt_length', array( $this, 'custom_excerpt_length' ), 999 );
 
 		// Check if WooCommerce is active
-		if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-			// Order product collections by stock status, instock products first.
-			add_filter('posts_clauses', array($this, 'order_by_stock_status'), 2000);
+		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+			// Order product collections by stock status, in stock products first.
+			add_filter( 'posts_clauses', array( $this, 'order_by_stock_status' ), 2000 );
 		}
 
-		require( get_template_directory() . '/inc/megamenu-nav-walker.php' );
-		require( get_template_directory() . '/inc/megamenu-widget-nav-walker.php' );
-		require( get_template_directory() . '/inc/megamenu-bottom-nav-walker.php' );
-		require( get_template_directory() . '/inc/comment-walker.php' );
-		require( get_template_directory() . '/inc/customizer-library-content.php' );
-		require( get_template_directory() . '/inc/customizer.php' );
-
+		require get_template_directory() . '/inc/megamenu-nav-walker.php';
+		require get_template_directory() . '/inc/megamenu-widget-nav-walker.php';
+		require get_template_directory() . '/inc/megamenu-bottom-nav-walker.php';
+		require get_template_directory() . '/inc/comment-walker.php';
+		require get_template_directory() . '/inc/customizer-library-content.php';
+		require get_template_directory() . '/inc/customizer.php';
 	}
-
 	
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
@@ -50,47 +53,37 @@ class Free_Template extends \DediData\Singleton {
 	 * Note that this function is hooked into the after_setup_theme hook, which
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
+	 * 
+	 * @return void
 	 */
-
 	public function setup() {
 		// Make theme available for translation.
 		load_theme_textdomain( 'free-template', get_template_directory() . '/languages' );
 		
 		// Define and register starter content to showcase the theme on new sites.
 		$starter_content = array(
-			'widgets' => array(
-				'sidebar-1' => array(
+			'widgets'   => array(
+				'sidebar-1'               => array(
 					'categories',
 					'meta',
 				),
-				'frontend-content-top' => array(
-					'text_about',
-				),
-				'frontend-content-bottom' => array(
-					'text_business_info',
-				),
-				'footer-column-1' => array(
-					'calendar',
-				),
-				'footer-column-2' => array(
-					'archives',
-				),
-				'footer-column-3' => array(
-					'recent-posts',
-				),
-				'footer-column-4' => array(
-					'recent-comments',
-				),
+				'frontend-content-top'    => array( 'text_about' ),
+				'frontend-content-bottom' => array( 'text_business_info' ),
+				'footer-column-1'         => array( 'calendar' ),
+				'footer-column-2'         => array( 'archives' ),
+				'footer-column-3'         => array( 'recent-posts' ),
+				'footer-column-4'         => array( 'recent-comments' ),
 			),
 
 			// Specify the core-defined pages to create and add custom thumbnails to some of them.
-			'posts' => array(
+			'posts'     => array(
 				'home',
 				'blog',
 				'news',
 				'about',
 				'contact',
 				'homepage-section',
+
 				/*
 				'homepage-section' => array(
 					'thumbnail' => '{{image-espresso}}',
@@ -99,19 +92,20 @@ class Free_Template extends \DediData\Singleton {
 			),
 
 			// Default to a static front page and assign the front and posts pages.
-			'options' => array(
-				'show_on_front' => 'page',
-				'page_on_front' => '{{home}}',
+			'options'   => array(
+				'show_on_front'  => 'page',
+				'page_on_front'  => '{{home}}',
 				'page_for_posts' => '{{blog}}',
 			),
 
 			// Set up nav menus for each of the two areas registered in the theme.
 			'nav_menus' => array(
 				// Assign a menu to the "top" location.
-				'primary' => array(
-					'name' => __( 'Top Menu', 'free-template' ),
+				'primary'      => array(
+					'name'  => __( 'Top Menu', 'free-template' ),
 					'items' => array(
-						'link_home', // Note that the core "home" page is actually a link in case a static front page is not used.
+						// Note that the core "home" page is actually a link in case a static front page is not used.
+						'link_home',
 						'page_about',
 						'page_blog',
 						'page_news',
@@ -119,10 +113,11 @@ class Free_Template extends \DediData\Singleton {
 					),
 				),
 
-				'bottom' => array(
-					'name' => __( 'Bottom of Site', 'free-template' ),
+				'bottom'       => array(
+					'name'  => __( 'Bottom of Site', 'free-template' ),
 					'items' => array(
-						'link_home', // Note that the core "home" page is actually a link in case a static front page is not used.
+						// Note that the core "home" page is actually a link in case a static front page is not used.
+						'link_home',
 						'page_about',
 						'page_blog',
 						'page_news',
@@ -131,8 +126,8 @@ class Free_Template extends \DediData\Singleton {
 				),
 
 				// Assign a menu to the "header" location.
-				'header' => array(
-					'name' => __( 'Bottom of Header', 'free-template' ),
+				'header'       => array(
+					'name'  => __( 'Bottom of Header', 'free-template' ),
 					'items' => array(
 						'link_instagram',
 						'link_facebook',
@@ -143,7 +138,7 @@ class Free_Template extends \DediData\Singleton {
 				
 				// Assign a menu to the "header-right" location.
 				'header-right' => array(
-					'name' => __( 'Bottom of Header - Right', 'free-template' ),
+					'name'  => __( 'Bottom of Header - Right', 'free-template' ),
 					'items' => array(
 						'link_youtube',
 						'link_github',
@@ -181,18 +176,20 @@ class Free_Template extends \DediData\Singleton {
 			'wp-head-callback'       => '',
 			'admin-head-callback'    => '',
 			'admin-preview-callback' => '',
-			'video' => false,
-			'video-active-callback' => 'is_front_page',
+			'video'                  => false,
+			'video-active-callback'  => 'is_front_page',
 		);
 		add_theme_support( 'custom-header', $header_defaults );
 		
-		register_default_headers( array(
-			'default-header' => array(
-				'url'           => '%s/assets/images/default.jpg',
-				'thumbnail_url' => '%s/assets/images/default.jpg',
-				'description'   => get_bloginfo(),
-			),
-		) );
+		register_default_headers(
+			array(
+				'default-header' => array(
+					'url'           => '%s/assets/images/default.jpg',
+					'thumbnail_url' => '%s/assets/images/default.jpg',
+					'description'   => get_bloginfo(),
+				),
+			)
+		);
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -216,42 +213,51 @@ class Free_Template extends \DediData\Singleton {
 		add_theme_support( 'wc-product-gallery-zoom' );
 
 		// Switch default core markup for search form, comment form, and comments to output valid HTML5.
-		add_theme_support( 'html5', array(
-			'search-form',
-			'comment-form',
-			'comment-list',
-			'gallery',
-			'caption',
-		) );
+		add_theme_support(
+			'html5',
+			array(
+				'search-form',
+				'comment-form',
+				'comment-list',
+				'gallery',
+				'caption',
+			)
+		);
 
 		/*
 		 * Enable support for Post Formats.
 		 * See: https://codex.wordpress.org/Post_Formats
 		 */
-		add_theme_support( 'post-formats', array(
-			'aside',
-			'image',
-			'video',
-			'quote',
-			'link',
-			'gallery',
-			'audio',
-			'status',
-			'chat',
-		) );
+		add_theme_support(
+			'post-formats',
+			array(
+				'aside',
+				'image',
+				'video',
+				'quote',
+				'link',
+				'gallery',
+				'audio',
+				'status',
+				'chat',
+			)
+		);
 
 		// Add theme support for Custom Logo.
-		//https://make.wordpress.org/core/2016/03/10/custom-logo/
-		//https://codex.wordpress.org/Theme_Logo
-		add_theme_support( 'custom-logo', array(
-			'width'       => 80,
-			'height'      => 80,
-			'flex-width'  => true,
-			'flex-height' => false,
-			// Classes(s) of elements to hide.
-			// It can pass an array of class names here for all elements constituting header text that could be replaced by a logo.
-			//'header-text' => array( 'site-title', 'site-description' ),
-		) );
+		// https://make.wordpress.org/core/2016/03/10/custom-logo/
+		// https://codex.wordpress.org/Theme_Logo
+		add_theme_support(
+			'custom-logo',
+			array(
+				'width'       => 80,
+				'height'      => 80,
+				'flex-width'  => true,
+				'flex-height' => false,
+				// Classes(s) of elements to hide.
+				// It can pass an array of class names here for all elements constituting header text that could be replaced by a logo.
+				// 'header-text' => array( 'site-title', 'site-description' ),
+			)
+		);
 
 		// Add support for Block Styles.
 		add_theme_support( 'wp-block-styles' );
@@ -263,208 +269,228 @@ class Free_Template extends \DediData\Singleton {
 		add_theme_support( 'align-wide' );
 		
 		// This theme uses wp_nav_menu() in two locations.
-		register_nav_menus( array(
-			'primary'			=> esc_html__( 'Top Menu', 'free-template' ),
-			'header'			=> esc_html__( 'Bottom of Header', 'free-template' ),
-			'header-right'	=> esc_html__( 'Bottom of Header - Right', 'free-template' ),
-			'bottom'		=> esc_html__( 'Bottom of Site', 'free-template' ),
-		) );
+		register_nav_menus(
+			array(
+				'primary'      => esc_html__( 'Top Menu', 'free-template' ),
+				'header'       => esc_html__( 'Bottom of Header', 'free-template' ),
+				'header-right' => esc_html__( 'Bottom of Header - Right', 'free-template' ),
+				'bottom'       => esc_html__( 'Bottom of Site', 'free-template' ),
+			)
+		);
 
-		add_image_size( 'free-template' . '-featured-image', 2000, 1200, true );
-		add_image_size( 'free-template' . '-thumbnail-avatar', 90, 90, true );
-
-		// Set the default content width.
-		$GLOBALS['content_width'] = 525;
+		add_image_size( 'free-template-featured-image', 2000, 1200, true );
+		add_image_size( 'free-template-thumbnail-avatar', 90, 90, true );
 
 		// This theme styles the visual editor to resemble the theme style, specifically font, colors, and column width.
 		add_editor_style( 'assets/css/editor-style.css' );
-		if(is_rtl()){
+		if ( is_rtl() ) {
 			add_editor_style( 'rtl.css' );
-		} else {
+		} elseif ( ! is_rtl() ) {
 			add_editor_style( 'style.css' );
 		}
-
 	}
 	
 	/**
 	 * Register widget area.
+	 * 
 	 * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+	 * @return void
 	 */
 	public function widgets_init() {
-		register_sidebar( array(
-			'name'				=> esc_html__( 'Sidebar', 'free-template' ),
-			'id'					=> 'sidebar-1',
-			'description'		=> esc_html__( 'Add widgets here to appear in your sidebar.', 'free-template' ),
-			'before_widget'	=> '<div id="%1$s" class="widget %2$s panel box">',
-			'after_widget'		=> '</div>',
-			'before_title'		=> '<h4 class="widget-title">',
-			'after_title'			=> '</h4>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Sidebar', 'free-template' ),
+				'id'            => 'sidebar-1',
+				'description'   => esc_html__( 'Add widgets here to appear in your sidebar.', 'free-template' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s panel box">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 
-		register_sidebar( array(
-			'name'				=> esc_html__( 'Frontend Content Top', 'free-template' ),
-			'id'           			=> 'frontend-content-top',
-			'description'   		=> esc_html__( 'Add widgets here to appear in your top of content in Frontpage.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s panel box">',
-			'after_widget'  	=> '</div>',
-			'before_title'  	=> '<h4 class="widget-title">',
-			'after_title'  		=> '</h4>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Frontend Content Top', 'free-template' ),
+				'id'            => 'frontend-content-top',
+				'description'   => esc_html__( 'Add widgets here to appear in your top of content in Frontpage.', 'free-template' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s panel box">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 
-		register_sidebar( array(
-			'name'          		=> esc_html__( 'Frontend Content Bottom', 'free-template' ),
-			'id'            		=> 'frontend-content-bottom',
-			'description'   		=> esc_html__( 'Add widgets here to appear in your bottom of content in Frontpage.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s panel box">',
-			'after_widget'  	=> '</div>',
-			'before_title'  	=> '<h4 class="widget-title">',
-			'after_title'   		=> '</h4>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Frontend Content Bottom', 'free-template' ),
+				'id'            => 'frontend-content-bottom',
+				'description'   => esc_html__( 'Add widgets here to appear in your bottom of content in Frontpage.', 'free-template' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s panel box">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 
-		register_sidebar( array(
-			'name'          		=> esc_html__( 'Content Top', 'free-template' ),
-			'id'            		=> 'content-top',
-			'description'   		=> esc_html__( 'Add widgets here to appear in your top of content.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s panel box">',
-			'after_widget'  	=> '</div>',
-			'before_title'  	=> '<h4 class="widget-title">',
-			'after_title'   		=> '</h4>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Content Top', 'free-template' ),
+				'id'            => 'content-top',
+				'description'   => esc_html__( 'Add widgets here to appear in your top of content.', 'free-template' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s panel box">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 
-		register_sidebar( array(
-			'name'          		=> esc_html__( 'Content Bottom', 'free-template' ),
-			'id'            		=> 'content-bottom',
-			'description'   		=> esc_html__( 'Add widgets here to appear in your bottom of content.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s panel box">',
-			'after_widget'  	=> '</div>',
-			'before_title'  	=> '<h4 class="widget-title">',
-			'after_title'   		=> '</h4>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Content Bottom', 'free-template' ),
+				'id'            => 'content-bottom',
+				'description'   => esc_html__( 'Add widgets here to appear in your bottom of content.', 'free-template' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s panel box">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 
-		register_sidebar( array(
-			'name'          		=> esc_html__( 'Footer Column 1', 'free-template' ),
-			'id'            		=> 'footer-column-1',
-			'description'   		=> esc_html__( 'Add widgets here to appear in your footer column 1.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  	=> '</div>',
-			'before_title'  	=> '<h4 class="widget-title">',
-			'after_title'   		=> '</h4>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Footer Column 1', 'free-template' ),
+				'id'            => 'footer-column-1',
+				'description'   => esc_html__( 'Add widgets here to appear in your footer column 1.', 'free-template' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 
-		register_sidebar( array(
-			'name'          		=> esc_html__( 'Footer Column 2', 'free-template' ),
-			'id'            		=> 'footer-column-2',
-			'description'   		=> esc_html__( 'Add widgets here to appear in your footer column 2.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  	=> '</div>',
-			'before_title'  	=> '<h4 class="widget-title">',
-			'after_title'   		=> '</h4>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Footer Column 2', 'free-template' ),
+				'id'            => 'footer-column-2',
+				'description'   => esc_html__( 'Add widgets here to appear in your footer column 2.', 'free-template' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 
-		register_sidebar( array(
-			'name'          		=> esc_html__( 'Footer Column 3', 'free-template' ),
-			'id'            		=> 'footer-column-3',
-			'description'   		=> esc_html__( 'Add widgets here to appear in your footer column 3.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  	=> '</div>',
-			'before_title'  	=> '<h4 class="widget-title">',
-			'after_title'   		=> '</h4>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Footer Column 3', 'free-template' ),
+				'id'            => 'footer-column-3',
+				'description'   => esc_html__( 'Add widgets here to appear in your footer column 3.', 'free-template' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 
-		register_sidebar( array(
-			'name'          		=> esc_html__( 'Footer Column 4', 'free-template' ),
-			'id'            		=> 'footer-column-4',
-			'description'   		=> esc_html__( 'Add widgets here to appear in your footer column 4.', 'free-template' ),
-			'before_widget' 	=> '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  	=> '</div>',
-			'before_title'  	=> '<h4 class="widget-title">',
-			'after_title'   		=> '</h4>',
-		) );
-
-
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Footer Column 4', 'free-template' ),
+				'id'            => 'footer-column-4',
+				'description'   => esc_html__( 'Add widgets here to appear in your footer column 4.', 'free-template' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 	}
 
-	public function enqueue_all(){
+	/**
+	 * Enqueues various scripts and styles
+	 * 
+	 * @return void
+	 */
+	public function enqueue_all() {
 
 		// tether js (for tooltips , should before bootstrap) load in footer
-		wp_enqueue_script( 'tether', get_stylesheet_directory_uri() . '/assets/tether/js/tether.min.js', array(), '1.4.0', true);
+		wp_enqueue_script( 'tether', get_stylesheet_directory_uri() . '/assets/tether/js/tether.min.js', array(), '1.4.0', true );
 
 		// bootstrap js css load in footer
-		wp_enqueue_script( 'bootstrap', get_stylesheet_directory_uri() . '/assets/bootstrap/js/bootstrap.min.js', array('jquery'), '3.3.7', true);
+		wp_enqueue_script( 'bootstrap', get_stylesheet_directory_uri() . '/assets/bootstrap/js/bootstrap.min.js', array( 'jquery' ), '3.3.7', true );
 
-		wp_enqueue_style( 'bootstrap', get_stylesheet_directory_uri() . '/assets/bootstrap/css/bootstrap.min.css', array(), '3.3.7', 'all');
+		wp_enqueue_style( 'bootstrap', get_stylesheet_directory_uri() . '/assets/bootstrap/css/bootstrap.min.css', array(), '3.3.7', 'all' );
 
 		// bootstrap theme css
-		if (get_theme_mod('bootstrap_theme_name') != 'default' && get_theme_mod('bootstrap_theme_name') ) {
-			wp_enqueue_style( 'bootswatch', get_stylesheet_directory_uri() . '/assets/bootswatch/' . esc_html( get_theme_mod( 'bootstrap_theme_name' ) ) . '/bootstrap.min.css', array(), '3.3.7', 'all');
+		if ( 'default' !== get_theme_mod( 'bootstrap_theme_name' ) && get_theme_mod( 'bootstrap_theme_name' ) ) {
+			wp_enqueue_style( 'bootswatch', get_stylesheet_directory_uri() . '/assets/bootswatch/' . esc_html( get_theme_mod( 'bootstrap_theme_name' ) ) . '/bootstrap.min.css', array(), '3.3.7', 'all' );
 		} else {
-			wp_enqueue_style( 'bootstrap-theme', get_stylesheet_directory_uri() . '/assets/bootstrap/css/bootstrap-theme.min.css', array(), '3.3.7', 'all');
+			wp_enqueue_style( 'bootstrap-theme', get_stylesheet_directory_uri() . '/assets/bootstrap/css/bootstrap-theme.min.css', array(), '3.3.7', 'all' );
 		}
 
 		// rtl bootstrap
 		if ( is_rtl() ) {
-			wp_enqueue_style( 'partial-bootstrap-rtl', get_stylesheet_directory_uri() . '/assets/bootstrap-rtl/css/bootstrap.rtl.min.css', array(), '3.3.7.2', 'all');
+			wp_enqueue_style( 'partial-bootstrap-rtl', get_stylesheet_directory_uri() . '/assets/bootstrap-rtl/css/bootstrap.rtl.min.css', array(), '3.3.7.2', 'all' );
 		}
 
 		// 1000hz-bootstrap-validator js load in footer
-		wp_enqueue_script( 'bootstrap-validator', get_stylesheet_directory_uri() . '/assets/bootstrap-validator/validator.min.js', array(), '0.11.9', true);
+		wp_enqueue_script( 'bootstrap-validator', get_stylesheet_directory_uri() . '/assets/bootstrap-validator/validator.min.js', array(), '0.11.9', true );
 
 		// LightBox2
-		wp_enqueue_style( 'lightbox2', get_stylesheet_directory_uri() . '/assets/lightbox2/css/lightbox.min.css', array(), '2.11.3', 'all');
+		wp_enqueue_style( 'lightbox2', get_stylesheet_directory_uri() . '/assets/lightbox2/css/lightbox.min.css', array(), '2.11.3', 'all' );
 		// load in footer
-		wp_enqueue_script( 'lightbox2', get_stylesheet_directory_uri() . '/assets/lightbox2/js/lightbox.min.js', array('jquery'), '2.11.3', true);
+		wp_enqueue_script( 'lightbox2', get_stylesheet_directory_uri() . '/assets/lightbox2/js/lightbox.min.js', array( 'jquery' ), '2.11.3', true );
 		
 		// font awesome css
-		wp_enqueue_style( 'font-awesome', get_stylesheet_directory_uri() . '/assets/font-awesome/css/font-awesome.min.css', array(), '4.7.0', 'all');
+		wp_enqueue_style( 'font-awesome', get_stylesheet_directory_uri() . '/assets/font-awesome/css/font-awesome.min.css', array(), '4.7.0', 'all' );
 
 		// main css
-		if ( !is_rtl() ) {
-			wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array( ), wp_get_theme()->get( 'Version' ), 'all' );
-			
-		}else{
-			wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array( ), wp_get_theme()->get( 'Version' ), 'all' );
+		if ( ! is_rtl() ) {
+			wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ), 'all' );
+		} elseif ( is_rtl() ) {
+			wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ), 'all' );
 			wp_style_add_data( 'theme-style', 'rtl', 'replace' );
 		}
 
 		// dedidata js load in footer
-		wp_enqueue_script( 'dedidata', get_stylesheet_directory_uri() . '/assets/js/dedidata.js', array('jquery'), wp_get_theme()->get( 'Version' ), true);
+		wp_enqueue_script( 'dedidata', get_stylesheet_directory_uri() . '/assets/js/dedidata.js', array( 'jquery' ), wp_get_theme()->get( 'Version' ), true );
 
 		// custom js load in footer
-		wp_enqueue_script( 'custom', get_stylesheet_directory_uri() . '/assets/js/custom.js', array('jquery'), wp_get_theme()->get( 'Version' ), true);
+		wp_enqueue_script( 'custom', get_stylesheet_directory_uri() . '/assets/js/custom.js', array( 'jquery' ), wp_get_theme()->get( 'Version' ), true );
 
 		// html5shiv js
-		wp_enqueue_script( 'html5shiv', get_stylesheet_directory_uri() . '/assets/html5shiv/html5shiv.min.js', array(), '3.7.3', true);
+		wp_enqueue_script( 'html5shiv', get_stylesheet_directory_uri() . '/assets/html5shiv/html5shiv.min.js', array(), '3.7.3', true );
 		wp_script_add_data( 'html5shiv', 'conditional', 'lt IE 9' );
 
-		// printshiv js
-		wp_enqueue_script( 'html5shiv-printshiv', get_stylesheet_directory_uri() . '/assets/html5shiv/html5shiv-printshiv.min.js', array(), '3.7.3', true);
+		// print shiv js
+		wp_enqueue_script( 'html5shiv-printshiv', get_stylesheet_directory_uri() . '/assets/html5shiv/html5shiv-printshiv.min.js', array(), '3.7.3', true );
 		wp_script_add_data( 'html5shiv-printshiv', 'conditional', 'lt IE 9' );
 
 		// respond
-		wp_enqueue_script( 'respond', get_stylesheet_directory_uri() . '/assets/respond/respond.min.js', array(), '1.4.2', true);
+		wp_enqueue_script( 'respond', get_stylesheet_directory_uri() . '/assets/respond/respond.min.js', array(), '1.4.2', true );
 		wp_script_add_data( 'respond', 'conditional', 'lt IE 9' );
 
 		// ie 10 viewport bug js css load in footer
-		wp_enqueue_script( 'ie10-viewport-bug', get_stylesheet_directory_uri() . '/assets/ie10-viewport-bug/js/ie10-viewport-bug-workaround.min.js', array(), wp_get_theme()->get( 'Version' ), true);
+		wp_enqueue_script( 'ie10-viewport-bug', get_stylesheet_directory_uri() . '/assets/ie10-viewport-bug/js/ie10-viewport-bug-workaround.min.js', array(), wp_get_theme()->get( 'Version' ), true );
 		wp_script_add_data( 'ie10-viewport-bug', 'conditional', 'IE 10' );
-		wp_enqueue_style( 'ie10-viewport-bug', get_stylesheet_directory_uri() . '/assets/ie10-viewport-bug/css/ie10-viewport-bug-workaround.min.css', array(), wp_get_theme()->get( 'Version' ), 'all');
+		wp_enqueue_style( 'ie10-viewport-bug', get_stylesheet_directory_uri() . '/assets/ie10-viewport-bug/css/ie10-viewport-bug-workaround.min.css', array(), wp_get_theme()->get( 'Version' ), 'all' );
 		wp_style_add_data( 'ie10-viewport-bug', 'conditional', 'IE 10' );
 
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
 		
-		$current_locale = get_locale();
-		$current_locale_2l = substr($current_locale, 1, 2);
-		$locale_settings = [];
-		if($current_locale == 'fa_IR' or $current_locale == 'fa_AF'){
+		$current_locale    = get_locale();
+		$current_locale_2l = substr( $current_locale, 1, 2 );
+		$locale_settings   = array();
+		if ( 'fa_IR' === $current_locale || 'fa_AF' === $current_locale ) {
 			// Persian RTL
 			// Persian (Afghanistan) RTL
-			wp_enqueue_style( 'dedidata-google-fonts', get_stylesheet_directory_uri() . '/assets/fonts/Yekan.css', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Yekan';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', get_stylesheet_directory_uri() . '/assets/fonts/Yekan.css', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = 'Yekan';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale_2l == 'ar'  or $current_locale == 'azb' or $current_locale == 'ckb' or $current_locale == 'ps' or $current_locale == 'haz' or $current_locale_2l == 'ur' or $current_locale == 'ary' or $current_locale == 'skr'){
+		} elseif ( 'ar' === $current_locale_2l || 'azb' === $current_locale || 'ckb' === $current_locale || 'ps' === $current_locale || 'haz' === $current_locale || 'ur' === $current_locale_2l || 'ary' === $current_locale || 'skr' === $current_locale ) {
 			// Arabic RTL
 			// South Azerbaijani RTL
 			// Kurdish (Sorani) RTL
@@ -473,18 +499,18 @@ class Free_Template extends \DediData\Singleton {
 			// Urdu RTL
 			// Moroccan Arabic RTL
 			// Saraiki RTL
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Cairo', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Cairo';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Cairo', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      ='Cairo';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'bn_BD' or $current_locale == 'bn_IN'){
+		} elseif ( 'bn_BD' === $current_locale || 'bn_IN' === $current_locale ) {
 			// Bengali (Bangladesh)
 			// Bengali (India)
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Siliguri', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Hind Siliguri"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Siliguri', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = '"Hind Siliguri"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'bo' or $current_locale == 'dzo'){
+		} elseif ( 'bo' === $current_locale || 'dzo' === $current_locale ) {
 			// Tibetan
 			// Dzongkha
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Jomolhari', array(), wp_get_theme()->get( 'Version' ), 'all');
@@ -791,7 +817,7 @@ class Free_Template extends \DediData\Singleton {
 	}
 
 	// Add prev and next links to a numbered page link list
-	public function wp_link_pages_args_prevnext_add($args){
+	public function wp_link_pages_args_prev_next_add($args){
 		global $page, $numpages, $more, $pagenow;
 
 		if (!$args['next_or_number'] == 'next_and_number')

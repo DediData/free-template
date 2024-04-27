@@ -500,7 +500,7 @@ final class Free_Template extends \DediData\Singleton {
 			// Moroccan Arabic RTL
 			// Saraiki RTL
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Cairo', array(), wp_get_theme()->get( 'Version' ), 'all' );
-			$locale_settings['font']      ='Cairo';
+			$locale_settings['font']      = 'Cairo';
 			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
 		} elseif ( 'bn_BD' === $current_locale || 'bn_IN' === $current_locale ) {
@@ -514,10 +514,10 @@ final class Free_Template extends \DediData\Singleton {
 			// Tibetan
 			// Dzongkha
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Jomolhari', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Jomolhari';
-			$locale_settings['locale'] = $current_locale;
+			$locale_settings['font']      = 'Jomolhari';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'gu'){
+		} elseif ( $current_locale == 'gu' ) {
 			// Gujarati
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Vadodara', array(), wp_get_theme()->get( 'Version' ), 'all');
 			$locale_settings['font']='"Hind Vadodara"';

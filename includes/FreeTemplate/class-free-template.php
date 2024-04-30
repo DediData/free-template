@@ -422,9 +422,10 @@ final class Free_Template extends \DediData\Singleton {
 		wp_enqueue_style( 'bootstrap', get_stylesheet_directory_uri() . '/assets/bootstrap/css/bootstrap.min.css', array(), '3.3.7', 'all' );
 
 		// bootstrap theme css
-		if ( 'default' !== get_theme_mod( 'bootstrap_theme_name' ) && get_theme_mod( 'bootstrap_theme_name' ) ) {
+		$theme_mode = 'default' !== get_theme_mod( 'bootstrap_theme_name' ) && get_theme_mod( 'bootstrap_theme_name' );
+		if ( $theme_mode ) {
 			wp_enqueue_style( 'bootswatch', get_stylesheet_directory_uri() . '/assets/bootswatch/' . esc_html( get_theme_mod( 'bootstrap_theme_name' ) ) . '/bootstrap.min.css', array(), '3.3.7', 'all' );
-		} else {
+		} elseif ( ! $theme_mode ) {
 			wp_enqueue_style( 'bootstrap-theme', get_stylesheet_directory_uri() . '/assets/bootstrap/css/bootstrap-theme.min.css', array(), '3.3.7', 'all' );
 		}
 
@@ -513,124 +514,124 @@ final class Free_Template extends \DediData\Singleton {
 		} elseif ( 'bo' === $current_locale || 'dzo' === $current_locale ) {
 			// Tibetan
 			// Dzongkha
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Jomolhari', array(), wp_get_theme()->get( 'Version' ), 'all');
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Jomolhari', array(), wp_get_theme()->get( 'Version' ), 'all' );
 			$locale_settings['font']      = 'Jomolhari';
 			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		} elseif ( $current_locale == 'gu' ) {
+		} elseif ( 'gu' === $current_locale ) {
 			// Gujarati
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Vadodara', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Hind Vadodara"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Vadodara', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = '"Hind Vadodara"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'he_IL'){
+		} elseif ( 'he_IL' === $current_locale ) {
 			// Hebrew RTL
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Rubik', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Rubik';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Rubik', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = 'Rubik';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'hi_IN' or $current_locale == 'mr' or $current_locale == 'ne_NP'){
+		} elseif ( 'hi_IN' === $current_locale || 'mr' === $current_locale || 'ne_NP' === $current_locale ) {
 			// Hindi
 			// Marathi
 			// Nepali
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Poppins';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = 'Poppins';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'pa' or $current_locale == 'pa_IN'){
+		} elseif ( 'pa' === $current_locale || 'pa_IN' === $current_locale ) {
 			// Panjabi India
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Mukta+Mahee', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Mukta Mahee"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Mukta+Mahee', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = '"Mukta Mahee"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'ja' or $current_locale = 'ja_JP'){
+		} elseif ( 'ja' === $current_locale || 'ja_JP' === $current_locale ) {
 			// Japanese
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+JP', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Noto Sans JP"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+JP', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = '"Noto Sans JP"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale_2l == 'km'){
+		} elseif ( 'km' === $current_locale_2l ) {
 			// Cambodian
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hanuman', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Hanuman';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hanuman', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = 'Hanuman';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale_2l == 'kn'){
+		} elseif ( 'kn' === $current_locale_2l ) {
 			// Kannada
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Baloo+Tamma', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Baloo Tamma"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Baloo+Tamma', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = '"Baloo Tamma"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'ko' or $current_locale = 'ko_KR'){
+		} elseif ( 'ko' === $current_locale || 'ko_KR' === $current_locale ) {
 			// Korean
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+KR', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Noto Sans KR"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+KR', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = '"Noto Sans KR"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale_2l == 'ml'){
+		} elseif ( 'ml' === $current_locale_2l ) {
 			// Malayalam
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Baloo+Chettan', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Baloo Chettan"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Baloo+Chettan', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = '"Baloo Chettan"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale_2l == 'my'){
+		} elseif ( 'my' === $current_locale_2l ) {
 			// Burmese
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Padauk', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Padauk';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Padauk', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = 'Padauk';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'or' or $current_locale = 'or_IN'){
+		} elseif ( 'or' === $current_locale || 'or_IN' === $current_locale ) {
 			// Indo-European Oriya
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Baloo+Bhaina', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Baloo Bhaina"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Baloo+Bhaina', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = '"Baloo Bhaina"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale_2l == 'si'){
+		} elseif ( 'si' === $current_locale_2l ) {
 			// Sinhalese
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Abhaya+Libre', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Abhaya Libre"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Abhaya+Libre', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      ='"Abhaya Libre"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'ta' or $current_locale == 'ta_IN' or $current_locale == 'ta_LK' ){
+		} elseif ( 'ta' === $current_locale || 'ta_IN' === $current_locale || 'ta_LK' === $current_locale ) {
 			// Tamil
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Catamaran', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Catamaran';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Catamaran', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      = 'Catamaran';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'te' or $current_locale = 'te_IN' or $current_locale == 'te_ST'){
+		} elseif ( 'te' === $current_locale || 'te_IN' === $current_locale || 'te_ST' === $current_locale ) {
 			// Telugu
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Guntur', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Hind Guntur"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Guntur', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      ='"Hind Guntur"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale_2l == 'th'){
+		} elseif ( 'th' === $current_locale_2l ) {
 			// Thai
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Kanit', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Kanit';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Kanit', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      ='Kanit';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'zh-hk'){
+		} elseif ( 'zh-hk' === $current_locale ) {
 			// Chinese (Hong Kong)
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+HK', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Noto Sans HK"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+HK', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      ='"Noto Sans HK"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'zh-Hans' or $current_locale == 'zh_CN' or $current_locale == 'zh_TW'){
+		} elseif ( 'zh-Hans' === $current_locale || 'zh_CN' ===  $current_locale || 'zh_TW' === $current_locale ) {
 			// Chinese (Simplified)
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+SC', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Noto Sans SC"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+SC', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      ='"Noto Sans SC"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}elseif($current_locale == 'zh-Hant'){
+		} elseif ( 'zh-Hant' === $current_locale ) {
 			// Chinese (Traditional)
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+TC', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='"Noto Sans TC"';
-			$locale_settings['locale'] = $current_locale;
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+TC', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']      ='"Noto Sans TC"';
+			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		}else{
+		} else {
 			// English & Others
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:300', array(), wp_get_theme()->get( 'Version' ), 'all');
-			$locale_settings['font']='Roboto';
+			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:300', array(), wp_get_theme()->get( 'Version' ), 'all' );
+			$locale_settings['font']   ='Roboto';
 			$locale_settings['locale'] = $current_locale;
 		}
 		

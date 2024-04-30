@@ -484,6 +484,12 @@ final class Free_Template extends \DediData\Singleton {
 		$current_locale    = get_locale();
 		$current_locale_2l = substr( $current_locale, 1, 2 );
 		$locale_settings   = array();
+
+		// ِDefault English & Others
+		wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:300', array(), wp_get_theme()->get( 'Version' ), 'all' );
+		$locale_settings['font']   = 'Roboto';
+		$locale_settings['locale'] = $current_locale;
+
 		if ( 'fa_IR' === $current_locale || 'fa_AF' === $current_locale ) {
 			// Persian RTL
 			// Persian (Afghanistan) RTL
@@ -589,7 +595,7 @@ final class Free_Template extends \DediData\Singleton {
 		} elseif ( 'si' === $current_locale_2l ) {
 			// Sinhalese
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Abhaya+Libre', array(), wp_get_theme()->get( 'Version' ), 'all' );
-			$locale_settings['font']      ='"Abhaya Libre"';
+			$locale_settings['font']      = '"Abhaya Libre"';
 			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
 		} elseif ( 'ta' === $current_locale || 'ta_IN' === $current_locale || 'ta_LK' === $current_locale ) {
@@ -601,39 +607,34 @@ final class Free_Template extends \DediData\Singleton {
 		} elseif ( 'te' === $current_locale || 'te_IN' === $current_locale || 'te_ST' === $current_locale ) {
 			// Telugu
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Hind+Guntur', array(), wp_get_theme()->get( 'Version' ), 'all' );
-			$locale_settings['font']      ='"Hind Guntur"';
+			$locale_settings['font']      = '"Hind Guntur"';
 			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
 		} elseif ( 'th' === $current_locale_2l ) {
 			// Thai
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Kanit', array(), wp_get_theme()->get( 'Version' ), 'all' );
-			$locale_settings['font']      ='Kanit';
+			$locale_settings['font']      = 'Kanit';
 			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
 		} elseif ( 'zh-hk' === $current_locale ) {
 			// Chinese (Hong Kong)
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+HK', array(), wp_get_theme()->get( 'Version' ), 'all' );
-			$locale_settings['font']      ='"Noto Sans HK"';
+			$locale_settings['font']      = '"Noto Sans HK"';
 			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		} elseif ( 'zh-Hans' === $current_locale || 'zh_CN' ===  $current_locale || 'zh_TW' === $current_locale ) {
+		} elseif ( 'zh-Hans' === $current_locale || 'zh_CN' === $current_locale || 'zh_TW' === $current_locale ) {
 			// Chinese (Simplified)
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+SC', array(), wp_get_theme()->get( 'Version' ), 'all' );
-			$locale_settings['font']      ='"Noto Sans SC"';
+			$locale_settings['font']      = '"Noto Sans SC"';
 			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
 		} elseif ( 'zh-Hant' === $current_locale ) {
 			// Chinese (Traditional)
 			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Noto+Sans+TC', array(), wp_get_theme()->get( 'Version' ), 'all' );
-			$locale_settings['font']      ='"Noto Sans TC"';
+			$locale_settings['font']      = '"Noto Sans TC"';
 			$locale_settings['locale']    = $current_locale;
 			$locale_settings['HTML_lang'] = get_bloginfo( 'language' );
-		} else {
-			// English & Others
-			wp_enqueue_style( 'dedidata-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:300', array(), wp_get_theme()->get( 'Version' ), 'all' );
-			$locale_settings['font']   ='Roboto';
-			$locale_settings['locale'] = $current_locale;
-		}
+		}//end if
 		
 		$custom_style = '
 			html,
@@ -656,7 +657,7 @@ final class Free_Template extends \DediData\Singleton {
 			keygen,
 			blockquote cite,
 			blockquote small{
-				font-family: '. $locale_settings['font'] .', Tahoma, Arial, Helvetica, sans-serif;
+				font-family: ' . $locale_settings['font'] . ', Tahoma, Arial, Helvetica, sans-serif;
 				letter-spacing: normal !important;
 				line-height: normal;
 				font-size: 15px;
@@ -705,7 +706,7 @@ final class Free_Template extends \DediData\Singleton {
 			.carousel-control .icon-next,
 			.navbar,
 			.mejs-container *{
-				font-family: '. $locale_settings['font'] .', Tahoma, Arial, Helvetica, sans-serif !important;
+				font-family: ' . $locale_settings['font'] . ', Tahoma, Arial, Helvetica, sans-serif !important;
 				letter-spacing: normal !important;
 				line-height: normal;
 				font-size: 15px;
@@ -728,13 +729,13 @@ final class Free_Template extends \DediData\Singleton {
 			.jumbotron h5,
 			.jumbotron h6,
 			h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h5, .h5, h6, .h6{
-				font-family: '. $locale_settings['font'] .', Arial, sans-serif !important;
+				font-family: ' . $locale_settings['font'] . ', Arial, sans-serif !important;
 				font-weight: bold;
 				line-height: normal;
 				letter-spacing: normal !important;
 			}
 		';
-		if(isset($locale_settings['extra_style'])){
+		if ( isset( $locale_settings['extra_style'] ) ) {
 			$custom_style .= $locale_settings['extra_style'];
 		}
 		wp_add_inline_style( 'theme-style', $custom_style );
@@ -742,18 +743,24 @@ final class Free_Template extends \DediData\Singleton {
 
 	/**
 	 * Prints title
+	 * 
+	 * @return void
 	 */
-	static function print_title(){
-		if(is_archive()){
+	public static function print_title() {
+		if ( is_archive() ) {
 			$archive_title = get_the_archive_title();
-			$archive_title =  strip_tags(str_replace(substr($archive_title, 0, strpos($archive_title, ':') + 1 ),'',$archive_title)); ?>
-			<h1 class="page-title"><?php echo esc_html($archive_title); ?></h1>
-		<?php
-		}elseif(is_tag()){ ?>
-			<h1 class="page-title"><?php single_tag_title(); ?></h1><?php
-		}else{
-			$icons = FREE_TEMPLATE()::get_post_icon(); ?>
-			<h1 class="page-title"><?php echo(trim($icons . esc_html(strip_tags(get_the_title())))); ?></h1><?php
+			$archive_title = wp_strip_all_tags( str_replace( substr( $archive_title, 0, strpos( $archive_title, ':' ) + 1 ), '', $archive_title ) ); ?>
+			<h1 class="page-title"><?php echo esc_html( $archive_title ); ?></h1>
+			<?php
+		} elseif ( is_tag() ) {
+			?>
+			<h1 class="page-title"><?php single_tag_title(); ?></h1>
+			<?php
+		} else {
+			$icons = FREE_TEMPLATE()::get_post_icon();
+			?>
+			<h1 class="page-title"><?php echo( trim( $icons . esc_html( strip_tags( get_the_title() ) ) ) ); ?></h1>
+			<?php
 		}
 	}
 	

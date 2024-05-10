@@ -30,7 +30,7 @@ final class Free_Template extends \DediData\Singleton {
 		add_filter( 'comment_form_defaults', array( $this, 'bootstrap3_comment_form' ) );
 		add_filter( 'widget_nav_menu_args', array( $this, 'add_div_nav_widget' ) );
 		add_filter( 'body_class', array( $this, 'body_classes' ) );
-		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'image_item_add_title' ), 10, 2 );
+		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'image_item_add_title' ), 10, 1 );
 		add_filter( 'excerpt_length', array( $this, 'custom_excerpt_length' ), 999 );
 
 		// Check if WooCommerce is active
@@ -742,136 +742,103 @@ final class Free_Template extends \DediData\Singleton {
 	}
 
 	/**
-	 * Prints title
-	 * 
-	 * @return void
-	 */
-	public static function print_title() {
-		if ( is_archive() ) {
-			$archive_title = get_the_archive_title();
-			$archive_title = wp_strip_all_tags( str_replace( substr( $archive_title, 0, strpos( $archive_title, ':' ) + 1 ), '', $archive_title ) ); ?>
-			<h1 class="page-title"><?php echo esc_html( $archive_title ); ?></h1>
-			<?php
-		} elseif ( is_tag() ) {
-			?>
-			<h1 class="page-title"><?php single_tag_title(); ?></h1>
-			<?php
-		} else {
-			$icons = FREE_TEMPLATE()::get_post_icon();
-			?>
-			<h1 class="page-title"><?php echo( trim( $icons . esc_html( strip_tags( get_the_title() ) ) ) ); ?></h1>
-			<?php
-		}
-	}
-	
-	/**
-	 * Get the post icon
-	 */
-	static function get_post_icon(){
-		$sticky = is_sticky() ? '<i class="sticky-icon fa fa-thumb-tack fa-lg"></i>' : '';
-		$posttypeicon = '';
-		if (get_post_format() == 'image'){
-			$posttypeicon = '<i class="fa fa-file-image-o fa-fw" aria-hidden="true"></i> ';
-		}elseif (get_post_format() == 'gallery'){
-			$posttypeicon = '<i class="fa fa-picture-o fa-fw" aria-hidden="true"></i> ';
-		}elseif (get_post_format() == 'video'){
-			$posttypeicon = '<i class="fa fa-file-video-o fa-fw" aria-hidden="true"></i> ';
-		}elseif (get_post_format() == 'audio'){
-			$posttypeicon = '<i class="fa fa-file-audio-o fa-fw" aria-hidden="true"></i> ';
-		}elseif (get_post_format() == 'chat'){
-			$posttypeicon = '<i class="fa fa-comments fa-fw" aria-hidden="true"></i> ';
-		}elseif (get_post_format() == 'status'){
-			$posttypeicon = '<i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> ';
-		}elseif (get_post_format() == 'status'){
-			$posttypeicon = '<i class="fa fa-link fa-fw" aria-hidden="true"></i> ';
-		}elseif (get_post_format() == 'quote'){
-			$posttypeicon = '<i class="fa fa-quote-right fa-fw" aria-hidden="true"></i> ';
-		}elseif (get_post_format() == 'aside'){
-			$posttypeicon = '<i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i> ';
-		}
-		$icons = $sticky . $posttypeicon;
-		
-		return $icons;
-	}
-	
-	/**
 	 * Replaces "[...]" (appended to automatically generated excerpts) with ... and a 'Continue reading' link.
+	 * 
 	 * @param string $link Link to single post/page.
 	 * @return string 'Continue reading' link prepended with an ellipsis.
 	 */
-	public function excerpt_more( $link ) {
+	public function excerpt_more( string $link ) {
 		if ( is_admin() ) {
 			return $link;
 		}
 
-		$link = sprintf( '<p class="link-more"><a href="%1$s" class="more-link btn btn-default" title="%2$s" data-toggle="tooltip" data-placement="bottom" aria-hidden="true"><span class="fa fa-eye"></span> ' . esc_html__( 'Continue reading', 'free-template' ) . '</a></p>',
+		$link = sprintf(
+			'<p class="link-more"><a href="%1$s" class="more-link btn btn-default" title="%2$s" data-toggle="tooltip" data-placement="bottom" aria-hidden="true"><span class="fa fa-eye"></span> ' . esc_html__( 'Continue reading', 'free-template' ) . '</a></p>',
 			esc_url( get_permalink( get_the_ID() ) ),
-			esc_attr(get_the_title())
+			esc_attr( get_the_title() )
 		);
 		return ' &hellip; ' . $link;
 	}
-
+	
 	/**
 	 * Filter wp_link_pages to wrap current page
 	 *
-	 * @param $link
+	 * @param string $link The link.
 	 * @return string
 	 */
-	public function bs_link_pages( $link ) {
+	public function bs_link_pages( string $link ) {
 		if ( ctype_digit( $link ) ) {
 			return '<li class="active"><span aria-hidden="true">' . $link . '</span></li>';
 		}
 		return '<li>' . $link . '</li>';
 	}
 
-	// Add prev and next links to a numbered page link list
-	public function wp_link_pages_args_prev_next_add($args){
-		global $page, $numpages, $more, $pagenow;
+	/**
+	 * Add prev and next links to a numbered page link list
+	 *
+	 * @param array<mixed> $args Arguments.
+	 * @return array<mixed>
+	 * @SuppressWarnings(PHPMD.Superglobals)
+	 */
+	public function wp_link_pages_args_prev_next_add( $args ) {
+		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+		$page = $GLOBALS['page'];
+		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+		$numpages = $GLOBALS['numpages'];
+		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+		$more = $GLOBALS['more'];
 
-		if (!$args['next_or_number'] == 'next_and_number')
-			return $args; # exit early
-
-		$args['next_or_number'] = 'number'; # keep numbering for the main part
-		if (!$more)
-			return $args; # exit early
-
-		//<li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
-
-		if($page-1) {# there is a previous page
-			$args['before'] .= '<li>' . _wp_link_page($page-1) . $args['link_before']. '<span aria-hidden="true">' . $args['previouspagelink'] . '</span>' . $args['link_after'] . '</a></li>';
-		}else{
-			$args['before'] .= '<li class="disabled">' . $args['link_before'] . '<span aria-hidden="true">' . $args['previouspagelink'] . '</span>' . $args['link_after'] . '</li>';
+		if ( 'next_and_number' !== $args['next_or_number'] ) {
+			return $args;
 		}
 
-		if ($page<$numpages){ # there is a next page
-			$args['after'] = '<li>' . _wp_link_page($page+1) . $args['link_before'] . '<span aria-hidden="true">' . $args['nextpagelink'] . '</span>' . $args['link_after'] . '</a>' . $args['after'];
-		}else{
-			$args['after'] = '<li class="disabled">' . $args['link_before'] . '<span aria-hidden="true">' . $args['nextpagelink'] . '</span>' . $args['link_after'] . $args['after'];
+		// keep numbering for the main part
+		$args['next_or_number'] = 'number';
+		if ( ! $more ) {
+			return $args;
+		}
+
+		// <li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
+
+		// there is a previous page
+		$args['before'] .= '<li class="disabled">' . $args['link_before'] . '<span aria-hidden="true">' . $args['previouspagelink'] . '</span>' . $args['link_after'] . '</li>';
+		if ( $page - 1 ) {
+			$args['before'] .= '<li>' . _wp_link_page( $page - 1 ) . $args['link_before'] . '<span aria-hidden="true">' . $args['previouspagelink'] . '</span>' . $args['link_after'] . '</a></li>';
+		}
+
+		$args['after'] = '<li class="disabled">' . $args['link_before'] . '<span aria-hidden="true">' . $args['nextpagelink'] . '</span>' . $args['link_after'] . $args['after'];
+		// there is a next page
+		if ( $page < $numpages ) {
+			$args['after'] = '<li>' . _wp_link_page( $page + 1 ) . $args['link_before'] . '<span aria-hidden="true">' . $args['nextpagelink'] . '</span>' . $args['link_after'] . '</a>' . $args['after'];
 		}
 
 		return $args;
 	}
 
+	/**
+	 * Generates HTML form fields for the comment form in a WordPress theme using Bootstrap 3 styling.
+	 * 
+	 * @param array<string> $fields The function is used to customize the comment form fields.
+	 * @return array<string> of form fields for a comment form in a Bootstrap 3 styled format.
+	 */
 	public function bootstrap3_comment_form_fields( $fields ) {
 		$commenter = wp_get_current_commenter();
 
-		$req      = intval(get_option( 'require_name_email' ));
+		$req      = intval( get_option( 'require_name_email' ) );
 		$aria_req = ( $req ? " aria-required='true'" : '' );
-		$html5    = current_theme_supports( 'html5', 'comment-form' ) ? 1 : 0;
-
-		$fields   =  array(
+		$fields   = array(
 			'author' => '<div class="form-group has-feedback comment-form-author">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa-lg"></i></span>
-									<input placeholder="' . esc_attr__( 'Name', 'free-template' ) .( $req ? ' *' : '' ) . '" class="form-control" id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" required="required" data-error="' . esc_html__('Please enter your name!', 'free-template') . '"' . $aria_req . ' />
-								</div>
-								<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-								<div class="help-block with-errors"></div>
-							</div>',
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa-lg"></i></span>
+								<input placeholder="' . esc_attr__( 'Name', 'free-template' ) . ( $req ? ' *' : '' ) . '" class="form-control" id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" required="required" data-error="' . esc_attr__( 'Please enter your name!', 'free-template' ) . '"' . $aria_req . ' />
+							</div>
+							<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+							<div class="help-block with-errors"></div>
+						</div>',
 			'email'  => '<div class="form-group has-feedback comment-form-email">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-at fa-lg"></i></span>
-									<input placeholder="' . esc_attr__( 'Email', 'free-template' ) . ( $req ? ' *' : '' ) . '" style="direction: ltr;" class="form-control" id="email" name="email" type="email" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" required="required" data-error="' . esc_html__('Please enter your email address!', 'free-template') . '"' . $aria_req . ' />
+									<input placeholder="' . esc_attr__( 'Email', 'free-template' ) . ( $req ? ' *' : '' ) . '" style="direction: ltr;" class="form-control" id="email" name="email" type="email" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30" required="required" data-error="' . esc_attr__( 'Please enter your email address!', 'free-template' ) . '"' . $aria_req . ' />
 								</div>
 								<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								<div class="help-block with-errors"></div>
@@ -879,7 +846,7 @@ final class Free_Template extends \DediData\Singleton {
 			'url'    => '<div class="form-group has-feedback comment-form-url">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-globe fa-lg"></i></span>
-									<input placeholder="' . esc_attr__( 'Website', 'free-template' ) . '" style="direction: ltr;" class="form-control" id="url" name="url" type="url" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" data-error="' . esc_html__('Please enter a valid website starting with http:// on nothing!', 'free-template') . '" />
+									<input placeholder="' . esc_attr__( 'Website', 'free-template' ) . '" style="direction: ltr;" class="form-control" id="url" name="url" type="url" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" data-error="' . esc_attr__( 'Please enter a valid website starting with http:// on nothing!', 'free-template' ) . '" />
 								</div>
 								<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								<div class="help-block with-errors"></div>
@@ -889,33 +856,46 @@ final class Free_Template extends \DediData\Singleton {
 		return $fields;
 	}
 
+	/**
+	 * Customizes the comment form in WordPress using Bootstrap 3 styling.
+	 * 
+	 * @param array<string> $args Contains various settings and configurations for the comment form.
+	 * @return array<string>
+	 */
 	public function bootstrap3_comment_form( $args ) {
 		$args['comment_field'] = '
-											<div class="form-group has-feedback comment-form-comment">
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-comments fa-lg"></i></span>
-													<textarea placeholder="' . esc_attr__( 'Comment', 'free-template' ) . '" class="form-control" id="comment" name="comment" cols="45" rows="8" required="required" data-error="' . esc_html__('Please enter your comment!', 'free-template') . '"></textarea>
-												</div>
-												<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-												<div class="help-block with-errors"></div>
-											</div>';
-		$args['class_submit'] = 'btn btn-default'; // since WP 4.1
+			<div class="form-group has-feedback comment-form-comment">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-comments fa-lg"></i></span>
+					<textarea placeholder="' . esc_attr__( 'Comment', 'free-template' ) . '" class="form-control" id="comment" name="comment" cols="45" rows="8" required="required" data-error="' . esc_attr__( 'Please enter your comment!', 'free-template' ) . '"></textarea>
+				</div>
+				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+				<div class="help-block with-errors"></div>
+			</div>';
+		// since WP 4.1
+		$args['class_submit'] = 'btn btn-default';
 
 		return $args;
 	}
 
+	/**
+	 * Modifies the arguments for a navigation menu widget in WordPress.
+	 * 
+	 * @param array<mixed> $args Contains various settings and configurations for a navigation menu widget.
+	 * @return array<mixed>
+	 */
 	public function add_div_nav_widget( $args ) {
 		$args['menu_class'] = 'nav nav-stacked';
-		//$args['fallback_cb'] = 'WP_Bootstrap_Navwalker::fallback';
-		$args['walker'] = new WP_Bootstrap_Widget_Navwalker();
+		// $args['fallback_cb'] = 'WP_Bootstrap_Nav_Walker::fallback';
+		$args['walker'] = new WP_Bootstrap_Widget_Nav_Walker();
 		return $args;
 	}
 
 	/**
 	 * Adds custom classes to the array of body classes.
 	 *
-	 * @param array $classes Classes for the body element.
-	 * @return array
+	 * @param array<string> $classes Classes for the body element.
+	 * @return array<string>
 	 */
 	public function body_classes( $classes ) {
 		// Add class of group-blog to blogs with more than 1 published author.
@@ -930,12 +910,12 @@ final class Free_Template extends \DediData\Singleton {
 
 		// Add class if we're viewing the Customizer for easier styling of theme options.
 		if ( is_customize_preview() ) {
-			$classes[] = 'free-template' . '-customizer';
+			$classes[] = 'free-template-customizer';
 		}
 		
 		$classes[] = esc_html( get_theme_mod( 'bootstrap_theme_name' ) ) . '-theme';
 
-		if( ! (has_nav_menu( 'primary' ) or get_theme_mod('display_login_link') ) ) {
+		if ( ! ( has_nav_menu( 'primary' ) || get_theme_mod( 'display_login_link' ) ) ) {
 			$classes[] = 'non-top-menu';
 		}
 		
@@ -945,50 +925,63 @@ final class Free_Template extends \DediData\Singleton {
 	/**
 	 * Filter attributes for the current gallery image tag.
 	 *
-	 * @param array   $atts       Gallery image tag attributes.
-	 * @param WP_Post $attachment WP_Post object for the attachment.
-	 * @return array (maybe) filtered gallery image tag attributes.
+	 * @param array<mixed> $attr Gallery image tag attributes.
+	 * @return array<mixed> filtered gallery image tag attributes.
 	 */
-	public function image_item_add_title( $atts, $attachment ) {
-		if($atts['alt'] !== ''){
-			$atts['title'] = $atts['alt'];
+	public function image_item_add_title( $attr ) {
+		if ( '' !== $attr['alt'] ) {
+			$attr['title'] = $attr['alt'];
 		}
-		return $atts;
+		return $attr;
 	}
 
 	/**
 	 * Filter the except length to 45 words.
 	 *
-	 * @param int $length Excerpt length.
-	 * @return int (Maybe) modified excerpt length.
+	 * @param integer $length Excerpt length.
+	 * @return integer (Maybe) modified excerpt length.
 	 */
-	public function custom_excerpt_length( $length ) {
-		if ( ! is_admin() ) {
-			return 75;
+	public function custom_excerpt_length( int $length ) {
+		if ( is_admin() ) {
+			return $length;
 		}
+		return 75;
 	}
 
-	public function order_by_stock_status($posts_clauses){
-		global $wpdb;
+	/**
+	 * The function modifies the SQL query clauses to order WooCommerce products by stock status.
+	 * 
+	 * @param array<mixed> $posts_clauses An array that contains various parts of the SQL query.
+	 * @return array<mixed> Modifies the SQL query clauses for ordering posts.
+	 * @SuppressWarnings(PHPMD.Superglobals)
+	 */
+	public function order_by_stock_status( $posts_clauses ) {
+		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+		$wpdb = $GLOBALS['wpdb'];
 		// only change query on WooCommerce loops
-		if (get_queried_object() && !is_admin() && is_woocommerce() && (is_shop() || is_product_category() || is_product_tag())) {
-			$posts_clauses['join'] .= " INNER JOIN $wpdb->postmeta istockstatus ON ($wpdb->posts.ID = istockstatus.post_id) ";
-			$posts_clauses['orderby'] = " istockstatus.meta_value ASC, " . $posts_clauses['orderby'];
-			$posts_clauses['where'] = " AND istockstatus.meta_key = '_stock_status' AND istockstatus.meta_value <> '' " . $posts_clauses['where'];
+		if ( get_queried_object() && ! is_admin() && is_woocommerce() && ( is_shop() || is_product_category() || is_product_tag() ) ) {
+			$posts_clauses['join']   .= " INNER JOIN $wpdb->postmeta istockstatus ON ($wpdb->posts.ID = istockstatus.post_id) ";
+			$posts_clauses['orderby'] = ' istockstatus.meta_value ASC, ' . $posts_clauses['orderby'];
+			$posts_clauses['where']   = " AND istockstatus.meta_key = '_stock_status' AND istockstatus.meta_value <> '' " . $posts_clauses['where'];
 		}
 		return $posts_clauses;
 	}
 
-	/* change custom background */
+	/**
+	 * Generates custom background styles and header text colors.
+	 * 
+	 * @return mixed a custom background style.
+	 */
 	public function change_custom_background_cb() {
-		$background = get_background_image();
-		$color = get_background_color();
+		$background     = get_background_image();
+		$color          = get_background_color();
 		$head_txt_color = get_header_textcolor();
-		if($head_txt_color == 'blank'){
+		if ( 'blank' === $head_txt_color ) {
 			$head_txt_color = 'fff';
 		}
-		if ( ! $background && ! $color )
+		if ( ! $background && ! $color ) {
 			return;
+		}
 
 		$style = $color ? "background-color: #$color !important;" : '';
 
@@ -997,30 +990,34 @@ final class Free_Template extends \DediData\Singleton {
 
 			$repeat = get_theme_mod( 'background_repeat', 'repeat' );
 
-			if ( ! in_array( $repeat, array( 'no-repeat', 'repeat-x', 'repeat-y', 'repeat' ) ) )
+			if ( ! in_array( $repeat, array( 'no-repeat', 'repeat-x', 'repeat-y', 'repeat' ), true ) ) {
 				$repeat = 'repeat';
+			}
 
 			$repeat = " background-repeat: $repeat !important;";
 
 			$position = get_theme_mod( 'background_position_x', 'left' );
 
-			if ( ! in_array( $position, array( 'center', 'right', 'left' ) ) )
+			if ( ! in_array( $position, array( 'center', 'right', 'left' ), true ) ) {
 				$position = 'left';
+			}
 
 			$position = " background-position: top $position !important;";
 
 			$attachment = get_theme_mod( 'background_attachment', 'scroll' );
 
-			if ( ! in_array( $attachment, array( 'fixed', 'scroll' ) ) )
+			if ( ! in_array( $attachment, array( 'fixed', 'scroll' ), true ) ) {
 				$attachment = 'scroll';
+			}
 
 			$attachment = " background-attachment: $attachment !important;";
 
 			$style .= $image . $repeat . $position . $attachment;
-		}
+		}//end if
 		?>
 		<style type="text/css" id="custom-background-css">
-			body.custom-background { <?php echo trim( $style ); // xss ok ?>
+			body.custom-background {
+				<?php echo esc_html( trim( $style ) ); ?>
 				-webkit-background-size: cover !important;
 				-moz-background-size: cover !important;
 				-o-background-size: cover !important;
@@ -1035,16 +1032,71 @@ final class Free_Template extends \DediData\Singleton {
 			#top-menu.in-top ul.megamenu>li>a,
 			#top-menu.in-top #top-menu-side>li>a,
 			#top-menu.in-top .navbar-header a{
-				color: #<?php echo esc_html($head_txt_color); // xss ok ?>;
+				color: #<?php echo esc_html( $head_txt_color ); ?>;
 			}
 			#top-menu.in-top .icon-bar{
-				background-color: #<?php echo esc_html($head_txt_color); // xss ok ?>;
+				background-color: #<?php echo esc_html( $head_txt_color ); ?>;
 			}
 		</style>
 		<?php
 	}
+
+	/**
+	 * Prints title
+	 * 
+	 * @return void
+	 */
+	public static function print_title() {
+		if ( is_archive() ) {
+			$archive_title = get_the_archive_title();
+			$archive_title = wp_strip_all_tags( str_replace( substr( $archive_title, 0, strpos( $archive_title, ':' ) + 1 ), '', $archive_title ) );
+			?>
+			<h1 class="page-title"><?php echo esc_html( $archive_title ); ?></h1>
+			<?php
+		} elseif ( is_tag() ) {
+			?>
+			<h1 class="page-title"><?php single_tag_title(); ?></h1>
+			<?php
+		} elseif ( ! is_archive() && ! is_tag() ) {
+			$icons = FREE_TEMPLATE()::get_post_icon();
+			?>
+			<h1 class="page-title"><?php echo esc_html( trim( $icons . wp_strip_all_tags( get_the_title() ) ) ); ?></h1>
+			<?php
+		}
+	}
 	
-	static function login_link_texts(){
+	/**
+	 * Get the post icon
+	 * 
+	 * @return string
+	 */
+	public static function get_post_icon() {
+		$sticky         = is_sticky() ? '<i class="sticky-icon fa fa-thumb-tack fa-lg"></i>' : '';
+		$post_type_icon = '';
+		if ( 'image' === get_post_format() ) {
+			$post_type_icon = '<i class="fa fa-file-image-o fa-fw" aria-hidden="true"></i>';
+		} elseif ( 'gallery' === get_post_format() ) {
+			$post_type_icon = '<i class="fa fa-picture-o fa-fw" aria-hidden="true"></i>';
+		} elseif ( 'video' === get_post_format() ) {
+			$post_type_icon = '<i class="fa fa-file-video-o fa-fw" aria-hidden="true"></i>';
+		} elseif ( 'audio' === get_post_format() ) {
+			$post_type_icon = '<i class="fa fa-file-audio-o fa-fw" aria-hidden="true"></i>';
+		} elseif ( 'chat' === get_post_format() ) {
+			$post_type_icon = '<i class="fa fa-comments fa-fw" aria-hidden="true"></i>';
+		} elseif ( 'status' === get_post_format() ) {
+			$post_type_icon = '<i class="fa fa-info-circle fa-fw" aria-hidden="true"></i>';
+		} elseif ( 'status' === get_post_format() ) {
+			$post_type_icon = '<i class="fa fa-link fa-fw" aria-hidden="true"></i>';
+		} elseif ( 'quote' === get_post_format() ) {
+			$post_type_icon = '<i class="fa fa-quote-right fa-fw" aria-hidden="true"></i>';
+		} elseif ( 'aside' === get_post_format() ) {
+			$post_type_icon = '<i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>';
+		}
+		
+		return $sticky . $post_type_icon;
+	}
+
+	public static function login_link_texts(){
 		return array(
 			'Login'				=> esc_html__('Login', 'free-template'),
 			'Customer Panel'	=> esc_html__('Customer Panel', 'free-template'),

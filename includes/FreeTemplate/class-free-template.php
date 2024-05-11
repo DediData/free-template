@@ -465,8 +465,8 @@ final class Free_Template extends \DediData\Singleton {
 		wp_script_add_data( 'html5shiv', 'conditional', 'lt IE 9' );
 
 		// print shiv js
-		wp_enqueue_script( 'html5shiv-printshiv', get_stylesheet_directory_uri() . '/assets/html5shiv/html5shiv-printshiv.min.js', array(), '3.7.3', true );
-		wp_script_add_data( 'html5shiv-printshiv', 'conditional', 'lt IE 9' );
+		wp_enqueue_script( 'html5shiv-print-shiv', get_stylesheet_directory_uri() . '/assets/html5shiv/html5shiv-print-shiv.min.js', array(), '3.7.3', true );
+		wp_script_add_data( 'html5shiv-print-shiv', 'conditional', 'lt IE 9' );
 
 		// respond
 		wp_enqueue_script( 'respond', get_stylesheet_directory_uri() . '/assets/respond/respond.min.js', array(), '1.4.2', true );

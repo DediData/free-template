@@ -34,7 +34,8 @@ final class Free_Template extends \DediData\Singleton {
 		add_filter( 'excerpt_length', array( $this, 'custom_excerpt_length' ), 999 );
 
 		// Check if WooCommerce is active
-		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+		if ( in_array( 'woocommerce/woocommerce.php', $active_plugins, true ) ) {
 			// Order product collections by stock status, in stock products first.
 			add_filter( 'posts_clauses', array( $this, 'order_by_stock_status' ), 2000 );
 		}
@@ -1096,49 +1097,75 @@ final class Free_Template extends \DediData\Singleton {
 		return $sticky . $post_type_icon;
 	}
 
-	public static function login_link_texts(){
+	/**
+	 * Returns an array of login link texts with corresponding translations.
+	 * 
+	 * @return array<mixed> An array of login link texts with corresponding translations.
+	 */
+	public static function login_link_texts() {
 		return array(
-			'Login'				=> esc_html__('Login', 'free-template'),
-			'Customer Panel'	=> esc_html__('Customer Panel', 'free-template'),
-			'Customer Login'	=> esc_html__('Customer Login', 'free-template'),
-			'Management'		=> esc_html__('Management', 'free-template'),
-			'Administration'	=> esc_html__('Administration', 'free-template'),
+			'Login'          => esc_html__( 'Login', 'free-template' ),
+			'Customer Panel' => esc_html__( 'Customer Panel', 'free-template' ),
+			'Customer Login' => esc_html__( 'Customer Login', 'free-template' ),
+			'Management'     => esc_html__( 'Management', 'free-template' ),
+			'Administration' => esc_html__( 'Administration', 'free-template' ),
 		);
 	}
 
-	/****** CONTENT FUNCTIONS ******/
-
-	public static function validate_comment_form(){
+	/**
+	 * Modifies the comment form output to include data validation attributes.
+	 * 
+	 * @return void
+	 */
+	public static function validate_comment_form() {
 		ob_start();
 		comment_form();
-		echo str_replace('novalidate','data-toggle="validator" ',ob_get_clean()); // xss ok
+		echo str_replace( 'novalidate', 'data-toggle="validator" ', ob_get_clean() );
 	}
 
+	/**
+	 * Generates paginated navigation links for comments.
+	 * 
+	 * @param array<mixed> $args Is used to display pagination links for comments in WordPress.
+	 * @return void
+	 */
 	public static function comments_pagination( $args = array() ) {
-		$navigation = '';
+		$navigation   = '';
 		$args['echo'] = false;
-		$links = paginate_comments_links( $args );
+		$links        = paginate_comments_links( $args );
 		if ( $links ) {
 			$navigation = _navigation_markup( $links, 'comments-pagination', '' );
 		}
-		$navigation = str_replace("ul class='" , "ul class='pagination ", $navigation);
-		$navigation = str_replace("<li><span class='page-numbers current'" , "<li class='active'><span class='page-numbers current'", $navigation);
-		echo $navigation; // xss ok
+		$navigation = str_replace( "ul class='", "ul class='pagination ", $navigation );
+		$navigation = str_replace( "<li><span class='page-numbers current'", "<li class='active'><span class='page-numbers current'", $navigation );
+		echo $navigation;
 	}
 
+	/**
+	 * Generates pagination links for WordPress posts with custom styling adjustments.
+	 * 
+	 * @param array<mixed> $args Used to customize the pagination output.
+	 * @return void
+	 * @SuppressWarnings(PHPMD.Superglobals)
+	 */
 	public static function posts_pagination( $args = array() ) {
 		$navigation = '';
 
 		// Don't print empty markup if there's only one page.
-		if ( $GLOBALS['wp_query']->max_num_pages > 1 ) {
-			$args = wp_parse_args( $args, array(
-				'mid_size'           => 1,
-				'prev_text'          => esc_html__( 'Previous', 'free-template' ),
-				'next_text'          => esc_html__( 'Next', 'free-template' ),
-			) );
+		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+		$wp_query = $GLOBALS['wp_query'];
+		if ( $wp_query->max_num_pages > 1 ) {
+			$args = wp_parse_args(
+				$args,
+				array(
+					'mid_size'  => 1,
+					'prev_text' => esc_html__( 'Previous', 'free-template' ),
+					'next_text' => esc_html__( 'Next', 'free-template' ),
+				)
+			);
 
 			// Make sure we get a string back. Plain is the next best thing.
-			if ( isset( $args['type'] ) && 'array' == $args['type'] ) {
+			if ( isset( $args['type'] ) && 'array' === $args['type'] ) {
 				$args['type'] = 'plain';
 			}
 
@@ -1148,11 +1175,11 @@ final class Free_Template extends \DediData\Singleton {
 			if ( $links ) {
 				$navigation = _navigation_markup( $links, 'posts-pagination', '' );
 			}
-		}
+		}//end if
 
-		$navigation = str_replace("ul class='" , "ul class='pagination ", $navigation);
-		$navigation = str_replace("<li><span class='page-numbers current'" , "<li class='active'><span class='page-numbers current'", $navigation);
-		echo $navigation; // xss ok
+		$navigation = str_replace( "ul class='", "ul class='pagination ", $navigation );
+		$navigation = str_replace( "<li><span class='page-numbers current'", "<li class='active'><span class='page-numbers current'", $navigation );
+		echo $navigation;
 	}
 
 	/**
@@ -1162,13 +1189,15 @@ final class Free_Template extends \DediData\Singleton {
 	 * (post or page?) so that users understand a bit more where they are in terms
 	 * of the template hierarchy and their content. Helpful when/if the single-page
 	 * layout with multiple posts/pages shown gets confusing.
+	 * 
+	 * @return false
 	 */
 	public static function edit_link() {
 		edit_post_link(
 			sprintf(
 				/* translators: %s: Name of current post */
 				'<i class="fa fa-pencil-square-o fa-lg" data-toggle="tooltip" data-placement="top" title="%s" aria-hidden="true"></i>',
-				esc_attr( __('Edit ', 'free-template') . get_the_title() )
+				esc_attr( __( 'Edit ', 'free-template' ) . get_the_title() )
 			),
 			'<span class="edit-link">',
 			'</span>'
@@ -1176,64 +1205,84 @@ final class Free_Template extends \DediData\Singleton {
 		return false;
 	}
 	
-	// Prints HTML with meta information for the current post-date/time and author.
+	/**
+	 * Prints HTML with meta information for the current post-date/time and author.
+	 * 
+	 * @return void
+	 * @SuppressWarnings(PHPMD.Superglobals)
+	 */
 	public static function posted_on() {
-		global $wpp_settings;
-		$time_string = '<time class="entry-date published" title="'. esc_html__('Posted on', 'free-template') .'" data-toggle="tooltip" data-placement="bottom" datetime="%1$s">%2$s</time>';
-
-		if( in_array( 'wp-parsidate/wp-parsidate.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) && isset($wpp_settings) && $wpp_settings['persian_date'] == 'enable' ) {
-			$time_string = sprintf( $time_string,
-				gregdate(DATE_W3C, eng_number(get_the_date( DATE_W3C ))),
-				get_the_date()
-			);
-		}else{
-			$time_string = sprintf( $time_string,
-				get_the_date( DATE_W3C ),
+		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+		$wpp_settings   = $GLOBALS['wpp_settings'];
+		$time_string    = '<time class="entry-date published" title="' . esc_attr__( 'Posted on', 'free-template' ) . '" data-toggle="tooltip" data-placement="bottom" datetime="%1$s">%2$s</time>';
+		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+		$time_string    = sprintf(
+			$time_string,
+			get_the_date( \DATE_W3C ),
+			get_the_date()
+		);
+		if (
+			in_array( 'wp-parsidate/wp-parsidate.php', $active_plugins, true ) &&
+			isset( $wpp_settings ) &&
+			'enable' === $wpp_settings['persian_date']
+		) {
+			$time_string = sprintf(
+				$time_string,
+				gregdate( \DATE_W3C, eng_number( get_the_date( \DATE_W3C ) ) ),
 				get_the_date()
 			);
 		}
-
 		// Finally, let's write all of this to the page.
 		?>
 		<span class="posted-on">
-			<i class="fa fa-calendar" aria-hidden="true" title="<?php esc_attr_e('Posted on', 'free-template'); ?>" data-toggle="tooltip" data-placement="bottom"></i> 
-			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo $time_string; // xss ok ?></a>
+			<i class="fa fa-calendar" aria-hidden="true" title="<?php esc_attr_e( 'Posted on', 'free-template' ); ?>" data-toggle="tooltip" data-placement="bottom"></i> 
+			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo esc_html( $time_string ); ?></a>
 		</span>
 		<?php
 	}
 
-	// Prints HTML with meta information for the current post-date/time and author.
+	/**
+	 * Prints HTML with meta information for the current post-date/time and author.
+	 * 
+	 * @return void
+	 */ 
 	public static function modified_on() {
-		$time_string = '<time class="entry-date updated" title="' . esc_html__('Updated on', 'free-template') .'" data-toggle="tooltip" data-placement="bottom" datetime="%1$s">%2$s</time>';
-		$time_string = sprintf( $time_string,
-			get_the_modified_date( DATE_W3C ),
+		$time_string = '<time class="entry-date updated" title="' . esc_attr__( 'Updated on', 'free-template' ) . '" data-toggle="tooltip" data-placement="bottom" datetime="%1$s">%2$s</time>';
+		$time_string = sprintf(
+			$time_string,
+			get_the_modified_date( \DATE_W3C ),
 			get_the_modified_date()
 		);
 
 		// Finally, let's write all of this to the page.
 		?>
 		<span class="modified-on">
-			<i class="fa fa-pencil fa-lg" aria-hidden="true" title="<?php esc_attr_e('Updated on', 'free-template'); ?>" data-toggle="tooltip" data-placement="bottom"></i>
-			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo $time_string; // xss ok ?></a>
+			<i class="fa fa-pencil fa-lg" aria-hidden="true" title="<?php esc_attr_e( 'Updated on', 'free-template' ); ?>" data-toggle="tooltip" data-placement="bottom"></i>
+			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo esc_html( $time_string ); ?></a>
 		</span>
 		<?php
 	}
 	
-	public static function get_post_image($size = 'thumbnail') {
-		global $post, $posts;
-		$image_url = null;
-		$attachments = get_attached_media( 'image');
-		if($attachments){
-			$image_url = wp_get_attachment_image_src(current($attachments)->ID, $size)[0];
-			// $image_url = (isset($matches [1][0]))? $matches [1][0] : get_template_directory_uri() . "/assets/images/content-image.png";
-			$image_url = trim($image_url);
-		}elseif(has_post_thumbnail()) {
-			$image_id = get_post_thumbnail_id();
-			$image_url = wp_get_attachment_image_src($image_id, $size);
+	/**
+	 * Retrieves the URL of a post's featured image or a default image if none is set.
+	 * 
+	 * @param string $size Used to specify the size of the image that should be retrieved.
+	 * @return string The URL of the post image in the specified size
+	 */
+	public static function get_post_image( string $size = 'thumbnail' ) {
+		$image_url   = null;
+		$attachments = get_attached_media( 'image' );
+		if ( $attachments ) {
+			$image_url = wp_get_attachment_image_src( current( $attachments )->ID, $size )[0];
+			// $image_url = isset( $matches[1][0] ) ? $matches[1][0] : get_template_directory_uri() . "/assets/images/content-image.png";
+			$image_url = trim( $image_url );
+		} elseif ( has_post_thumbnail() ) {
+			$image_id  = get_post_thumbnail_id();
+			$image_url = wp_get_attachment_image_src( $image_id, $size );
 			$image_url = $image_url[0];
 		}
-		$image_url = isset($image_url) ? $image_url : get_template_directory_uri() . "/assets/images/content-image.png";
-		return esc_url($image_url);
+		// phpcs:ignore SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator.RequiredNullCoalesceEqualOperator
+		$image_url = $image_url ?? get_template_directory_uri() . '/assets/images/content-image.png';
+		return esc_url( $image_url );
 	}
-
 }

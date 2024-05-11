@@ -1120,7 +1120,7 @@ final class Free_Template extends \DediData\Singleton {
 	public static function validate_comment_form() {
 		ob_start();
 		comment_form();
-		echo str_replace( 'novalidate', 'data-toggle="validator" ', ob_get_clean() );
+		echo wp_kses_post( str_replace( 'novalidate', 'data-toggle="validator" ', ob_get_clean() ) );
 	}
 
 	/**
@@ -1138,7 +1138,7 @@ final class Free_Template extends \DediData\Singleton {
 		}
 		$navigation = str_replace( "ul class='", "ul class='pagination ", $navigation );
 		$navigation = str_replace( "<li><span class='page-numbers current'", "<li class='active'><span class='page-numbers current'", $navigation );
-		echo $navigation;
+		echo wp_kses_post( $navigation );
 	}
 
 	/**
@@ -1179,7 +1179,7 @@ final class Free_Template extends \DediData\Singleton {
 
 		$navigation = str_replace( "ul class='", "ul class='pagination ", $navigation );
 		$navigation = str_replace( "<li><span class='page-numbers current'", "<li class='active'><span class='page-numbers current'", $navigation );
-		echo $navigation;
+		echo wp_kses_post( $navigation );
 	}
 
 	/**

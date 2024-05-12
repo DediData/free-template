@@ -19,8 +19,8 @@ if (has_nav_menu( 'primary' ) or get_theme_mod('display_login_link') or is_custo
 			'container'				=> '',
 			'container_class'	=> '',
 			'container_id'			=> '',
-			'fallback_cb'			=> '\FreeTemplate\WP_Bootstrap_Navwalker::fallback',
-			'walker'					=> new \FreeTemplate\WP_Bootstrap_Navwalker(),
+			'fallback_cb'			=> '\FreeTemplate\Walker_Bootstrap_Nav::fallback',
+			'walker'					=> new \FreeTemplate\Walker_Bootstrap_Nav(),
 			)
 		); ?>
 		<ul id="top-menu-side" class="nav navbar-nav navbar-right"><?php

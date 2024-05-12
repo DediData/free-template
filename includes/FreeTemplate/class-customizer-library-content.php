@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace FreeTemplate;
 
 if ( ! class_exists( '\WP_Customize_Control' ) ) {
-	return NULL;
+	return null;
 }
 
 class Customizer_Library_Content extends \WP_Customize_Control {

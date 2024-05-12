@@ -8,7 +8,7 @@
 namespace FreeTemplate;
 
 /*
- * Class Name: WP_Bootstrap_Navwalker
+ * Class Name: Walker_Bootstrap_Nav
  * Plugin Name: WP Bootstrap Navwalker
  * Plugin URI:  https://github.com/wp-bootstrap/wp-bootstrap-navwalker
  * Description: A custom WordPress nav walker class to implement the Bootstrap 3 navigation style in a custom theme using the WordPress built in menu manager.
@@ -22,13 +22,13 @@ namespace FreeTemplate;
 */
 
 /* Check if Class Exists. */
-if ( ! class_exists( '\FreeTemplate\WP_Bootstrap_Navwalker' ) ) {
+if ( ! class_exists( '\FreeTemplate\Walker_Bootstrap_Nav_Widget' ) ) {
 	/**
-	 * WP_Bootstrap_Navwalker class.
+	 * Walker_Bootstrap_Nav class.
 	 *
 	 * @extends Walker_Nav_Menu
 	 */
-	class WP_Bootstrap_Navwalker extends \Walker_Nav_Menu {
+	class Walker_Bootstrap_Nav_Widget extends \Walker_Nav_Menu {
 
 		/**
 		 * Starts the list before the elements are added.
@@ -199,11 +199,12 @@ if ( ! class_exists( '\FreeTemplate\WP_Bootstrap_Navwalker' ) ) {
 				$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
 				$atts['target'] = ! empty( $item->target )     ? $item->target     : '';
 				$atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
+				$atts['class'] =  'no-margin-box';
 				// If item has_children add atts to a.
 				if ( $args->has_children && 0 === $depth ) {
 					//$atts['href']   		= '#';
 					$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
-					$atts['class']			= 'dropdownt';
+					$atts['class']			.= ' dropdownt';
 					$atts['data-toggle']	= 'dropdown';
 					$atts['aria-haspopup']	= 'true';
 					$atts['aria-expanded']	= 'false';
@@ -212,13 +213,13 @@ if ( ! class_exists( '\FreeTemplate\WP_Bootstrap_Navwalker' ) ) {
 					$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
 					//$atts['class']   = 'navbar-link';
 					if (0 < $depth){
-						$atts['class']   = ' submenu-link';
+						$atts['class']   .= ' submenu-link';
 					}
 					if ($depth === 1){
-						$atts['class']   .= ' submenu-title-link no-margin-box';
+						$atts['class']   .= ' submenu-title-link';
 					}
 					if ($depth > 1){
-						$atts['class']   .= ' submenu-child-link no-margin-box';
+						$atts['class']   .= ' submenu-child-link';
 					}
 				}
 

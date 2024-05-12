@@ -70,7 +70,7 @@ if ( post_password_required() ) {
 			<?php
 				wp_list_comments(
 					array(
-						'walker'      => new \FreeTemplate\BS_Walker_Comment(),
+						'walker'      => new \FreeTemplate\Walker_Bootstrap_Comment(),
 						'avatar_size' => 100,
 						'style'       => 'ol',
 						'short_ping'  => true,

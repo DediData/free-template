@@ -882,7 +882,7 @@ final class Free_Template extends \DediData\Singleton {
 	public function add_div_nav_widget( $args ) {
 		$args['menu_class'] = 'nav nav-stacked';
 		// $args['fallback_cb'] = 'WP_Bootstrap_Nav_Walker::fallback';
-		$args['walker'] = new \FreeTemplate\WP_Bootstrap_Widget_Nav_Walker();
+		$args['walker'] = new \FreeTemplate\Walker_Bootstrap_Nav_Widget();
 		return $args;
 	}
 

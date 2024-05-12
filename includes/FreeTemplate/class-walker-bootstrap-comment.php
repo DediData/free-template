@@ -9,8 +9,11 @@ declare(strict_types=1);
 
 namespace FreeTemplate;
 
-class BS_Walker_Comment extends \Walker_Comment {
- 
+/**
+ * Class Walker_Bootstrap_Comment
+ */
+class Walker_Bootstrap_Comment extends \Walker_Comment {
+
     /**
      * Outputs a comment in the HTML5 format.
      *

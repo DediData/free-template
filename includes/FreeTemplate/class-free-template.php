@@ -21,8 +21,8 @@ final class Free_Template extends \DediData\Singleton {
 		add_action( 'after_setup_theme', array( $this, 'setup' ) );
 		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all' ) );
-		add_action( 'customize_register', array( 'Free_Template_Customizer', 'register' ) );
-		add_action( 'customize_preview_init', array( 'Free_Template_Customizer', 'live_preview' ) );
+		add_action( 'customize_register', array( '\FreeTemplate\Customizer', 'register' ) );
+		add_action( 'customize_preview_init', array( '\FreeTemplate\Customizer', 'live_preview' ) );
 		add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
 		add_filter( 'wp_link_pages_link', array( $this, 'bs_link_pages' ) );
 		add_filter( 'wp_link_pages_args', array( $this, 'wp_link_pages_args_prev_next_add' ) );
@@ -40,12 +40,12 @@ final class Free_Template extends \DediData\Singleton {
 			add_filter( 'posts_clauses', array( $this, 'order_by_stock_status' ), 2000 );
 		}
 
-		require get_template_directory() . '/inc/megamenu-nav-walker.php';
-		require get_template_directory() . '/inc/megamenu-widget-nav-walker.php';
-		require get_template_directory() . '/inc/megamenu-bottom-nav-walker.php';
-		require get_template_directory() . '/inc/comment-walker.php';
-		require get_template_directory() . '/inc/customizer-library-content.php';
-		require get_template_directory() . '/inc/customizer.php';
+		//require get_template_directory() . '/inc/megamenu-nav-walker.php';
+		//require get_template_directory() . '/inc/megamenu-widget-nav-walker.php';
+		//require get_template_directory() . '/inc/megamenu-bottom-nav-walker.php';
+		//require get_template_directory() . '/inc/comment-walker.php';
+		//require get_template_directory() . '/inc/customizer-library-content.php';
+		//require get_template_directory() . '/inc/customizer.php';
 	}
 	
 	/**
@@ -888,7 +888,7 @@ final class Free_Template extends \DediData\Singleton {
 	public function add_div_nav_widget( $args ) {
 		$args['menu_class'] = 'nav nav-stacked';
 		// $args['fallback_cb'] = 'WP_Bootstrap_Nav_Walker::fallback';
-		$args['walker'] = new WP_Bootstrap_Widget_Nav_Walker();
+		$args['walker'] = new \FreeTemplate\WP_Bootstrap_Widget_Nav_Walker();
 		return $args;
 	}
 
@@ -1236,7 +1236,7 @@ final class Free_Template extends \DediData\Singleton {
 		?>
 		<span class="posted-on">
 			<i class="fa fa-calendar" aria-hidden="true" title="<?php esc_attr_e( 'Posted on', 'free-template' ); ?>" data-toggle="tooltip" data-placement="bottom"></i> 
-			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo esc_html( $time_string ); ?></a>
+			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo wp_kses_post( $time_string ); ?></a>
 		</span>
 		<?php
 	}
@@ -1258,7 +1258,7 @@ final class Free_Template extends \DediData\Singleton {
 		?>
 		<span class="modified-on">
 			<i class="fa fa-pencil fa-lg" aria-hidden="true" title="<?php esc_attr_e( 'Updated on', 'free-template' ); ?>" data-toggle="tooltip" data-placement="bottom"></i>
-			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo esc_html( $time_string ); ?></a>
+			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo wp_kses_post( $time_string ); ?></a>
 		</span>
 		<?php
 	}

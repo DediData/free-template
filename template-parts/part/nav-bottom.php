@@ -17,10 +17,10 @@ if( has_nav_menu( 'bottom' ) or is_customize_preview() ){ ?>
 				'menu_class'			=> 'nav navbar-nav megamenu',
 				'menu_id'				=> '',
 				'container'				=> '',
-				'container_class'	=> '',
+				'container_class'		=> '',
 				'container_id'			=> '',
-				'fallback_cb'			=> 'WP_Bootstrap_Bottom_Navwalker::fallback',
-				'walker'					=> new WP_Bootstrap_Bottom_Navwalker(),
+				'fallback_cb'			=> '\FreeTemplate\WP_Bootstrap_Bottom_Navwalker::fallback',
+				'walker'				=> new \FreeTemplate\WP_Bootstrap_Bottom_Navwalker(),
 				)
 			); ?>
 		</div>

@@ -6,11 +6,15 @@
  * @author      Devin Price
  */
 
-if ( ! class_exists( 'WP_Customize_Control' ) ) {
+declare(strict_types=1);
+
+namespace FreeTemplate;
+
+if ( ! class_exists( '\WP_Customize_Control' ) ) {
 	return NULL;
 }
 
-class Customizer_Library_Content extends WP_Customize_Control {
+class Customizer_Library_Content extends \WP_Customize_Control {
 
 	/**
 	 * Render the control's content.

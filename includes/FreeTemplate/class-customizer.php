@@ -4,7 +4,10 @@
  * 
  * @link http://codex.wordpress.org/Theme_Customization_API
  */
-class Free_Template_Customizer {
+
+namespace FreeTemplate;
+
+class Customizer {
 	
 	static $login_form_systems = array(
 		'WordPress'		=> 'WordPress',
@@ -37,13 +40,13 @@ class Free_Template_Customizer {
 				'default'    		=> 'default',																//Default setting/value to save
 				'type'      		=> 'theme_mod', 														//Is this an 'option' or a 'theme_mod'?
 				'capability'		=> 'edit_theme_options', 											//Optional. Special permissions for accessing this setting.
-				'sanitize_callback'		=> 'Free_Template_Customizer::sanitize_text',
+				'sanitize_callback'		=> '\FreeTemplate\Customizer::sanitize_text',
 				//'transport'	=> 'postMessage', 														//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
 			)
 		);
 		/* Supports basic input types `text`, `checkbox`, `textarea`, `radio`, `select` and `dropdown-pages`.
 		 * Additional input types such as `email`, `url`, `number`, `hidden` and `date` are supported implicitly. */
-		$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize->add_control( new \WP_Customize_Control(
 			$wp_customize, 																					//Pass the $wp_customize object (required)
 			'bootstrap_theme_name', 																	//Set a unique ID for the control
 			array(
@@ -85,13 +88,13 @@ class Free_Template_Customizer {
 					'theme_supports'	=> array(), 				//Theme features required to support the panel. Default is none.
 					'transport'		=> 'refresh',						//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
 					'validate_callback'	=> '',
-					'sanitize_callback'		=> 'Free_Template_Customizer::sanitize_checkbox',
+					'sanitize_callback'		=> '\FreeTemplate\Customizer::sanitize_checkbox',
 					'dirty'					=> '',
 				)
 			);
 			/* Supports basic input types `text`, `checkbox`, `textarea`, `radio`, `select` and `dropdown-pages`.
 			 * Additional input types such as `email`, `url`, `number`, `hidden` and `date` are supported implicitly. */
-			$wp_customize->add_control( new WP_Customize_Control(
+			$wp_customize->add_control( new \WP_Customize_Control(
 				$wp_customize, 																				//Pass the $wp_customize object (required)
 				'display_visits', 																				//Set a unique ID for the control
 				array(
@@ -133,11 +136,11 @@ class Free_Template_Customizer {
 				'default'					=> false,							//Default value for the setting. Default is empty string.
 				'transport'				=> 'refresh',						//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
 				'validate_callback'	=> '',
-				'sanitize_callback'		=> 'Free_Template_Customizer::sanitize_checkbox',
+				'sanitize_callback'		=> '\FreeTemplate\Customizer::sanitize_checkbox',
 				'dirty'					=> '',
 			)
 		);
-		$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize->add_control( new \WP_Customize_Control(
 			$wp_customize,																					//Pass the $wp_customize object (required)
 			'display_login_link',																				//Set a unique ID for the control
 			array(
@@ -169,11 +172,11 @@ class Free_Template_Customizer {
 				'default'						=> 'Login',							//Default value for the setting. Default is empty string.
 				'transport'					=> 'refresh',						//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
 				'validate_callback'		=> '',
-				'sanitize_callback'			=> 'Free_Template_Customizer::sanitize_login_link_texts',
+				'sanitize_callback'			=> '\FreeTemplate\Customizer::sanitize_login_link_texts',
 				'dirty'						=> '',
 			)
 		);
-		$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize->add_control( new \WP_Customize_Control(
 			$wp_customize,																				//Pass the $wp_customize object (required)
 			'login_link_text',																				//Set a unique ID for the control
 			array(
@@ -201,12 +204,12 @@ class Free_Template_Customizer {
 				'default'						=> '',							//Default value for the setting. Default is empty string.
 				'transport'					=> 'refresh',						//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
 				'validate_callback'		=> '',
-				'sanitize_callback'			=> 'Free_Template_Customizer::sanitize_text',
+				'sanitize_callback'			=> '\FreeTemplate\Customizer::sanitize_text',
 				'dirty'						=> '',
 			)
 		);
 		$wp_customize->add_control(
-			new CustomizerLibraryContent(
+			new \FreeTemplate\Customizer_Library_Content(
 				$wp_customize,
 				'header_text_change_content',
 				array(
@@ -237,12 +240,12 @@ class Free_Template_Customizer {
 				'type'				=> 'theme_mod',				//Is this an 'option' or a 'theme_mod'?
 				'capability'			=> 'edit_theme_options',	//Optional. Special permissions for accessing this setting.
 				//'transport'		=> 'postMessage', 				//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
-				'sanitize_callback'	=> 'Free_Template_Customizer::sanitize_text',
+				'sanitize_callback'	=> '\FreeTemplate\Customizer::sanitize_text',
 			)
 		);
 		/* Supports basic input types `text`, `checkbox`, `textarea`, `radio`, `select` and `dropdown-pages`.
 		 * Additional input types such as `email`, `url`, `number`, `hidden` and `date` are supported implicitly. */
-		$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize->add_control( new \WP_Customize_Control(
 			$wp_customize, 																									//Pass the $wp_customize object (required)
 			'display_featured_in_header', 																								//Set a unique ID for the control
 			array(
@@ -265,11 +268,11 @@ class Free_Template_Customizer {
 				'type'				=> 'theme_mod',				//Is this an 'option' or a 'theme_mod'?
 				'capability'			=> 'edit_theme_options',	//Optional. Special permissions for accessing this setting.
 				//'transport'		=> 'postMessage', 				//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
-				'sanitize_callback'	=> 'Free_Template_Customizer::sanitize_image',
+				'sanitize_callback'	=> '\FreeTemplate\Customizer::sanitize_image',
 			)
 		);
 		$wp_customize->add_control(
-			new WP_Customize_Upload_Control(
+			new \WP_Customize_Upload_Control(
 			$wp_customize, 																									//Pass the $wp_customize object (required)
 			'default_header_background', 																								//Set a unique ID for the control
 			array(

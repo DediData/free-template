@@ -5,6 +5,8 @@
  * @package WP-Bootstrap-Navwalker
  */
 
+namespace FreeTemplate;
+
 /*
  * Class Name: WP_Bootstrap_Navwalker
  * Plugin Name: WP Bootstrap Navwalker
@@ -20,13 +22,13 @@
 */
 
 /* Check if Class Exists. */
-if ( ! class_exists( 'WP_Bootstrap_Widget_Nav_Walker' ) ) {
+if ( ! class_exists( '\FreeTemplate\WP_Bootstrap_Bottom_Navwalker' ) ) {
 	/**
 	 * WP_Bootstrap_Navwalker class.
 	 *
 	 * @extends Walker_Nav_Menu
 	 */
-	class WP_Bootstrap_Widget_Nav_Walker extends Walker_Nav_Menu {
+	class WP_Bootstrap_Bottom_Navwalker extends \Walker_Nav_Menu {
 
 		/**
 		 * Starts the list before the elements are added.
@@ -197,12 +199,10 @@ if ( ! class_exists( 'WP_Bootstrap_Widget_Nav_Walker' ) ) {
 				$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
 				$atts['target'] = ! empty( $item->target )     ? $item->target     : '';
 				$atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
-				$atts['class'] =  'no-margin-box';
 				// If item has_children add atts to a.
 				if ( $args->has_children && 0 === $depth ) {
-					//$atts['href']   		= '#';
-					$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
-					$atts['class']			.= ' dropdownt';
+					$atts['href']   		= '#';
+					$atts['class']			= 'dropdownt';
 					$atts['data-toggle']	= 'dropdown';
 					$atts['aria-haspopup']	= 'true';
 					$atts['aria-expanded']	= 'false';
@@ -211,13 +211,13 @@ if ( ! class_exists( 'WP_Bootstrap_Widget_Nav_Walker' ) ) {
 					$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
 					//$atts['class']   = 'navbar-link';
 					if (0 < $depth){
-						$atts['class']   .= ' submenu-link';
+						$atts['class']   = ' submenu-link';
 					}
 					if ($depth === 1){
-						$atts['class']   .= ' submenu-title-link';
+						$atts['class']   .= ' submenu-title-link no-margin-box';
 					}
 					if ($depth > 1){
-						$atts['class']   .= ' submenu-child-link';
+						$atts['class']   .= ' submenu-child-link no-margin-box';
 					}
 				}
 
@@ -302,7 +302,7 @@ if ( ! class_exists( 'WP_Bootstrap_Widget_Nav_Walker' ) ) {
 					$arrow_icon = ' <i class="fa fa-angle-double-down" aria-hidden="true"></i>';
 				}
 				$item_output .= $args->link_before . $title . $arrow_icon . $description_span . $args->link_after;
-				$item_output .= ( $args->has_children && 0 === $depth ) ? ' <b class="caret"></b></a>' . "\n" : '</a>'."\n";
+				$item_output .= ( $args->has_children && 0 === $depth ) ? ' </a>' . "\n" : '</a>'."\n";
 				$item_output .= $args->after;
 
 				/**
@@ -384,14 +384,14 @@ if ( ! class_exists( 'WP_Bootstrap_Widget_Nav_Walker' ) ) {
 			if ( is_object( $args[0] ) ) {
 				$args[0]->has_children = ! empty( $children_elements[ $element->$id_field ] ); }
 
-        $element->is_dropdown = ((!empty($children_elements[$element->ID]) && $depth == 0 ));
-        if ($element->is_dropdown) {
-            $element->classes[] = 'dropdown';
-        }
+			$element->is_dropdown = ((!empty($children_elements[$element->ID]) && $depth == 0 ));
+			if ($element->is_dropdown) {
+				$element->classes[] = 'dropdown';
+			}
 
-        if ($element && ($depth === 1)) {
-            $element->classes[] = 'col menu-col col-lg-3 col-md-4 col-sm-6';
-        }
+			if ($element && ($depth === 1)) {
+				$element->classes[] = 'col menu-col col-md-3 col-xs-12';
+			}
 
 			parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
 		}

@@ -1,6 +1,15 @@
 <?php
+/**
+ * FreeTemplate Main Class
+ * 
+ * @package FreeTemplate
+ */
 
-class Free_Template_BS_Walker_Comment extends Walker_Comment {
+declare(strict_types=1);
+
+namespace FreeTemplate;
+
+class BS_Walker_Comment extends \Walker_Comment {
  
     /**
      * Outputs a comment in the HTML5 format.

@@ -5,6 +5,8 @@
  * @package WP-Bootstrap-Navwalker
  */
 
+namespace FreeTemplate;
+
 /*
  * Class Name: WP_Bootstrap_Navwalker
  * Plugin Name: WP Bootstrap Navwalker
@@ -20,13 +22,13 @@
 */
 
 /* Check if Class Exists. */
-if ( ! class_exists( 'WP_Bootstrap_Bottom_Navwalker' ) ) {
+if ( ! class_exists( '\FreeTemplate\WP_Bootstrap_Navwalker' ) ) {
 	/**
 	 * WP_Bootstrap_Navwalker class.
 	 *
 	 * @extends Walker_Nav_Menu
 	 */
-	class WP_Bootstrap_Bottom_Navwalker extends Walker_Nav_Menu {
+	class WP_Bootstrap_Navwalker extends \Walker_Nav_Menu {
 
 		/**
 		 * Starts the list before the elements are added.
@@ -199,7 +201,8 @@ if ( ! class_exists( 'WP_Bootstrap_Bottom_Navwalker' ) ) {
 				$atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
 				// If item has_children add atts to a.
 				if ( $args->has_children && 0 === $depth ) {
-					$atts['href']   		= '#';
+					//$atts['href']   		= '#';
+					$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
 					$atts['class']			= 'dropdownt';
 					$atts['data-toggle']	= 'dropdown';
 					$atts['aria-haspopup']	= 'true';
@@ -300,7 +303,7 @@ if ( ! class_exists( 'WP_Bootstrap_Bottom_Navwalker' ) ) {
 					$arrow_icon = ' <i class="fa fa-angle-double-down" aria-hidden="true"></i>';
 				}
 				$item_output .= $args->link_before . $title . $arrow_icon . $description_span . $args->link_after;
-				$item_output .= ( $args->has_children && 0 === $depth ) ? ' </a>' . "\n" : '</a>'."\n";
+				$item_output .= ( $args->has_children && 0 === $depth ) ? ' <b class="caret"></b></a>' . "\n" : '</a>'."\n";
 				$item_output .= $args->after;
 
 				/**
@@ -382,14 +385,14 @@ if ( ! class_exists( 'WP_Bootstrap_Bottom_Navwalker' ) ) {
 			if ( is_object( $args[0] ) ) {
 				$args[0]->has_children = ! empty( $children_elements[ $element->$id_field ] ); }
 
-			$element->is_dropdown = ((!empty($children_elements[$element->ID]) && $depth == 0 ));
-			if ($element->is_dropdown) {
-				$element->classes[] = 'dropdown';
-			}
+        $element->is_dropdown = ((!empty($children_elements[$element->ID]) && $depth == 0 ));
+        if ($element->is_dropdown) {
+            $element->classes[] = 'dropdown';
+        }
 
-			if ($element && ($depth === 1)) {
-				$element->classes[] = 'col menu-col col-md-3 col-xs-12';
-			}
+        if ($element && ($depth === 1)) {
+            $element->classes[] = 'col menu-col col-lg-3 col-md-4 col-sm-6';
+        }
 
 			parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
 		}

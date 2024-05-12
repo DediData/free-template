@@ -42,7 +42,7 @@ get_header(); ?>
 				?>
 				</div>
 				<?php
-				Free_Template::posts_pagination(
+				\FreeTemplate\Free_Template::posts_pagination(
 					array(
 						'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
 						'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',

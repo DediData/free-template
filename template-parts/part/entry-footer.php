@@ -37,7 +37,7 @@
 	<div class="footer-item total-hits">
 		<i class="fa fa-bar-chart fa-lg" title="<?php esc_attr_e('Total Hits', 'free-template'); ?>" data-toggle="tooltip" data-placement="bottom" aria-hidden="true"></i> 
 		<span class="stat-hits" title="<?php esc_attr_e('Total Hits', 'free-template'); ?>" data-toggle="tooltip" data-placement="bottom">
-		<?php echo esc_html(wp_statistics_pages( 'total', "", get_the_ID()) ); ?>
+		<?php echo esc_html(wp_statistics_pages( 'total', '', get_the_ID() ) ); ?>
 		</span>
 	</div><?php
 	}

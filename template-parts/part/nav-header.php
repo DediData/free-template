@@ -20,8 +20,8 @@ if (has_nav_menu( 'header' ) or has_nav_menu( 'header-right' ) or is_customize_p
 			'container'				=> '',
 			'container_class'	=> '',
 			'container_id'			=> '',
-			'fallback_cb'			=> 'WP_Bootstrap_Navwalker::fallback',
-			'walker'					=> new WP_Bootstrap_Navwalker(),
+			'fallback_cb'			=> '\FreeTemplate\WP_Bootstrap_Navwalker::fallback',
+			'walker'					=> new \FreeTemplate\WP_Bootstrap_Navwalker(),
 			)
 		);
 		
@@ -33,8 +33,8 @@ if (has_nav_menu( 'header' ) or has_nav_menu( 'header-right' ) or is_customize_p
 			'container'				=> '',
 			'container_class'	=> '',
 			'container_id'			=> '',
-			'fallback_cb'			=> 'WP_Bootstrap_Navwalker::fallback',
-			'walker'					=> new WP_Bootstrap_Navwalker(),
+			'fallback_cb'			=> '\FreeTemplate\WP_Bootstrap_Navwalker::fallback',
+			'walker'					=> new \FreeTemplate\WP_Bootstrap_Navwalker(),
 			)
 		); ?>
 	</div>

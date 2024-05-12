@@ -5,6 +5,8 @@
  * @package WP-Bootstrap-Navwalker
  */
 
+namespace FreeTemplate;
+
 /*
  * Class Name: WP_Bootstrap_Navwalker
  * Plugin Name: WP Bootstrap Navwalker
@@ -20,13 +22,13 @@
 */
 
 /* Check if Class Exists. */
-if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
+if ( ! class_exists( '\FreeTemplate\WP_Bootstrap_Widget_Nav_Walker' ) ) {
 	/**
 	 * WP_Bootstrap_Navwalker class.
 	 *
 	 * @extends Walker_Nav_Menu
 	 */
-	class WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
+	class WP_Bootstrap_Widget_Nav_Walker extends \Walker_Nav_Menu {
 
 		/**
 		 * Starts the list before the elements are added.
@@ -197,11 +199,12 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 				$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
 				$atts['target'] = ! empty( $item->target )     ? $item->target     : '';
 				$atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
+				$atts['class'] =  'no-margin-box';
 				// If item has_children add atts to a.
 				if ( $args->has_children && 0 === $depth ) {
 					//$atts['href']   		= '#';
 					$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
-					$atts['class']			= 'dropdownt';
+					$atts['class']			.= ' dropdownt';
 					$atts['data-toggle']	= 'dropdown';
 					$atts['aria-haspopup']	= 'true';
 					$atts['aria-expanded']	= 'false';
@@ -210,13 +213,13 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 					$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
 					//$atts['class']   = 'navbar-link';
 					if (0 < $depth){
-						$atts['class']   = ' submenu-link';
+						$atts['class']   .= ' submenu-link';
 					}
 					if ($depth === 1){
-						$atts['class']   .= ' submenu-title-link no-margin-box';
+						$atts['class']   .= ' submenu-title-link';
 					}
 					if ($depth > 1){
-						$atts['class']   .= ' submenu-child-link no-margin-box';
+						$atts['class']   .= ' submenu-child-link';
 					}
 				}
 

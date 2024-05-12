@@ -40,12 +40,6 @@ final class Free_Template extends \DediData\Singleton {
 			add_filter( 'posts_clauses', array( $this, 'order_by_stock_status' ), 2000 );
 		}
 
-		//require get_template_directory() . '/inc/megamenu-nav-walker.php';
-		//require get_template_directory() . '/inc/megamenu-widget-nav-walker.php';
-		//require get_template_directory() . '/inc/megamenu-bottom-nav-walker.php';
-		//require get_template_directory() . '/inc/comment-walker.php';
-		//require get_template_directory() . '/inc/customizer-library-content.php';
-		//require get_template_directory() . '/inc/customizer.php';
 	}
 	
 	/**

@@ -35,11 +35,11 @@ final class Free_Template extends \DediData\Singleton {
 
 		// Check if WooCommerce is active
 		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
-		if ( in_array( 'woocommerce/woocommerce.php', $active_plugins, true ) ) {
-			// Order product collections by stock status, in stock products first.
-			add_filter( 'posts_clauses', array( $this, 'order_by_stock_status' ), 2000 );
+		if ( ! in_array( 'woocommerce/woocommerce.php', $active_plugins, true ) ) {
+			return;
 		}
-
+		// Order product collections by stock status, in stock products first.
+		add_filter( 'posts_clauses', array( $this, 'order_by_stock_status' ), 2000 );
 	}
 	
 	/**
@@ -882,7 +882,7 @@ final class Free_Template extends \DediData\Singleton {
 	public function add_div_nav_widget( $args ) {
 		$args['menu_class'] = 'nav nav-stacked';
 		// $args['fallback_cb'] = 'WP_Bootstrap_Nav_Walker::fallback';
-		$args['walker'] = new \FreeTemplate\Walker_Bootstrap_Nav_Widget();
+		$args['walker'] = new Walker_Bootstrap_Nav_Widget();
 		return $args;
 	}
 

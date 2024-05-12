@@ -4,7 +4,8 @@
  * here. Your javascript should grab settings from customizer controls, and 
  * then make any necessary changes to the page using jQuery.
  */
-( function( $ ) {
+
+( function ( $ ) {
 
 	/*
 	wp.customize( 'YOUR_SETTING_ID', function( value ) {

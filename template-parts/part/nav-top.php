@@ -1,5 +1,13 @@
 <?php
-if (has_nav_menu( 'primary' ) or get_theme_mod('display_login_link') or is_customize_preview()){ ?>
+/**
+ * Part for displaying Nav Top
+ *
+ * @package Free_Template
+ */
+
+declare(strict_types=1);
+
+if ( has_nav_menu( 'primary' ) || get_theme_mod( 'display_login_link' ) || is_customize_preview() ) { ?>
 <nav id="no-header-top-menu" class="megamenu navbar navbar-default navbar-toggleable-md container">
 	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">

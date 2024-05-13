@@ -26,7 +26,7 @@ declare(strict_types=1);
 				<?php if ( is_front_page() ) { ?>
 				<div class="pull-left col-xs-12 col-sm-6">
 					<a href="<?php echo esc_url( esc_attr__( 'https://dedidata.com', 'free-template' ) ); ?>" title="<?php esc_attr_e( 'Free Theme by DediData', 'free-template' ); ?>" target="_blank">
-						<?php esc_attr_e( 'Design by DediData', 'free-template' ); ?>
+						<?php esc_attr_e( 'Theme Design by DediData', 'free-template' ); ?>
 					</a>
 				</div>
 				<?php } ?>

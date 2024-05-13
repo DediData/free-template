@@ -22,7 +22,7 @@ declare(strict_types=1);
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to main content', 'free-template' ); ?></a>
-<a id="back-to-top" href="#" class="btn btn-default back-to-top" role="button" title="<?php esc_attr_e( 'Go to top', 'free-template' ); ?>" data-toggle="tooltip" data-placement="top" >
+<a id="back-to-top" href="#" class="btn btn-default back-to-top" role="button" title="<?php esc_attr_e( 'Go to top', 'free-template' ); ?>">
 	<span class="glyphicon glyphicon-chevron-up"></span>
 </a>
 <?php get_template_part( 'template-parts/part/popup-login' ); ?>

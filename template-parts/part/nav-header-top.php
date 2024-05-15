@@ -18,7 +18,7 @@ if ( has_nav_menu( 'primary' ) || get_theme_mod( 'display_login_link' ) || is_cu
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" data-toggle="tooltip" data-placement="bottom" title="<?php bloginfo( 'name' ); ?>"><i class="fa fa-lg fa-home" aria-hidden="true"></i></a>
+		<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php bloginfo( 'name' ); ?>"><i class="fa fa-lg fa-home" aria-hidden="true"></i></a>
 	</div>
 	<div id="top-navbar-collapse" class="collapse navbar-collapse">
 		<?php

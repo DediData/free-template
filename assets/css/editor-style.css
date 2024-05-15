@@ -20,6 +20,6 @@ Description: Used to style the TinyMCE editor.
  * 1.0 - Body
  */
 
-body {
-	margin: 10px;
+.justify{
+    text-align: justify;
 }

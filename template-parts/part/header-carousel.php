@@ -26,8 +26,18 @@ if ( ( is_home() || is_front_page() ) && $attachments ) {
 			<?php
 			$counter = 1;
 			foreach ( $attachments as $attachment ) {
-				$attachment = wp_prepare_attachment_for_js( $attachment['attachment_id'] );
-				?>
+
+			$img_src = wp_get_attachment_image_url( $attachment['attachment_id'], 'full' );
+			$img_srcset = wp_get_attachment_image_srcset( $attachment['attachment_id'], 'full' );
+			/*
+				http://localhost/!!wordpress/wp-content/uploads/2018/09/wp1-300x120.jpg 300w,
+				http://localhost/!!wordpress/wp-content/uploads/2018/09/wp1-600x240.jpg 600w,
+				http://localhost/!!wordpress/wp-content/uploads/2018/09/wp1-768x307.jpg 768w,
+				http://localhost/!!wordpress/wp-content/uploads/2018/09/wp1.jpg 1000w"
+			*/
+			$sizes = wp_get_attachment_image_sizes( $attachment['attachment_id'], 'full' );
+			$attachment = wp_prepare_attachment_for_js($attachment['attachment_id']); ?>
+
 			<div class="item<?php echo 1 === $counter ? ' active' : ''; ?>">
 				<?php
 				if ( $attachment['title'] ) {
@@ -37,7 +47,7 @@ if ( ( is_home() || is_front_page() ) && $attachments ) {
 				}
 				?>
 					<div class="overlay"></div>
-					<img class="item-image slide-<?php echo esc_attr( $counter ); ?>" src="<?php echo esc_url( $attachment['url'] ); ?>" title="<?php echo esc_attr( $attachment['title'] ); ?>" alt="<?php echo esc_attr( $attachment['title'] ); ?>" />
+					<img class="item-image slide-<?php echo esc_attr( $counter ); ?>" src="<?php echo esc_url( $img_src ); ?>" srcset="<?php echo esc_attr( $img_srcset ); ?>" sizes="<?php echo esc_attr( $sizes );?>" title="<?php echo esc_attr( $attachment['title'] ); ?>" alt="<?php echo esc_attr( $attachment['title'] ); ?>" width="1000" height="400" />
 					<?php
 					if ( $attachment['title'] ) {
 						?>
@@ -103,7 +113,7 @@ if ( ( is_home() || is_front_page() ) && $attachments ) {
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
 				<div class="overlay"></div>
-				<img class="item-image slide-1" src="<?php echo esc_url( get_header_image() ); ?>" title="<?php echo esc_attr( get_bloginfo() ); ?>" alt="<?php echo esc_attr( get_bloginfo() ); ?>" />
+				<img class="item-image slide-1" src="<?php echo esc_url( get_header_image() ); ?>" title="<?php echo esc_attr( get_bloginfo() ); ?>" alt="<?php echo esc_attr( get_bloginfo() ); ?>" width="100%" height="auto" />
 				<?php
 				if ( display_header_text() ) {
 					?>

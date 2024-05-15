@@ -46,3 +46,6 @@ pre {
 .gallery .gallery-caption {
 	font-family: Yekan, Tahoma, Verdana, Arial, Helvetica, sans-serif !important;
 }
+.justify{
+    text-align: justify;
+}

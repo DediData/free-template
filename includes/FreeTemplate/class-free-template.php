@@ -408,9 +408,6 @@ final class Free_Template extends \DediData\Singleton {
 	 */
 	public function enqueue_all() {
 
-		// tether js (for tooltips , should before bootstrap) load in footer
-		wp_enqueue_script( 'tether', get_stylesheet_directory_uri() . '/assets/tether/js/tether.min.js', array(), '1.4.0', true );
-
 		// bootstrap js css load in footer
 		wp_enqueue_script( 'bootstrap', get_stylesheet_directory_uri() . '/assets/bootstrap/js/bootstrap.min.js', array( 'jquery' ), '3.3.7', true );
 
@@ -748,7 +745,7 @@ final class Free_Template extends \DediData\Singleton {
 		}
 
 		$link = sprintf(
-			'<p class="link-more"><a href="%1$s" class="more-link btn btn-default" title="%2$s" data-toggle="tooltip" data-placement="bottom" aria-hidden="true"><span class="fa fa-eye"></span> ' . esc_html__( 'Continue reading', 'free-template' ) . '</a></p>',
+			'<p class="link-more"><a href="%1$s" class="more-link btn btn-default" title="%2$s" aria-hidden="true"><span class="fa fa-eye"></span> ' . esc_html__( 'Continue reading', 'free-template' ) . '</a></p>',
 			esc_url( get_permalink( get_the_ID() ) ),
 			esc_attr( get_the_title() )
 		);
@@ -1190,7 +1187,7 @@ final class Free_Template extends \DediData\Singleton {
 		edit_post_link(
 			sprintf(
 				/* translators: %s: Name of current post */
-				'<i class="fa fa-pencil-square-o fa-lg" data-toggle="tooltip" data-placement="top" title="%s" aria-hidden="true"></i>',
+				'<i class="fa fa-pencil-square-o fa-lg" title="%s" aria-hidden="true"></i>',
 				esc_attr( __( 'Edit ', 'free-template' ) . get_the_title() )
 			),
 			'<span class="edit-link">',
@@ -1208,7 +1205,7 @@ final class Free_Template extends \DediData\Singleton {
 	public static function posted_on() {
 		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
 		$wpp_settings   = $GLOBALS['wpp_settings'];
-		$time_string    = '<time class="entry-date published" title="' . esc_attr__( 'Posted on', 'free-template' ) . '" data-toggle="tooltip" data-placement="bottom" datetime="%1$s">%2$s</time>';
+		$time_string    = '<time class="entry-date published" title="' . esc_attr__( 'Posted on', 'free-template' ) . '" datetime="%1$s">%2$s</time>';
 		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
 		$time_string    = sprintf(
 			$time_string,
@@ -1229,7 +1226,7 @@ final class Free_Template extends \DediData\Singleton {
 		// Finally, let's write all of this to the page.
 		?>
 		<span class="posted-on">
-			<i class="fa fa-calendar" aria-hidden="true" title="<?php esc_attr_e( 'Posted on', 'free-template' ); ?>" data-toggle="tooltip" data-placement="bottom"></i> 
+			<i class="fa fa-calendar" aria-hidden="true" title="<?php esc_attr_e( 'Posted on', 'free-template' ); ?>"></i> 
 			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo wp_kses_post( $time_string ); ?></a>
 		</span>
 		<?php
@@ -1241,7 +1238,7 @@ final class Free_Template extends \DediData\Singleton {
 	 * @return void
 	 */ 
 	public static function modified_on() {
-		$time_string = '<time class="entry-date updated" title="' . esc_attr__( 'Updated on', 'free-template' ) . '" data-toggle="tooltip" data-placement="bottom" datetime="%1$s">%2$s</time>';
+		$time_string = '<time class="entry-date updated" title="' . esc_attr__( 'Updated on', 'free-template' ) . '" datetime="%1$s">%2$s</time>';
 		$time_string = sprintf(
 			$time_string,
 			get_the_modified_date( \DATE_W3C ),
@@ -1251,7 +1248,7 @@ final class Free_Template extends \DediData\Singleton {
 		// Finally, let's write all of this to the page.
 		?>
 		<span class="modified-on">
-			<i class="fa fa-pencil fa-lg" aria-hidden="true" title="<?php esc_attr_e( 'Updated on', 'free-template' ); ?>" data-toggle="tooltip" data-placement="bottom"></i>
+			<i class="fa fa-pencil fa-lg" aria-hidden="true" title="<?php esc_attr_e( 'Updated on', 'free-template' ); ?>"></i>
 			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php echo wp_kses_post( $time_string ); ?></a>
 		</span>
 		<?php

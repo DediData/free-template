@@ -304,22 +304,6 @@ jQuery(document).ready(function($){
 		})
 	
 	});
-  
-  /* For Fancybox
-	// gallery
-	$('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".gif"], a[href$=".png"], a[href$=".webp"]').attr('data-fancybox', 'separate').attr('data-caption',  $(this).find('img').attr('alt'));
-	$('.gallery').each(function() {
-	// set the rel for each gallery
-		$(this).find('.gallery-icon a[href$=".jpg"], .gallery-icon a[href$=".jpeg"],.gallery-icon a[href$=".gif"], .gallery-icon a[href$=".png"] .gallery-icon a[href$=".webp"]').attr('data-fancybox', 'group-' + $(this).attr('id')).fancybox({
-			infobar : true,
-			protect: true
-		});
-		$('.gallery-icon').each(function() {
-			$(this).find('a').attr('data-caption',  $(this).find('a img').attr('alt'));
-		})
-	
-	});
-  */
 
 	//add class to woocommerce product categories
 	$('.widget_product_categories .cat-item').addClass('panel box');

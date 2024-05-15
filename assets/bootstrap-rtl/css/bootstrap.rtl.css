@@ -17,55 +17,6 @@ body,
   font-family: Tahoma, Arial, sans-serif;
   font-size: 14px;
 }
-.glyphicon-align-left:before {
-  content: "\e054";
-}
-.glyphicon-align-right:before {
-  content: "\e052";
-}
-.glyphicon-chevron-left:before {
-  content: "\e080";
-}
-.glyphicon-chevron-right:before {
-  content: "\e079";
-}
-.glyphicon-arrow-left:before {
-  content: "\e092";
-}
-.glyphicon-arrow-right:before {
-  content: "\e091";
-}
-.glyphicon-hand-right:before {
-  content: "\e128";
-}
-.glyphicon-hand-left:before {
-  content: "\e127";
-}
-.glyphicon-circle-arrow-right:before {
-  content: "\e132";
-}
-.glyphicon-circle-arrow-left:before {
-  content: "\e131";
-}
-.glyphicon-object-align-left:before {
-  content: "\e249";
-}
-.glyphicon-object-align-right:before {
-  content: "\e247";
-}
-.glyphicon-triangle-right:before {
-  content: "\e251";
-}
-.glyphicon-triangle-left:before {
-  content: "\e250";
-}
-.glyphicon-menu-left:before {
-  content: "\e258";
-}
-.glyphicon-menu-right:before {
-  content: "\e257";
-}
-
 .text-left {
   text-align: right;
 }
@@ -1560,14 +1511,14 @@ button.list-group-item {
   left: 0;
 }
 .carousel-control .icon-prev,
-.carousel-control .glyphicon-chevron-left {
+.carousel-control .fa-chevron-left {
   left: auto;
   right: 50%;
   margin-left: initial;
   margin-right: -10px;
 }
 .carousel-control .icon-next,
-.carousel-control .glyphicon-chevron-right {
+.carousel-control .fa-chevron-right {
   right: auto;
   left: 50%;
   margin-right: initial;
@@ -1582,15 +1533,15 @@ button.list-group-item {
   margin-right: -30%;
 }
 @media screen and (min-width: 768px) {
-  .carousel-control .glyphicon-chevron-left,
+  .carousel-control .fa-chevron-left,
   .carousel-control .icon-prev {
     margin-left: initial;
-    margin-right: -10px;
+    margin-right: -15px;
   }
-  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .fa-chevron-right,
   .carousel-control .icon-next {
     margin-right: initial;
-    margin-left: -10px;
+    margin-left: -15px;
   }
 }
 .pull-right {

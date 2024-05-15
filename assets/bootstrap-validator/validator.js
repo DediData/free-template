@@ -67,8 +67,8 @@
       minlength: 'Not long enough'
     },
     feedback: {
-      success: 'glyphicon-ok',
-      error: 'glyphicon-remove'
+      success: 'fa-check',
+      error: 'fa-remove'
     }
   }
 

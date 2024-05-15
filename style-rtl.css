@@ -508,15 +508,15 @@ img.alignright {
 	width: 20px;
 }
 
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
 ::-webkit-scrollbar-thumb {
 	background-color: darkgray;
 	border-radius: 20px;
 	border: 6px solid transparent;
 	background-clip: content-box;
-}
-
-::-webkit-scrollbar-track {
-	background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -1898,14 +1898,6 @@ ul.product-categories li {
 
 .justify {
 	text-align: justify;
-}
-
-@media screen and ( min-width: 1024px ) {
-
-	.no-padding {
-		padding: 0;
-	}
-
 }
 
 .modal {

@@ -81,10 +81,6 @@ Respond.js, Copyright (c) 2012 Scott Jehl
 MIT License
 https://github.com/scottjehl/Respond
 
-Tether, Copyright (c) 2014-2017 HubSpot, Inc.
-MIT License
-https://github.com/HubSpot/tether
-
 == Changelog ==
 
 = 4.6.0 =

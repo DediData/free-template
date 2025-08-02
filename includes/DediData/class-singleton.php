@@ -21,7 +21,7 @@ abstract class Singleton {
 	 * returned by the `getInstance()` method. It ensures that only one instance of the class is created
 	 * and that it can be accessed globally.
 	 * 
-	 * @var object instance
+	 * @var array<object> instance
 	 */
 	private static $instances = array();
 	
@@ -58,9 +58,9 @@ abstract class Singleton {
 	 * 
 	 * @param string $property_name The name of the property you want to set the value for.
 	 * @param mixed  $value         The value that you want to set for the property.
-	 * @return void
+	 * @return void Return
 	 */
-	public function set( string $property_name, $value ) {
+	public function set( string $property_name, $value ): void {
 		$class_name = static::class;
 		if ( ! property_exists( $class_name, $property_name ) ) {
 			new WP_Error( "Property '$property_name' does not exist." );

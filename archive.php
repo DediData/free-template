@@ -1,48 +1,50 @@
 <?php
 /**
  * The archive template file
- * 
+ *
  * @package Free_Template
  */
 
 declare(strict_types=1);
 
 get_header(); ?>
-<main id="main" class="site-main">
-	<div class="container">
-		<?php
-		if ( is_active_sidebar( 'sidebar-1' ) ) {
-			$sidebar_class = ' pull-right col-sm-9';
-			?>
-		<div class="row">
-			<?php
-		}
-		?>
-			<div id="primary" class="site-content content-area col-xs-12<?php echo esc_attr( $sidebar_class ); ?>">
+<main id="main" class="container mt-3">
+<?php
+// @phan-suppress-next-line PhanPluginRedundantAssignmentInGlobalScope
+$extra_class = '';
+if ( is_active_sidebar( 'sidebar-1' ) ) {
+	$extra_class = ' col-md-8 col-lg-9 order-2 p-2';
+	?>
+	<div class="row">
+	<?php
+}
+?>
+		<div id="primary" class="col-12<?php echo esc_attr( $extra_class ); ?>">
 			<?php
 			dynamic_sidebar( 'content-top' );
-
 			the_archive_description( '<div class="text-justify">', '</div>' );
 
 			if ( have_posts() ) {
 				?>
 				<div class="panel-group" id="accordion">
-				<?php
-				/* Start the Loop */
-				while ( have_posts() ) {
-					the_post();
+					<?php
+					/* Start the Loop */
+					while ( have_posts() ) {
+						the_post();
 
-					/*
-					 * Include the Post-Format-specific template for the content.
-					 * If you want to override this in a child theme, then include a file
-					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-					 */
-					get_template_part( 'template-parts/post/content', get_post_format() );
-				}
-				?>
+						/*
+						* Include the Post-Format-specific template for the content.
+						* If you want to override this in a child theme, then include a file
+						* called content-___.php (where ___ is the Post Format name) and that will be used instead.
+						*/
+						$get_post_format = get_post_format();
+						$get_post_format = is_string( $get_post_format ) ? $get_post_format : null;
+						get_template_part( 'template-parts/post/archive-blog-content', $get_post_format );
+					}
+					?>
 				</div>
 				<?php
-				\FreeTemplate\Free_Template::posts_pagination(
+				FREE_TEMPLATE()::posts_pagination(
 					array(
 						'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
 						'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
@@ -54,18 +56,15 @@ get_header(); ?>
 			}//end if
 			?>
 			<?php dynamic_sidebar( 'content-bottom' ); ?>
-			</div>
-			<?php
-			if ( is_active_sidebar( 'sidebar-1' ) ) {
-				get_sidebar();
-			}
-			if ( is_active_sidebar( 'sidebar-1' ) ) {
-				?>
 		</div>
-				<?php
-			}
-			?>
+<?php
+if ( is_active_sidebar( 'sidebar-1' ) ) {
+	get_sidebar();
+	?>
 	</div>
-</main><!-- .site-main -->
+	<?php
+}
+?>
+</main>
 <?php
 get_footer();

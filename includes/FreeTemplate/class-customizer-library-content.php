@@ -25,15 +25,11 @@ final class Customizer_Library_Content extends \WP_Customize_Control {
 	public function render_content() {
 		switch ( $this->type ) {
 			case 'content':
-				if ( isset( $this->label ) ) {
-					echo '<span class="customize-control-title">' . esc_html( $this->label ) . '</span>';
+				echo '<span class="customize-control-title">' . wp_kses_post( $this->label ) . '</span>';
+				if ( isset( $this->input_attrs['content'] ) && is_string( $this->input_attrs['content'] ) ) {
+					echo wp_kses_post( $this->input_attrs['content'] );
 				}
-				if ( isset( $this->input_attrs['content'] ) ) {
-					echo esc_html( $this->input_attrs['content'] );
-				}
-				if ( isset( $this->description ) ) {
-					echo '<span class="description customize-control-description">' . esc_html( $this->description ) . '</span>';
-				}
+				echo '<span class="description customize-control-description">' . wp_kses_post( $this->description ) . '</span>';
 				if ( isset( $this->input_attrs['divider'] ) ) {
 					echo '<hr>';
 				}

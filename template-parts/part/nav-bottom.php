@@ -8,33 +8,29 @@
 declare(strict_types=1);
 
 if ( has_nav_menu( 'bottom' ) || is_customize_preview() ) { ?>
-<!--nav class="megamenu navbar navbar-default navbar-toggleable-md navbar-inverse bg-inverse navbar-toggleable-md navbar-light bg-faded"-->
-<nav id="bottom-menu" class="megamenu navbar navbar-default navbar-inverse bg-inverse">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bottom-navbar-collapse" aria-expanded="false" aria-controls="bottom-menu">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
+	<nav id="bottom-menu" class="mega-menu navbar navbar-expand-md shadow container rounded transition">
+		<div class="container-fluid">
+			<button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#bottom-navbar-collapse" aria-controls="bottom-navbar-collapse" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'free-template' ); ?>">
+				<span class="navbar-toggler-icon"></span>
 			</button>
+			<div id="bottom-navbar-collapse" class="collapse navbar-collapse">
+				<?php
+				wp_nav_menu(
+					array(
+						'theme_location'  => 'bottom',
+						'depth'           => 1,
+						'menu_class'      => 'navbar-nav mega-menu mx-auto transition',
+						'menu_id'         => '',
+						'container'       => '',
+						'container_class' => '',
+						'container_id'    => '',
+						'fallback_cb'     => '\FreeTemplate\Walker_Bootstrap_Nav::fallback',
+						'walker'          => new \FreeTemplate\Walker_Bootstrap_Nav(),
+					)
+				);
+				?>
+			</div>
 		</div>
-		<div id="bottom-navbar-collapse" class="collapse navbar-collapse">
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location'  => 'bottom',
-					'depth'           => 1,
-					'menu_class'      => 'nav navbar-nav megamenu',
-					'menu_id'         => '',
-					'container'       => '',
-					'container_class' => '',
-					'container_id'    => '',
-					'fallback_cb'     => '\FreeTemplate\Walker_Bootstrap_Nav_Bottom::fallback',
-					'walker'          => new \FreeTemplate\Walker_Bootstrap_Nav_Bottom(),
-				)
-			);
-			?>
-		</div>
-</nav>
+	</nav>
 	<?php
 }//end if

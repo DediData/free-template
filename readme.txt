@@ -1,7 +1,7 @@
 === Free Template ===
 Contributors: DediData (Farhad Sakhaei)
 Requires at least: WordPress 4.7
-Tested up to: WordPress 5.8
+Tested up to: WordPress 6.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: one-column, two-columns, flexible-header, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -23,7 +23,7 @@ For more information about Free Template please go to https://dedidata.com/free-
 
 == Copyright ==
 
-Free Template WordPress Theme, Copyright 2021 DediData.com
+Free Template WordPress Theme, Copyright 2025 DediData.com
 
 Free Template is distributed under the terms of the GNU GPL
 
@@ -45,17 +45,9 @@ Bootstrap, Copyright (c) 2011-2016 Twitter, Inc.
 MIT License
 https://getbootstrap.com/
 
-Bootstrap RTL, Copyright (c) 2021 Farhad Sakhaei
-MIT License
-https://github.com/DediData/Bootstrap-RTL
-
 Bootswatch, Copyright (c) 2013 Thomas Park
 MIT License
 https://github.com/thomaspark/bootswatch
-
-Bootstrap Validator, Copyright (c) 2016 Cina Saffary
-MIT License
-https://github.com/1000hz/bootstrap-validator
 
 LightBox2
 MIT License
@@ -64,22 +56,6 @@ https://github.com/lokesh/lightbox2/blob/dev/LICENSE
 Font Awesome
 CC BY 4.0 License
 https://github.com/FortAwesome/Font-Awesome
-
-Yekan Font, Copyright (c) 2017, ParsMizban Co.
-SIL Open Font License
-https://github.com/ParsMizban/Yekan-Font
-
-HTML5 Shiv, Copyright (c) 2014 Alexander Farkas.
-Licenses: MIT/GPL2
-https://github.com/aFarkas/html5shiv
-
-ie10 viewport bug workaround, Copyright (c) 2011-2015 Twitter, Inc
-MIT License
-https://github.com/Haixing-Hu/bootstrap3-ie10-viewport-bug-workaround
-
-Respond.js, Copyright (c) 2012 Scott Jehl
-MIT License
-https://github.com/scottjehl/Respond
 
 == Changelog ==
 

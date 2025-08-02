@@ -9,44 +9,36 @@ declare(strict_types=1);
 
 get_header();
 $sidebar_condition = is_active_sidebar( 'sidebar-1' ); ?>
-<main id="main" class="site-main">
-	<div class="container">
+<main id="main" class="container mt-3">
+<?php
+$extra_class = '';
+if ( $sidebar_condition ) {
+	$extra_class = ' col-md-8 col-lg-9 order-2 p-2';
+	?>
+	<div class="row">
+	<?php
+}
+?>
+		<div id="primary" class="col-12<?php echo esc_attr( $extra_class ); ?>">
+			<section class="shadow rounded mb-3 p-3" >
+				<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try a search?', 'free-template' ); ?></p>
+				<?php get_search_form(); ?>
+			</section>
+			<?php
+			dynamic_sidebar( 'frontend-content-top' );
+			dynamic_sidebar( 'content-top' );
+			dynamic_sidebar( 'frontend-content-bottom' );
+			dynamic_sidebar( 'content-bottom' );
+			?>
+		</div>
 		<?php
 		if ( $sidebar_condition ) {
-			$sidebar_class = ' pull-right col-sm-9';
+			get_sidebar();
 			?>
-		<div class="row">
+	</div>
 			<?php
 		}
 		?>
-			<div id="primary" class="site-content content-area col-xs-12<?php echo esc_attr( $sidebar_class ); ?>">
-			
-				<section class="error-404 not-found panel box" style="padding: 10px;">
-					<div class="page-content">
-						<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try a search?', 'free-template' ); ?></p>
-
-						<?php get_search_form(); ?>
-
-					</div><!-- .page-content -->
-				</section><!-- .error-404 -->
-				<?php
-					dynamic_sidebar( 'frontend-content-top' );
-					dynamic_sidebar( 'content-top' );
-					dynamic_sidebar( 'frontend-content-bottom' );
-					dynamic_sidebar( 'content-bottom' );
-				?>
-			</div>
-			<?php
-			if ( $sidebar_condition ) {
-				get_sidebar();
-			}
-			if ( $sidebar_condition ) {
-				?>
-		</div>
-				<?php
-			}
-			?>
-	</div>
-</main><!-- .site-main -->
+</main>
 <?php
 get_footer();

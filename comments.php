@@ -20,15 +20,12 @@ if ( post_password_required() ) {
 	return;
 }
 ?>
-
-<div id="comments" class="comments-area panel box">
-
+<div id="comments" class="shadow rounded mb-3 p-3">
 	<?php
-	
 	// You can start editing here -- including this comment!
 	if ( have_comments() ) {
 		?>
-		<h2 class="comments-title panel-heading">
+		<h2>
 			<?php
 			$comments_number = get_comments_number();
 			if ( '1' === $comments_number ) {
@@ -41,71 +38,56 @@ if ( post_password_required() ) {
 						_n(
 							'%1$s Reply to &ldquo;%2$s&rdquo;',
 							'%1$s Replies to &ldquo;%2$s&rdquo;',
-							$comments_number,
+							intval( $comments_number ),
 							'free-template'
 						)
 					),
-					esc_html( number_format_i18n( $comments_number ) ),
+					esc_html( number_format_i18n( intval( $comments_number ) ) ),
 					esc_html( get_the_title() )
 				);
 			}
 			?>
 		</h2>
-
-		<div class="panel-body">
-		<?php
-		echo wp_kses(
-			FREE_TEMPLATE()::comments_pagination(
-				array(
-					'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
-					'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
-					'type'      => 'list',
-				)
-			),
-			'post'
-		);
-		?>
-
-		<ol class="comment-list">
+		<div>
 			<?php
-				wp_list_comments(
-					array(
-						'walker'      => new \FreeTemplate\Walker_Bootstrap_Comment(),
-						'avatar_size' => 100,
-						'style'       => 'ol',
-						'short_ping'  => true,
-						'reply_text'  => '<i class="fa fa-reply" aria-hidden="true"></i>&nbsp;' . esc_html__( 'Reply', 'free-template' ),
-					)
-				);
-			?>
-		</ol>
-		
-		<?php
-		echo wp_kses(
 			FREE_TEMPLATE()::comments_pagination(
 				array(
 					'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
 					'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
 					'type'      => 'list',
 				)
-			),
-			'post'
-		);
-		?>
+			);
+			?>
+			<ol id="comment-list">
+				<?php
+					wp_list_comments(
+						array(
+							'walker'      => new \FreeTemplate\Walker_Bootstrap_Comment(),
+							'avatar_size' => 100,
+							'style'       => 'ol',
+							'short_ping'  => true,
+						)
+					);
+				?>
+			</ol>
+			<?php
+			FREE_TEMPLATE()::comments_pagination(
+				array(
+					'prev_text' => '<span>' . esc_html__( 'Previous', 'free-template' ) . '</span>',
+					'next_text' => '<span>' . esc_html__( 'Next', 'free-template' ) . '</span>',
+					'type'      => 'list',
+				)
+			);
+			?>
 		</div>
 		<?php
 	}//end if
-
 	// If comments are closed and there are comments, let's leave a little note, shall we?
-	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) {
+	if ( ! comments_open() && (bool) get_comments_number() && post_type_supports( (string) get_post_type(), 'comments' ) ) {
 		?>
-		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'free-template' ); ?></p>
+		<p><?php esc_html_e( 'Comments are closed.', 'free-template' ); ?></p>
 		<?php
 	}
 	?>
-	
-	<div class="panel-footer">
-		<?php FREE_TEMPLATE()::validate_comment_form(); ?>
-	</div>
-
-</div><!-- #comments -->
+	<?php FREE_TEMPLATE()::validate_comment_form(); ?>
+</div>

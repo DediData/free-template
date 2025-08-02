@@ -44,7 +44,7 @@ final class Theme_Autoloader {
 		if ( ! isset( $trace[0]['file'] ) ) {
 			new WP_Error( 'Invalid Trace for Autoload' );
 		}
-		$this->theme_file = $trace[0]['file'];
+		$this->theme_file = isset( $trace[0] ) && isset( $trace[0]['file'] ) ? $trace[0]['file'] : '';
 		spl_autoload_register( array( $this, 'autoloader' ) );
 	}
 
@@ -53,9 +53,9 @@ final class Theme_Autoloader {
 	 * corresponding class file if it exists.
 	 * 
 	 * @param string $class_name The class parameter is the name of the class that needs to be auto loaded.
-	 * @return void
+	 * @return void Return
 	 */
-	public function autoloader( string $class_name ) {
+	public function autoloader( string $class_name ): void {
 		$parts = explode( '\\', $class_name );
 		// Get class name from full class name
 		$class_part = end( $parts );

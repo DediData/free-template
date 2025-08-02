@@ -1,25 +1,3 @@
-/*
-Description: Used to style the TinyMCE editor.
-*/
-
-
-/**
- * Table of Contents:
- *
- * 1.0 - Body
- * 2.0 - Typography
- * 3.0 - Elements
- * 4.0 - Alignment
- * 5.0 - Caption
- * 6.0 - Galleries
- * 7.0 - Media Elements
- * 8.0 - RTL
- */
-
-/**
- * 1.0 - Body
- */
-
-.justify{
-    text-align: justify;
+.justify {
+	text-align: justify;
 }

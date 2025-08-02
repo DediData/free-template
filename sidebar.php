@@ -11,8 +11,6 @@
 declare(strict_types=1);
 
 ?>
-<aside id="secondary">
-	<div class="col-sm-3 col-xs-12 pull-left side-column">
-		<?php dynamic_sidebar( 'sidebar-1' ); ?>
-	</div>
+<aside id="secondary" class="col-md-4 col-lg-3 order-1 p-2">
+	<?php dynamic_sidebar( 'sidebar-1' ); ?>
 </aside>

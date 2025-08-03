@@ -3,7 +3,7 @@
  * The template for displaying full width pages.
  *
  * Template Name: Full width
- * 
+ *
  * @package Free_Template
  */
 

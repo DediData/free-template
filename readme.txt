@@ -1,9 +1,9 @@
 === Free Template ===
 Contributors: DediData (Farhad Sakhaei)
-Requires at least: WordPress 4.7
+Requires at least: WordPress 5.2.0
 Tested up to: WordPress 6.8.2
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: one-column, two-columns, flexible-header, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments
 
 == Description ==
@@ -29,7 +29,7 @@ Free Template is distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,

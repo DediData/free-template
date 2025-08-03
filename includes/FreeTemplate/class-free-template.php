@@ -48,6 +48,33 @@ final class Free_Template extends \DediData\Singleton {
 			/** @psalm-suppress MixedArgumentTypeCoercion */
 			add_filter( 'posts_clauses', array( $this, 'order_by_stock_status' ), 2000 );
 		}
+		add_action( 'admin_notices', array( $this, 'update_new_version' ), 10, 0 );
+	}
+
+	/**
+	 * Update to new version
+	 *
+	 * @return void return nothing
+	 */
+	public function update_new_version(): void {
+		$template_new_name = 'FOLD';
+		$install_url       = admin_url( 'theme-install.php?theme=fold' );
+		echo '<div class="notice notice-info is-dismissible"><p>'
+		. sprintf(
+			wp_kses(
+				/* translators: 1: theme name, 2: link */
+				__( 'A new version of this theme has been released under the name "%1$s". Please <a href="%2$s" target="_blank">install it right now!</a>.', 'free-template' ),
+				array(
+					'a' => array(
+						'href'   => array(),
+						'target' => array(),
+					),
+				)
+			),
+			esc_html( $template_new_name ),
+			esc_url( $install_url )
+		)
+		. '</p></div>';
 	}
 
 	/**
@@ -425,7 +452,37 @@ final class Free_Template extends \DediData\Singleton {
 		// bootstrap theme css
 		$mod_bs_theme_name = get_theme_mod( 'bootstrap_theme_name' );
 		$mod_bs_theme_name = is_string( $mod_bs_theme_name ) ? $mod_bs_theme_name : '';
-		$theme_mode        = 'default' !== $mod_bs_theme_name;
+		$theme_names       = array(
+			'cerulean',
+			'cosmo',
+			'cyborg',
+			'darkly',
+			'flatly',
+			'journal',
+			'litera',
+			'lumen',
+			'lux',
+			'materia',
+			'minty',
+			'morph',
+			'pulse',
+			'quartz',
+			'sandstone',
+			'simplex',
+			'sketchy',
+			'slate',
+			'solar',
+			'spacelab',
+			'superhero',
+			'united',
+			'vapor',
+			'yeti',
+			'zephyr',
+		);
+		if ( '' === $mod_bs_theme_name || ! in_array( $mod_bs_theme_name, $theme_names, true ) ) {
+			$mod_bs_theme_name = 'default';
+		}
+		$theme_mode = 'default' !== $mod_bs_theme_name;
 		if ( $theme_mode ) {
 			if ( ! is_rtl() ) {
 				wp_enqueue_style( 'bootswatch', get_stylesheet_directory_uri() . '/assets/bootswatch/' . esc_html( $mod_bs_theme_name ) . '/bootstrap.min.css', array(), '5.3.3', 'all' );
@@ -461,7 +518,16 @@ final class Free_Template extends \DediData\Singleton {
 		}
 
 		// dedidata js load in footer
-		wp_enqueue_script( 'dedidata', get_stylesheet_directory_uri() . '/assets/js/dedidata.js', array( 'jquery' ), $theme_version, array( 'strategy' => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script(
+			'dedidata',
+			get_stylesheet_directory_uri() . '/assets/js/dedidata.js',
+			array( 'jquery' ),
+			$theme_version,
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
 
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
@@ -655,7 +721,7 @@ final class Free_Template extends \DediData\Singleton {
 			$locale_settings['title']  = 'Roboto';
 			$locale_settings['font']   = 'Roboto';
 			$locale_settings['locale'] = $current_locale;
-		}
+		}//end if
 
 		$custom_style = '
 			html,
@@ -1124,7 +1190,7 @@ final class Free_Template extends \DediData\Singleton {
 			<?php
 		} elseif ( ! is_archive() && ! is_tag() ) {
 			?>
-			<h1 class="page-title"><?php echo trim( wp_strip_all_tags( get_the_title() ) ); ?></h1>
+			<h1 class="page-title"><?php esc_html_e( trim( get_the_title() ) ); ?></h1>
 			<?php
 		}
 	}

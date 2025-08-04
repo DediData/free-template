@@ -26,7 +26,7 @@ if ( isset( $theme_mod_display_login_link ) ) {
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php esc_attr_e( 'Close', 'free-template' ); ?>"></button>
 					</div>
 					<div class="modal-body">
-						<form id="login-form" data-toggle="validator" method="post" action="<?php echo esc_url( get_site_url() . '/wp-login.php' ); ?>">
+						<form id="login-form" data-toggle="validator" method="post" action="<?php echo esc_url( site_url( '/wp-login.php' ) ); ?>">
 							<div class="form-group has-feedback">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fas fa-at fa-lg"></i></span>
@@ -51,11 +51,11 @@ if ( isset( $theme_mod_display_login_link ) ) {
 									$option_users_can_register = get_option( 'users_can_register' );
 									if ( isset( $option_users_can_register ) ) {
 										?>
-									<a class="btn btn-success" href="<?php echo esc_url( get_site_url() . '/wp-login.php?action=register' ); ?>" rel="nofollow"><?php esc_html_e( 'Register!', 'free-template' ); ?></a>&nbsp;
+									<a class="btn btn-success" href="<?php echo esc_url( site_url( '/wp-login.php?action=register' ) ); ?>" rel="nofollow"><?php esc_html_e( 'Register!', 'free-template' ); ?></a>&nbsp;
 										<?php
 									}
 									?>
-									<a class="btn btn-warning"  rel="nofollow" href="<?php echo esc_url( get_site_url() . '/wp-login.php?action=lostpassword' ); ?>"><?php esc_html_e( 'Forgot Password?', 'free-template' ); ?></a>&nbsp;
+									<a class="btn btn-warning"  rel="nofollow" href="<?php echo esc_url( site_url( '/wp-login.php?action=lostpassword' ) ); ?>"><?php esc_html_e( 'Forgot Password?', 'free-template' ); ?></a>&nbsp;
 							</div>
 						</form>
 					</div>

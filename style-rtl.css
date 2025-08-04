@@ -1113,3 +1113,73 @@ body>header a {
 	margin-left: 0;
 	margin-right: 0;
 }
+
+/* For WordPress Theme Standard */
+.wp-caption {
+	border: 1px solid #CCC;
+	padding-top: 7px;
+	color: #666;
+	margin-bottom: 1.5em;
+	max-width: 100%;
+	text-align: center;
+	background-color: #F3F3F3;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.wp-caption img[class*="wp-image-"] {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 98%;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border-color: #EEE;
+}
+
+.wp-caption:hover,
+.gallery-caption:hover,
+.wp-caption a:focus img,
+.wp-caption a:active img,
+.wp-caption a:hover img {
+	background-color: #FFF;
+	border-color: #FFF;
+}
+
+.wp-caption .wp-caption-text {
+	margin: 0.8075em 0;
+	text-align: center;
+}
+
+.bypostauthor {
+	/* Require for validation */
+	background-color: #F9F9FF;
+	border-right: 4px solid #0073AA;
+	padding: 15px;
+	margin: 10px 0;
+	border-radius: 4px;
+}
+
+.alignleft {
+	display: inline;
+	float: right;
+	margin-left: 1.5em;
+}
+
+.alignright {
+	display: inline;
+	float: left;
+	margin-right: 1.5em;
+}
+
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+

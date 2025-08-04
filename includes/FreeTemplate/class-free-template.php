@@ -1201,26 +1201,26 @@ final class Free_Template extends \DediData\Singleton {
 	 * @return string Return
 	 */
 	public static function get_post_icon(): string {
-		$sticky         = is_sticky() ? '<i class="sticky-icon me-2 fas fa-thumb-tack fa-lg"></i>' : '';
+		$sticky         = is_sticky() ? '<i class="sticky-icon me-1 fas fa-thumb-tack"></i>' : '';
 		$post_type_icon = '';
 		if ( 'image' === get_post_format() ) {
-			$post_type_icon = '<i class="fas fa-file-image-o fa-fw" aria-hidden="true"></i>';
+			$post_type_icon = '<i class="fas fa-image fa-fw me-1" aria-hidden="true"></i>';
 		} elseif ( 'gallery' === get_post_format() ) {
-			$post_type_icon = '<i class="fas fa-picture-o fa-fw" aria-hidden="true"></i>';
+			$post_type_icon = '<i class="fas fa-images fa-fw me-1" aria-hidden="true"></i>';
 		} elseif ( 'video' === get_post_format() ) {
-			$post_type_icon = '<i class="fas fa-file-video-o fa-fw" aria-hidden="true"></i>';
+			$post_type_icon = '<i class="fas fa-video fa-fw me-1" aria-hidden="true"></i>';
 		} elseif ( 'audio' === get_post_format() ) {
-			$post_type_icon = '<i class="fas fa-file-audio-o fa-fw" aria-hidden="true"></i>';
+			$post_type_icon = '<i class="fas fa-file-audio fa-fw me-1" aria-hidden="true"></i>';
 		} elseif ( 'chat' === get_post_format() ) {
-			$post_type_icon = '<i class="fas fa-comments fa-fw" aria-hidden="true"></i>';
+			$post_type_icon = '<i class="fas fa-comment fa-fw me-1" aria-hidden="true"></i>';
 		} elseif ( 'status' === get_post_format() ) {
-			$post_type_icon = '<i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>';
+			$post_type_icon = '<i class="fas fa-info-circle fa-fw me-1" aria-hidden="true"></i>';
 		} elseif ( 'link' === get_post_format() ) {
-			$post_type_icon = '<i class="fas fa-link fa-fw" aria-hidden="true"></i>';
+			$post_type_icon = '<i class="fas fa-link fa-fw me-1" aria-hidden="true"></i>';
 		} elseif ( 'quote' === get_post_format() ) {
-			$post_type_icon = '<i class="fas fa-quote-right fa-fw" aria-hidden="true"></i>';
+			$post_type_icon = '<i class="fas fa-quote-right fa-fw me-1" aria-hidden="true"></i>';
 		} elseif ( 'aside' === get_post_format() ) {
-			$post_type_icon = '<i class="fas fa-sticky-note-o fa-fw" aria-hidden="true"></i>';
+			$post_type_icon = '<i class="fas fa-sticky-note fa-fw me-1" aria-hidden="true"></i>';
 		}
 		return $sticky . $post_type_icon;
 	}

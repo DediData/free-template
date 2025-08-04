@@ -2,8 +2,8 @@
 Contributors: DediData (Farhad Sakhaei)
 Requires at least: WordPress 5.2.0
 Tested up to: WordPress 6.8.2
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: one-column, two-columns, flexible-header, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments
 
 == Description ==

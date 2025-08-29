@@ -1,7 +1,7 @@
 <?php
 /**
  * Function file of theme
- * 
+ *
  * @package Free_Template
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  */
@@ -23,7 +23,7 @@ new \DediData\Theme_Autoloader( array( 'DediData', 'FreeTemplate' ) );
  * @return \FreeTemplate\Free_Template as an instance of return
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
-function FREE_TEMPLATE(): \FreeTemplate\Free_Template { // phpcs:ignore Squiz.Functions.GlobalFunction.Found, WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
+function FREE_TEMPLATE() { // phpcs:ignore Squiz.Functions.GlobalFunction.Found, WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 	return \FreeTemplate\Free_Template::get_instance( __FILE__ );
 }
 FREE_TEMPLATE();

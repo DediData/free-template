@@ -36,4 +36,4 @@ if ( is_singular() ) {
 
 		)
 	);
-}
+}//end if

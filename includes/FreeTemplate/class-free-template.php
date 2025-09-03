@@ -459,7 +459,7 @@ final class Free_Template extends \DediData\Singleton {
 		);
 
 		// bootstrap theme css
-		$mod_bs_theme_name = get_theme_mod( 'bootstrap_theme_name' );
+		$mod_bs_theme_name = get_theme_mod( 'bootstrap_theme_name', 'default' );
 		$mod_bs_theme_name = is_string( $mod_bs_theme_name ) ? $mod_bs_theme_name : '';
 		$theme_names       = array(
 			'cerulean',
@@ -1000,12 +1000,11 @@ final class Free_Template extends \DediData\Singleton {
 		if ( is_customize_preview() ) {
 			$classes[] = 'free-template-customizer';
 		}
-
-		$mod_bs_theme_name = get_theme_mod( 'bootstrap_theme_name' );
+		$mod_bs_theme_name = get_theme_mod( 'bootstrap_theme_name', 'default' );
 		$mod_bs_theme_name = is_string( $mod_bs_theme_name ) ? $mod_bs_theme_name : '';
 		$classes[]         = esc_html( $mod_bs_theme_name ) . '-theme';
 
-		if ( ! ( has_nav_menu( 'primary' ) || get_theme_mod( 'display_login_link' ) ) ) {
+		if ( ! ( has_nav_menu( 'primary' ) || get_theme_mod( 'display_login_link', false ) ) ) {
 			$classes[] = 'non-top-menu';
 		}
 
